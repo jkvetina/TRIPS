@@ -1,5 +1,11 @@
 CREATE OR REPLACE FORCE VIEW trp_itinerary_grid_v AS
-WITH r AS (
+WITH x AS (
+    SELECT /*+ MATERIALIZE */
+        t.trip_id
+    FROM trp_trips t
+    WHERE t.trip_id = core.get_item('P100_TRIP_ID')
+),
+r AS (
     SELECT /*+ MATERIALIZE */
         t.trip_id,
         t.day_,
@@ -9,6 +15,8 @@ WITH r AS (
             t.trip_id,
             TO_CHAR(TRUNC(t.start_at), 'YYYY-MM-DD') AS day_
         FROM trp_itinerary t
+        JOIN x
+            ON x.trip_id = t.trip_id
         GROUP BY
             t.trip_id,
             TO_CHAR(TRUNC(t.start_at), 'YYYY-MM-DD')
@@ -27,6 +35,8 @@ SELECT
     t.notes,
     r.day# || ') ' || r.day_ AS day#
 FROM trp_itinerary t
+JOIN x
+    ON x.trip_id = t.trip_id
 JOIN r
     ON r.day_ = TO_CHAR(TRUNC(t.start_at), 'YYYY-MM-DD');
 --
