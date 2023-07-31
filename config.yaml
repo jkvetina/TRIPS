@@ -1,0 +1,9 @@
+
+csv_export_filters:
+  NAVIGATION : 'app_id = 765'
+
+auto_filter_prefix   : 'TRP_%'
+
+auto_csv_refresh  : False
+auto_csv_add      : []
+
