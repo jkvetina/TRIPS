@@ -1,0 +1,77 @@
+---
+- # ====== List of Values: LOV_CATEGORIES ======================
+  id: 9328123487143807
+  identification: 
+    name: LOV_CATEGORIES
+
+  source: 
+    location: Local Database
+    type: Table / View
+    table-owner: Parsing Schema
+    table-name: TRP_CATEGORIES
+
+  column-mapping: 
+    return: CATEGORY_ID
+    display: CATEGORY_NAME
+    default-sort: CATEGORY_NAME
+    sort-direction: Ascending (Nulls Last)
+
+- # ====== List of Values: LOV_TRIPS ===========================
+  id: 9328350606152164
+  identification: 
+    name: LOV_TRIPS
+
+  source: 
+    location: Local Database
+    type: Table / View
+    table-owner: Parsing Schema
+    table-name: TRP_TRIPS
+
+  column-mapping: 
+    return: TRIP_ID
+    display: TRIP_NAME
+    default-sort: TRIP_NAME
+    sort-direction: Ascending (Nulls Last)
+
+- # ====== List of Values: MASTER - LOV_APPLICATIONS ===========
+  id: 29211822659806305
+  identification: 
+    name: MASTER - LOV_APPLICATIONS
+
+  subscription: 
+    master: 
+      referenced-id: 9887859263442428
+
+  source: 
+    location: Local Database
+    type: Table / View
+    table-owner: Parsing Schema
+    table-name: INT_P100_APPS_V
+
+  column-mapping: 
+    return: APP_ID
+    display: APPLICATION_NAME
+    default-sort: APPLICATION_NAME
+    sort-direction: Ascending (Nulls Last)
+
+- # ====== List of Values: MASTER - LOV_USERS ==================
+  id: 29212161326806306
+  identification: 
+    name: MASTER - LOV_USERS
+
+  subscription: 
+    master: 
+      referenced-id: 18781697091885858
+
+  source: 
+    location: Local Database
+    type: Table / View
+    table-owner: Parsing Schema
+    table-name: INT_USERS
+
+  column-mapping: 
+    return: USER_ID
+    display: USER_NAME
+    default-sort: USER_NAME
+    sort-direction: Ascending (Nulls Last)
+
