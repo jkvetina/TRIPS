@@ -3,7 +3,7 @@ WITH x AS (
     SELECT /*+ MATERIALIZE */
         t.trip_id,
         t.start_at      AS gantt_start_date,
-        t.end_at + 2    AS gantt_end_date
+        t.end_at + 1    AS gantt_end_date
     FROM trp_trips t
     WHERE t.trip_id = core.get_item('P100_TRIP_ID')
 ),
