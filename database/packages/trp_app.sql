@@ -51,8 +51,8 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
             WHERE t.trip_id = core.get_number_item('P100_TRIP_ID')
         ) LOOP
             core.set_item('P100_TRIP_NAME',     c.trip_name);
-            core.set_item('P100_TRIP_START',    c.start_at);
-            core.set_item('P100_TRIP_END',      c.end_at);
+            core.set_item('P100_TRIP_START',    TO_CHAR(c.start_at, 'YYYY-MM-DD'));
+            core.set_item('P100_TRIP_END',      TO_CHAR(c.end_at,   'YYYY-MM-DD'));
             --
             FOR d IN (
                 SELECT SUM(price) AS trip_price

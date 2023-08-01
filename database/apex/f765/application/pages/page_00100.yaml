@@ -1693,7 +1693,7 @@ regions:
     default: 
       type: Expression
       language: SQL
-      sql-expression: ":P100_DAY || ' 00:00'"
+      sql-expression: "NVL(:P100_DAY, SUBSTR(:P100_TRIP_START, 1, 10)) || ' 00:00'"
       duplicate-copies-existing-value: true
 
     column-filter: 
@@ -1755,7 +1755,7 @@ regions:
     default: 
       type: Expression
       language: SQL
-      sql-expression: ":P100_DAY || ' 00:00'"
+      sql-expression: "NVL(:P100_DAY, SUBSTR(:P100_TRIP_END, 1, 10)) || ' 00:00'"
       duplicate-copies-existing-value: true
 
     column-filter: 
@@ -2203,7 +2203,7 @@ page-items:
     value-protected: true
 
   layout: 
-    sequence: 10
+    sequence: 40
     region: Trips # 9294711492868132
     position: BODY
 
@@ -2233,7 +2233,7 @@ page-items:
     value-protected: true
 
   layout: 
-    sequence: 10
+    sequence: 50
     region: Trips # 9294711492868132
     position: BODY
 
@@ -2322,7 +2322,7 @@ page-items:
     value-protected: true
 
   layout: 
-    sequence: 10
+    sequence: 30
     region: Trips # 9294711492868132
     position: BODY
 

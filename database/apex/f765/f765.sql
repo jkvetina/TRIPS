@@ -33,7 +33,7 @@ prompt APPLICATION 765 - Trip Planning
 -- Application Export:
 --   Application:     765
 --   Name:            Trip Planning
---   Date and Time:   15:50 Úterý Srpen 1, 2023
+--   Date and Time:   15:56 Úterý Srpen 1, 2023
 --   Exported By:     APPS
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -16182,7 +16182,7 @@ wwv_flow_imp_page.create_region_column(
 ,p_is_primary_key=>false
 ,p_default_type=>'EXPRESSION'
 ,p_default_language=>'SQL'
-,p_default_expression=>':P100_DAY || '' 00:00'''
+,p_default_expression=>'NVL(:P100_DAY, SUBSTR(:P100_TRIP_START, 1, 10)) || '' 00:00'''
 ,p_duplicate_value=>true
 ,p_include_in_export=>true
 );
@@ -16221,7 +16221,7 @@ wwv_flow_imp_page.create_region_column(
 ,p_is_primary_key=>false
 ,p_default_type=>'EXPRESSION'
 ,p_default_language=>'SQL'
-,p_default_expression=>':P100_DAY || '' 00:00'''
+,p_default_expression=>'NVL(:P100_DAY, SUBSTR(:P100_TRIP_END, 1, 10)) || '' 00:00'''
 ,p_duplicate_value=>true
 ,p_include_in_export=>true
 );
@@ -16594,7 +16594,7 @@ wwv_flow_imp_page.create_page_button(
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(8772875327122246)
 ,p_name=>'P100_TRIP_START'
-,p_item_sequence=>10
+,p_item_sequence=>40
 ,p_item_plug_id=>wwv_flow_imp.id(9294711492868132)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_encrypt_session_state_yn=>'N'
@@ -16603,7 +16603,7 @@ wwv_flow_imp_page.create_page_item(
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(8772943708122247)
 ,p_name=>'P100_TRIP_END'
-,p_item_sequence=>10
+,p_item_sequence=>50
 ,p_item_plug_id=>wwv_flow_imp.id(9294711492868132)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_encrypt_session_state_yn=>'N'
@@ -16630,7 +16630,7 @@ wwv_flow_imp_page.create_page_item(
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(9330379685174709)
 ,p_name=>'P100_TRIP_PRICE'
-,p_item_sequence=>10
+,p_item_sequence=>30
 ,p_item_plug_id=>wwv_flow_imp.id(9294711492868132)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_encrypt_session_state_yn=>'N'
