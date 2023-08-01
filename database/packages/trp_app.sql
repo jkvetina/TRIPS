@@ -1,4 +1,4 @@
-CREATE OR REPLACE PACKAGE BODY trp_api as
+CREATE OR REPLACE PACKAGE BODY trp_app as
 
     PROCEDURE save_itinerary
     AS

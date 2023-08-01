@@ -1,4 +1,4 @@
-CREATE OR REPLACE PACKAGE trp_api as
+CREATE OR REPLACE PACKAGE trp_app as
 
     PROCEDURE save_itinerary;
 
