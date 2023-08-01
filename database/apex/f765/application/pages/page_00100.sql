@@ -174,16 +174,16 @@ wwv_flow_imp_page.create_region_column(
 ,p_include_in_export=>false
 );
 wwv_flow_imp_page.create_region_column(
- p_id=>wwv_flow_imp.id(9295366056868138)
-,p_name=>'STOP_NAME'
+ p_id=>wwv_flow_imp.id(9292079497868105)
+,p_name=>'TRIP_NAME'
 ,p_source_type=>'DB_COLUMN'
-,p_source_expression=>'STOP_NAME'
+,p_source_expression=>'TRIP_NAME'
 ,p_data_type=>'VARCHAR2'
 ,p_is_query_only=>false
 ,p_item_type=>'NATIVE_TEXT_FIELD'
-,p_heading=>'Stop Name'
+,p_heading=>'Trip Name'
 ,p_heading_alignment=>'LEFT'
-,p_display_sequence=>70
+,p_display_sequence=>40
 ,p_value_alignment=>'LEFT'
 ,p_attribute_05=>'BOTH'
 ,p_is_required=>true
@@ -1414,6 +1414,19 @@ wwv_flow_imp_page.create_page_computation(
 ,p_computation=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'SELECT SUM(price)',
 'FROM trp_itinerary',
+'WHERE trip_id = :P100_TRIP_ID'))
+,p_compute_when=>'P100_TRIP_ID'
+,p_compute_when_type=>'ITEM_IS_NOT_NULL'
+);
+wwv_flow_imp_page.create_page_computation(
+ p_id=>wwv_flow_imp.id(9332840296174734)
+,p_computation_sequence=>40
+,p_computation_item=>'P100_TRIP_NAME'
+,p_computation_point=>'BEFORE_BOX_BODY'
+,p_computation_type=>'QUERY'
+,p_computation=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT trip_name',
+'FROM trp_trips',
 'WHERE trip_id = :P100_TRIP_ID'))
 ,p_compute_when=>'P100_TRIP_ID'
 ,p_compute_when_type=>'ITEM_IS_NOT_NULL'

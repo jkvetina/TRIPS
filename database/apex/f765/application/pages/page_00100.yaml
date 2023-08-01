@@ -2026,10 +2026,10 @@ regions:
       output-as: HTML
       expand-shortcuts: false
 
-- # ====== Region: Overview [&P100_TRIP_PRICE. CZK] ============
+- # ====== Region: &P100_TRIP_NAME. [&P100_TRIP_PRICE.] ========
   id: 9329549921174701
   identification: 
-    title: Overview [&P100_TRIP_PRICE. CZK]
+    title: '&P100_TRIP_NAME. [&P100_TRIP_PRICE.]'
     type: Static Content
 
   layout: 
@@ -2695,6 +2695,26 @@ computations:
     sql-query: |
       SELECT SUM(price)
       FROM trp_itinerary
+      WHERE trip_id = :P100_TRIP_ID
+
+  server-side-condition: 
+    type: Item is NOT NULL
+    item: P100_TRIP_ID
+
+- # ====== Computation: P100_TRIP_NAME =========================
+  id: 9332840296174734
+  identification: 
+    item-name: P100_TRIP_NAME
+
+  execution: 
+    sequence: 40
+    point: Before Regions
+
+  computation: 
+    type: SQL Query (return single value)
+    sql-query: |
+      SELECT trip_name
+      FROM trp_trips
       WHERE trip_id = :P100_TRIP_ID
 
   server-side-condition: 
