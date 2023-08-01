@@ -24,7 +24,7 @@ wwv_imp_workspace.create_flow(
 ,p_on_max_idle_timeout_url=>'#LOGOUT_URL#'
 ,p_compatibility_mode=>'21.2'
 ,p_session_state_commits=>'IMMEDIATE'
-,p_flow_language=>'en'
+,p_flow_language=>'en-gb'
 ,p_flow_language_derived_from=>'FLOW_PRIMARY_LANGUAGE'
 ,p_date_format=>'DS'
 ,p_timestamp_format=>'DS'
@@ -41,7 +41,7 @@ wwv_imp_workspace.create_flow(
 ,p_public_user=>'APEX_PUBLIC_USER'
 ,p_proxy_server=>nvl(wwv_flow_application_install.get_proxy,'')
 ,p_no_proxy_domains=>nvl(wwv_flow_application_install.get_no_proxy_domains,'')
-,p_flow_version=>'2023-07-31'
+,p_flow_version=>'2023-08-01'
 ,p_flow_status=>'AVAILABLE_W_EDIT_LINK'
 ,p_flow_unavailable_text=>'This application is currently unavailable at this time.'
 ,p_exact_substitutions_only=>'Y'

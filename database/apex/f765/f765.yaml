@@ -55,7 +55,7 @@ database-session:
   parsing-schema: APPS
 
 globalization: 
-  primary-language: English (en)
+  primary-language: English (United Kingdom) (en-gb)
   document-direction: Left-To-Right
   language-derived-from: Application Primary Language
   automatic-time-zone: false
