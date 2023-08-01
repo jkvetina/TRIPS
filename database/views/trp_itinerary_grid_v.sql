@@ -4,7 +4,7 @@ WITH x AS (
         t.trip_id,
         core.get_item('P100_DAY') AS day_
     FROM trp_trips t
-    WHERE t.trip_id = core.get_item('P100_TRIP_ID')
+    WHERE t.trip_id = core.get_number_item('P100_TRIP_ID')
 ),
 r AS (
     SELECT /*+ MATERIALIZE */

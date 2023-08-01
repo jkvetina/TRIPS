@@ -1,7 +1,7 @@
 CREATE OR REPLACE FORCE VIEW trp_itinerary_v AS
 WITH x AS (
     SELECT /*+ MATERIALIZE */
-        core.get_item('P100_TRIP_ID')                   AS trip_id,
+        core.get_number_item('P100_TRIP_ID')            AS trip_id,
         core.get_date_item('P100_DAY', 'YYYY-MM-DD')    AS day_
     FROM DUAL
 ),
