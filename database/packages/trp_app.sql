@@ -38,6 +38,54 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
 
 
 
+    PROCEDURE set_days
+    AS
+        v_day               DATE := core.get_date_item('P100_DAY', 'YYYY-MM-DD');
+        v_day_prev          DATE;
+        v_day_next          DATE;
+        v_day_prev_limit    DATE;
+        v_day_next_limit    DATE;
+    BEGIN
+        -- get boundaries
+        SELECT MIN(t.start_at), MAX(t.end_at)
+        INTO v_day_prev_limit, v_day_next_limit
+        FROM trp_trips t
+        WHERE t.trip_id     = core.get_item('P100_TRIP_ID');
+
+        -- set starting date
+        IF v_day IS NULL THEN
+            --v_day := v_day_prev_limit;
+            NULL;
+        END IF;
+
+        -- check boundaries
+        v_day := LEAST(GREATEST(v_day, v_day_prev_limit), v_day_next_limit);
+
+        -- calculate prev/next dates
+        v_day_prev := v_day - 1;
+        IF v_day_prev < v_day_prev_limit THEN
+            v_day_prev := NULL;
+        END IF;
+        IF v_day_prev IS NULL AND v_day IS NULL THEN
+            v_day_prev := v_day_prev_limit;
+        END IF;
+        --
+        v_day_next := v_day + 1;
+        IF v_day_next > v_day_next_limit THEN
+            v_day_next := NULL;
+        END IF;
+
+        -- set items
+        core.set_item('P100_DAY',       CASE WHEN v_day       IS NOT NULL THEN core.get_date(v_day,       'YYYY-MM-DD') END);
+        core.set_item('P100_DAY_PREV',  CASE WHEN v_day_prev  IS NOT NULL THEN core.get_date(v_day_prev,  'YYYY-MM-DD') END);
+        core.set_item('P100_DAY_NEXT',  CASE WHEN v_day_next  IS NOT NULL THEN core.get_date(v_day_next,  'YYYY-MM-DD') END);
+        --
+        core.set_item('P100_DAY_PREV_ATTR',  CASE WHEN v_day_prev  IS NULL THEN ' disabled="disabled"' END);
+        core.set_item('P100_DAY_NEXT_ATTR',  CASE WHEN v_day_next  IS NULL THEN ' disabled="disabled"' END);
+    END;
+
+
+
     FUNCTION set_colors
     RETURN CLOB
     AS

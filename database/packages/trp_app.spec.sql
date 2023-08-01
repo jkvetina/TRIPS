@@ -4,6 +4,10 @@ CREATE OR REPLACE PACKAGE trp_app as
 
 
 
+    PROCEDURE set_days;
+
+
+
     FUNCTION set_colors
     RETURN CLOB;
 

@@ -1323,6 +1323,60 @@ wwv_flow_imp_page.create_page_item(
 ,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'Y'
 );
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9331220071174718)
+,p_name=>'P100_DAY'
+,p_item_sequence=>10
+,p_item_plug_id=>wwv_flow_imp.id(9329549921174701)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9331618318174722)
+,p_name=>'P100_DAY_PREV'
+,p_item_sequence=>20
+,p_item_plug_id=>wwv_flow_imp.id(9329549921174701)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9331706834174723)
+,p_name=>'P100_DAY_NEXT'
+,p_item_sequence=>40
+,p_item_plug_id=>wwv_flow_imp.id(9329549921174701)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9332045403174726)
+,p_name=>'P100_DAY_PREV_ATTR'
+,p_item_sequence=>30
+,p_item_plug_id=>wwv_flow_imp.id(9329549921174701)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9332183025174727)
+,p_name=>'P100_DAY_NEXT_ATTR'
+,p_item_sequence=>50
+,p_item_plug_id=>wwv_flow_imp.id(9329549921174701)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9332719394174733)
+,p_name=>'P100_TRIP_NAME'
+,p_item_sequence=>20
+,p_item_plug_id=>wwv_flow_imp.id(9294711492868132)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'Y'
+);
 wwv_flow_imp_page.create_page_computation(
  p_id=>wwv_flow_imp.id(9329617447174702)
 ,p_computation_sequence=>10
@@ -1476,10 +1530,21 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_type=>'NATIVE_INVOKE_API'
 ,p_process_name=>'SAVE_ITINERARY'
 ,p_attribute_01=>'PLSQL_PACKAGE'
-,p_attribute_03=>'TRP_API'
+,p_attribute_03=>'TRP_APP'
 ,p_attribute_04=>'SAVE_ITINERARY'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_internal_uid=>9296199874868146
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(9331900535174725)
+,p_process_sequence=>10
+,p_process_point=>'BEFORE_HEADER'
+,p_process_type=>'NATIVE_INVOKE_API'
+,p_process_name=>'SET_DAYS'
+,p_attribute_01=>'PLSQL_PACKAGE'
+,p_attribute_03=>'TRP_APP'
+,p_attribute_04=>'SET_DAYS'
+,p_internal_uid=>9331900535174725
 );
 wwv_flow_imp.component_end;
 end;

@@ -1,11 +1,18 @@
 CREATE OR REPLACE FORCE VIEW trp_itinerary_v AS
 WITH x AS (
     SELECT /*+ MATERIALIZE */
+        core.get_item('P100_TRIP_ID')                   AS trip_id,
+        core.get_date_item('P100_DAY', 'YYYY-MM-DD')    AS day_
+    FROM DUAL
+),
+d AS (
+    SELECT /*+ MATERIALIZE */
         t.trip_id,
-        t.start_at      AS gantt_start_date,
-        t.end_at + 1    AS gantt_end_date
+        CASE WHEN x.day_ IS NOT NULL THEN x.day_ ELSE t.start_at END    AS gantt_start_date,
+        CASE WHEN x.day_ IS NOT NULL THEN x.day_ ELSE t.end_at END + 1  AS gantt_end_date
     FROM trp_trips t
-    WHERE t.trip_id = core.get_item('P100_TRIP_ID')
+    JOIN x
+        ON x.trip_id = t.trip_id
 ),
 t AS (
     SELECT /*+ MATERIALIZE */
@@ -18,18 +25,18 @@ t AS (
         t.start_at,
         t.end_at,
         t.notes,
-        x.gantt_start_date,
-        x.gantt_end_date,
+        d.gantt_start_date,
+        d.gantt_end_date,
         c.order#,
         t.color_fill
     FROM trp_itinerary t
     JOIN trp_categories c
         ON c.category_id = t.category_id
-    JOIN x
-        ON x.trip_id = t.trip_id
+    JOIN d
+        ON d.trip_id = t.trip_id
 )
 SELECT
-    x.trip_id,
+    d.trip_id,
     NULL                AS row_id,
     c.order#            AS stop_id,
     c.category_name     AS stop_name,
@@ -40,12 +47,12 @@ SELECT
     NULL                AS baseline_start_at,
     NULL                AS baseline_end_at,
     NULL                AS notes,
-    x.gantt_start_date,
-    x.gantt_end_date,
+    d.gantt_start_date,
+    d.gantt_end_date,
     NULL                AS css_class,
     NULL                AS color_fill
 FROM trp_categories c
-CROSS JOIN x
+CROSS JOIN d
 UNION ALL
 SELECT
     t.trip_id,
