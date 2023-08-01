@@ -2810,89 +2810,6 @@ dynamic-actions:
       fire-when-event-result-is: True
       fire-on-initialization: false
 
-computations: 
-- # ====== Computation: P100_TRIP_START ========================
-  id: 9329617447174702
-  identification: 
-    item-name: P100_TRIP_START
-
-  execution: 
-    sequence: 10
-    point: Before Regions
-
-  computation: 
-    type: SQL Query (return single value)
-    sql-query: |
-      --SELECT TO_CHAR(start_at, 'YYYYMMDDHH24MI') AS date_
-      SELECT start_at
-      FROM trp_trips
-      WHERE trip_id = :P100_TRIP_ID
-
-  server-side-condition: 
-    type: Item is NOT NULL
-    item: P100_TRIP_ID
-
-- # ====== Computation: P100_TRIP_END ==========================
-  id: 9329788715174703
-  identification: 
-    item-name: P100_TRIP_END
-
-  execution: 
-    sequence: 20
-    point: Before Regions
-
-  computation: 
-    type: SQL Query (return single value)
-    sql-query: |
-      --SELECT TO_CHAR(end_at + 2, 'YYYYMMDDHH24MI') AS date_
-      SELECT end_at + 2
-      FROM trp_trips
-      WHERE trip_id = :P100_TRIP_ID
-
-  server-side-condition: 
-    type: Item is NOT NULL
-    item: P100_TRIP_ID
-
-- # ====== Computation: P100_TRIP_PRICE ========================
-  id: 9330486781174710
-  identification: 
-    item-name: P100_TRIP_PRICE
-
-  execution: 
-    sequence: 30
-    point: Before Regions
-
-  computation: 
-    type: SQL Query (return single value)
-    sql-query: |
-      SELECT SUM(price)
-      FROM trp_itinerary
-      WHERE trip_id = :P100_TRIP_ID
-
-  server-side-condition: 
-    type: Item is NOT NULL
-    item: P100_TRIP_ID
-
-- # ====== Computation: P100_TRIP_NAME =========================
-  id: 9332840296174734
-  identification: 
-    item-name: P100_TRIP_NAME
-
-  execution: 
-    sequence: 40
-    point: Before Regions
-
-  computation: 
-    type: SQL Query (return single value)
-    sql-query: |
-      SELECT trip_name
-      FROM trp_trips
-      WHERE trip_id = :P100_TRIP_ID
-
-  server-side-condition: 
-    type: Item is NOT NULL
-    item: P100_TRIP_ID
-
 processes: 
 - # ====== Process: SAVE_TRIPS =================================
   id: 9292631008868111
@@ -2981,6 +2898,24 @@ processes:
     owner: PARSING SCHEMA
     package: TRP_APP
     procedure-or-function: SET_DAYS
+
+  execution: 
+    sequence: 20
+    point: Before Header
+    run-process: Once Per Page Visit (default)
+
+- # ====== Process: SET_DEFAULTS ===============================
+  id: 9333255610174738
+  identification: 
+    name: SET_DEFAULTS
+    type: Invoke API
+    execution-chain: None
+
+  settings: 
+    type: PL/SQL Package
+    owner: PARSING SCHEMA
+    package: TRP_APP
+    procedure-or-function: SET_DEFAULTS
 
   execution: 
     sequence: 10

@@ -38,6 +38,39 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
 
 
 
+    PROCEDURE set_defaults
+    AS
+    BEGIN
+        FOR c IN (
+            SELECT
+                t.trip_id,
+                t.trip_name,
+                t.start_at,
+                t.end_at + 1 AS end_at
+            FROM trp_trips t
+            WHERE t.trip_id = core.get_number_item('P100_TRIP_ID')
+        ) LOOP
+            core.set_item('P100_TRIP_NAME',     c.trip_name);
+            core.set_item('P100_TRIP_START',    c.start_at);
+            core.set_item('P100_TRIP_END',      c.end_at);
+            --
+            FOR d IN (
+                SELECT SUM(price) AS trip_price
+                FROM trp_itinerary
+                WHERE trip_id = c.trip_id
+            ) LOOP
+                core.set_item('P100_TRIP_PRICE', d.trip_price);
+            END LOOP;
+        END LOOP;
+    EXCEPTION
+    WHEN core.app_exception THEN
+        RAISE;
+    WHEN OTHERS THEN
+        core.raise_error();
+    END;
+
+
+
     PROCEDURE set_days
     AS
         v_day               DATE := core.get_date_item('P100_DAY', 'YYYY-MM-DD');

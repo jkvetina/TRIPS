@@ -33,14 +33,14 @@ prompt APPLICATION 765 - Trip Planning
 -- Application Export:
 --   Application:     765
 --   Name:            Trip Planning
---   Date and Time:   13:41 Úterý Srpen 1, 2023
+--   Date and Time:   15:50 Úterý Srpen 1, 2023
 --   Exported By:     APPS
 --   Flashback:       0
 --   Export Type:     Application Export
 --     Pages:                      4
 --       Items:                   14
---       Computations:             5
---       Processes:                8
+--       Computations:             1
+--       Processes:                9
 --       Regions:                 18
 --       Buttons:                  5
 --       Dynamic Actions:          7
@@ -15216,25 +15216,15 @@ wwv_flow_imp_page.create_page(
 '  stroke:           #222;',
 '  stroke-width:     1px;',
 '}',
-'.AIRPLANE {',
-'  fill:             #666;',
-'}',
-'.TRANSFER {',
-'  fill:             #999;',
-'}',
 '.HOTEL {',
 '  fill:             #ccc;',
 '  stroke:           #666;',
 '  stroke-width:     1px;',
 '  stroke-dasharray: 4, 4;',
 '}',
-'.EVENT {',
-'  fill:             #84a02b;',
-'}',
-'.EVENT2 {',
-'  fill:             #a5a831;',
-'}',
-''))
+'.BASELINE {',
+'  fill:             #E7242D;',
+'}'))
 ,p_page_template_options=>'#DEFAULT#'
 ,p_required_role=>wwv_flow_imp.id(45845718540274027)  -- MASTER - IS_USER
 ,p_protection_level=>'C'
@@ -15918,6 +15908,7 @@ wwv_flow_imp_page.create_jet_chart_series(
 ,p_gantt_task_css_class=>'&CSS_CLASS.'
 ,p_gantt_baseline_start_column=>'BASELINE_START_AT'
 ,p_gantt_baseline_end_column=>'BASELINE_END_AT'
+,p_gantt_baseline_css_class=>'BASELINE'
 ,p_gantt_viewport_start_source=>'DB_COLUMN'
 ,p_gantt_viewport_start_column=>'GANTT_START_DATE'
 ,p_gantt_viewport_end_source=>'DB_COLUMN'
@@ -16304,9 +16295,6 @@ wwv_flow_imp_page.create_region_column(
 ,p_is_primary_key=>false
 ,p_include_in_export=>true
 );
-end;
-/
-begin
 wwv_flow_imp_page.create_region_column(
  p_id=>wwv_flow_imp.id(9330846691174714)
 ,p_name=>'OLD_TRIP_ID'
@@ -16324,6 +16312,9 @@ wwv_flow_imp_page.create_region_column(
 ,p_duplicate_value=>true
 ,p_include_in_export=>false
 );
+end;
+/
+begin
 wwv_flow_imp_page.create_region_column(
  p_id=>wwv_flow_imp.id(9330961751174715)
 ,p_name=>'OLD_STOP_ID'
@@ -16535,7 +16526,7 @@ wwv_flow_imp_page.create_ig_report_column(
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(9329549921174701)
-,p_plug_name=>'&P100_TRIP_NAME. [&P100_TRIP_PRICE. CZK]'
+,p_plug_name=>'&P100_TRIP_NAME. [&P100_TRIP_PRICE.]'
 ,p_parent_plug_id=>wwv_flow_imp.id(9296586686868150)
 ,p_region_template_options=>'#DEFAULT#:t-HeroRegion--hideIcon'
 ,p_plug_template=>wwv_flow_imp.id(45451267875075251)
@@ -16699,60 +16690,6 @@ wwv_flow_imp_page.create_page_item(
 ,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'Y'
 );
-wwv_flow_imp_page.create_page_computation(
- p_id=>wwv_flow_imp.id(9329617447174702)
-,p_computation_sequence=>10
-,p_computation_item=>'P100_TRIP_START'
-,p_computation_point=>'BEFORE_BOX_BODY'
-,p_computation_type=>'QUERY'
-,p_computation=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'--SELECT TO_CHAR(start_at, ''YYYYMMDDHH24MI'') AS date_',
-'SELECT start_at',
-'FROM trp_trips',
-'WHERE trip_id = :P100_TRIP_ID'))
-,p_compute_when=>'P100_TRIP_ID'
-,p_compute_when_type=>'ITEM_IS_NOT_NULL'
-);
-wwv_flow_imp_page.create_page_computation(
- p_id=>wwv_flow_imp.id(9329788715174703)
-,p_computation_sequence=>20
-,p_computation_item=>'P100_TRIP_END'
-,p_computation_point=>'BEFORE_BOX_BODY'
-,p_computation_type=>'QUERY'
-,p_computation=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'--SELECT TO_CHAR(end_at + 2, ''YYYYMMDDHH24MI'') AS date_',
-'SELECT end_at + 2',
-'FROM trp_trips',
-'WHERE trip_id = :P100_TRIP_ID'))
-,p_compute_when=>'P100_TRIP_ID'
-,p_compute_when_type=>'ITEM_IS_NOT_NULL'
-);
-wwv_flow_imp_page.create_page_computation(
- p_id=>wwv_flow_imp.id(9330486781174710)
-,p_computation_sequence=>30
-,p_computation_item=>'P100_TRIP_PRICE'
-,p_computation_point=>'BEFORE_BOX_BODY'
-,p_computation_type=>'QUERY'
-,p_computation=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'SELECT SUM(price)',
-'FROM trp_itinerary',
-'WHERE trip_id = :P100_TRIP_ID'))
-,p_compute_when=>'P100_TRIP_ID'
-,p_compute_when_type=>'ITEM_IS_NOT_NULL'
-);
-wwv_flow_imp_page.create_page_computation(
- p_id=>wwv_flow_imp.id(9332840296174734)
-,p_computation_sequence=>40
-,p_computation_item=>'P100_TRIP_NAME'
-,p_computation_point=>'BEFORE_BOX_BODY'
-,p_computation_type=>'QUERY'
-,p_computation=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'SELECT trip_name',
-'FROM trp_trips',
-'WHERE trip_id = :P100_TRIP_ID'))
-,p_compute_when=>'P100_TRIP_ID'
-,p_compute_when_type=>'ITEM_IS_NOT_NULL'
-);
 wwv_flow_imp_page.create_page_da_event(
  p_id=>wwv_flow_imp.id(59359981130119663)
 ,p_name=>'CHANGED_SET'
@@ -16901,8 +16838,19 @@ wwv_flow_imp_page.create_page_process(
 ,p_internal_uid=>9296199874868146
 );
 wwv_flow_imp_page.create_page_process(
- p_id=>wwv_flow_imp.id(9331900535174725)
+ p_id=>wwv_flow_imp.id(9333255610174738)
 ,p_process_sequence=>10
+,p_process_point=>'BEFORE_HEADER'
+,p_process_type=>'NATIVE_INVOKE_API'
+,p_process_name=>'SET_DEFAULTS'
+,p_attribute_01=>'PLSQL_PACKAGE'
+,p_attribute_03=>'TRP_APP'
+,p_attribute_04=>'SET_DEFAULTS'
+,p_internal_uid=>9333255610174738
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(9331900535174725)
+,p_process_sequence=>20
 ,p_process_point=>'BEFORE_HEADER'
 ,p_process_type=>'NATIVE_INVOKE_API'
 ,p_process_name=>'SET_DAYS'
