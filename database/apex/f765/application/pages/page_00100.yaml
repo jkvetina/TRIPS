@@ -71,6 +71,7 @@ regions:
     - P100_TRIP_ID
     - P100_TRIP_START
     - P100_TRIP_END
+    - P100_DAY
 
   order-by: 
     type: None
@@ -89,6 +90,8 @@ regions:
     template: Blank with Attributes # 45418266646075228
     template-options: 
     - '#DEFAULT#'
+    - margin-top-md
+    - margin-bottom-lg
     render-components: Above Content
 
   accessibility: 
@@ -114,7 +117,7 @@ regions:
       type: Gantt
 
     layout: 
-      height: 400
+      height: 415
 
     settings: 
       show-horizontal-grid: true
@@ -185,6 +188,8 @@ regions:
       appearance: 
         task-css-classes: 
         - '&CSS_CLASS.'
+        baseline-css-classes: 
+        - BASELINE
 
       label: 
         show: true
@@ -236,6 +241,10 @@ regions:
 
       identification: 
         title: MINOR
+
+      value: 
+        format: Time - Long
+        pattern: HH
 
 - # ====== Region: [TABS] ======================================
   id: 9291660180868101
@@ -968,6 +977,60 @@ regions:
       control-break/aggregate: true
       hide: true
 
+  - # ====== Column: COLOR_FILL ==================================
+    id: 9332977095174735
+    identification: 
+      column-name: COLOR_FILL
+      type: Color Picker
+
+    heading: 
+      heading: Color Fill
+      alignment: start
+
+    settings: 
+      use-defaults: true
+
+    layout: 
+      sequence: 60
+      column-alignment: start
+      stretch: Use Report Setting
+
+    accessibility: 
+      value-identifies-row: false
+
+    validation: 
+      value-required: false
+      maximum-length: 8
+
+    source: 
+      type: Database Column
+      database-column: COLOR_FILL
+      data-type: VARCHAR2
+      query-only: false
+      primary-key: false
+
+    default: 
+      duplicate-copies-existing-value: true
+
+    column-filter: 
+      enabled: true
+      performance-impacting-operators: 
+      - Contains
+      - Starts With
+      - Case Insensitive
+      - Regular Expression
+      text-case: Mixed
+      lov-type: Distinct Column
+      exact-match: true
+
+    export-/-printing: 
+      include-in-export-/-print: true
+
+    enable-users-to: 
+      sort: true
+      control-break/aggregate: true
+      hide: true
+
   printing: 
     page: 
       size: Letter
@@ -1007,60 +1070,15 @@ regions:
       font-color: '#000000'
       alignment: center
 
-- # ====== Region: Itinerary ===================================
-  id: 9294359383868128
+- # ====== Region: Itinerary - &P100_DAY. ======================
+  id: 9294476628868129
   identification: 
-    title: Itinerary
+    title: Itinerary - &P100_DAY.
     type: Static Content
 
   layout: 
     sequence: 30
-    parent-region: '[TABS]' # 9291660180868101
-    position: SUB_REGIONS
-    start-new-layout: false
-    start-new-row: true
-    column: Automatic
-    new-column: true
-    column-span: Automatic
-
-  appearance: 
-    template: Blank with Attributes # 45418266646075228
-    template-options: 
-    - '#DEFAULT#'
-    render-components: Above Content
-
-  accessibility: 
-    use-landmark: true
-    landmark-type: Template Default
-
-  advanced: 
-    region-display-selector: false
-    exclude-title-from-translation: false
-
-  server-side-condition: 
-    type: Item is NOT NULL
-    item: P100_TRIP_ID
-
-  server-cache: 
-    caching: Disabled
-
-  customization: 
-    customizable: Not Customizable By End Users
-
-  attributes: 
-    settings: 
-      output-as: HTML
-      expand-shortcuts: false
-
-- # ====== Region: Itinerary [&P100_TRIP_PRICE. CZK] ===========
-  id: 9294476628868129
-  identification: 
-    title: Itinerary [&P100_TRIP_PRICE. CZK]
-    type: Static Content
-
-  layout: 
-    sequence: 10
-    parent-region: Itinerary # 9294359383868128
+    parent-region: Overview # 9296586686868150
     position: SUB_REGIONS
     start-new-layout: false
     start-new-row: true
@@ -1276,8 +1294,8 @@ regions:
     include-rowid-column: false
 
   layout: 
-    sequence: 20
-    parent-region: Itinerary # 9294359383868128
+    sequence: 40
+    parent-region: Overview # 9296586686868150
     position: SUB_REGIONS
     start-new-layout: false
     start-new-row: true
@@ -1673,6 +1691,9 @@ regions:
       primary-key: false
 
     default: 
+      type: Expression
+      language: SQL
+      sql-expression: ":P100_DAY || ' 00:00'"
       duplicate-copies-existing-value: true
 
     column-filter: 
@@ -1732,6 +1753,9 @@ regions:
       primary-key: false
 
     default: 
+      type: Expression
+      language: SQL
+      sql-expression: ":P100_DAY || ' 00:00'"
       duplicate-copies-existing-value: true
 
     column-filter: 
@@ -1942,6 +1966,60 @@ regions:
     enable-users-to: 
       sort: false
 
+  - # ====== Column: COLOR_FILL ==================================
+    id: 9332432627174730
+    identification: 
+      column-name: COLOR_FILL
+      type: Color Picker
+
+    heading: 
+      heading: Color Fill
+      alignment: start
+
+    settings: 
+      use-defaults: true
+
+    layout: 
+      sequence: 140
+      column-alignment: start
+      stretch: Use Report Setting
+
+    accessibility: 
+      value-identifies-row: false
+
+    validation: 
+      value-required: false
+      maximum-length: 8
+
+    source: 
+      type: Database Column
+      database-column: COLOR_FILL
+      data-type: VARCHAR2
+      query-only: false
+      primary-key: false
+
+    default: 
+      duplicate-copies-existing-value: true
+
+    column-filter: 
+      enabled: true
+      performance-impacting-operators: 
+      - Contains
+      - Starts With
+      - Case Insensitive
+      - Regular Expression
+      text-case: Mixed
+      lov-type: Distinct Column
+      exact-match: true
+
+    export-/-printing: 
+      include-in-export-/-print: true
+
+    enable-users-to: 
+      sort: true
+      control-break/aggregate: true
+      hide: true
+
   printing: 
     page: 
       size: Letter
@@ -2067,6 +2145,52 @@ regions:
     settings: 
       output-as: HTML
       expand-shortcuts: false
+
+- # ====== Region: CSS =========================================
+  id: 9332569039174731
+  identification: 
+    title: CSS
+    type: Dynamic Content
+
+  source: 
+    language: PL/SQL
+    pl/sql-function-body-returning-a-clob: RETURN trp_app.set_colors();
+    page-items-to-submit: 
+    - P100_TRIP_ID
+
+  layout: 
+    sequence: 20
+    parent-region: No Parent
+    position: BODY
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    template: Blank with Attributes # 45418266646075228
+    template-options: 
+    - '#DEFAULT#'
+    render-components: Above Content
+
+  accessibility: 
+    use-landmark: true
+    landmark-type: Template Default
+
+  advanced: 
+    region-display-selector: false
+    exclude-title-from-translation: false
+
+  server-cache: 
+    caching: Disabled
+
+  customization: 
+    customizable: Not Customizable By End Users
+
+  attributes: 
+    performance: 
+      lazy-loading: false
 
 page-items: 
 - # ====== Page Item: P100_TRIP_START ==========================
@@ -2536,6 +2660,54 @@ dynamic-actions:
     execution: 
       sequence: 10
       event: CHANGED_FILTERS # 8773168594122249
+      fire-when-event-result-is: True
+      fire-on-initialization: false
+
+- # ====== Dynamic Action: REFRESH_CHART =======================
+  id: 9332248680174728
+  identification: 
+    name: REFRESH_CHART
+
+  execution: 
+    sequence: 50
+
+  when: 
+    event: NATIVE_IG|REGION TYPE|interactivegridsave
+    selection-type: Region
+    region: Itinerary [GRID] # 9294939246868134
+
+  execution: 
+    event-scope: Static
+    type: Immediate
+
+  actions: 
+  - # ====== Action: Refresh =====================================
+    id: 9332319492174729
+    identification: 
+      action: Refresh
+
+    affected-elements: 
+      selection-type: Region
+      region: Gantt [CHART] # 8772187965122239
+
+    execution: 
+      sequence: 10
+      event: REFRESH_CHART # 9332248680174728
+      fire-when-event-result-is: True
+      fire-on-initialization: false
+
+  - # ====== Action: Refresh =====================================
+    id: 9332607597174732
+    identification: 
+      action: Refresh
+
+    affected-elements: 
+      selection-type: Region
+      region: CSS # 9332569039174731
+
+    execution: 
+      sequence: 20
+      event: REFRESH_CHART # 9332248680174728
       fire-when-event-result-is: True
       fire-on-initialization: false
 
