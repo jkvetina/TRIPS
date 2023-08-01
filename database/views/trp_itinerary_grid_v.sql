@@ -33,6 +33,7 @@ SELECT
     t.start_at,
     t.end_at,
     t.notes,
+    t.color_fill,
     r.day# || ') ' || r.day_ AS day#
 FROM trp_itinerary t
 JOIN x

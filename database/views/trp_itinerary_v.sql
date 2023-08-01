@@ -20,7 +20,8 @@ t AS (
         t.notes,
         x.gantt_start_date,
         x.gantt_end_date,
-        c.order#
+        c.order#,
+        t.color_fill
     FROM trp_itinerary t
     JOIN trp_categories c
         ON c.category_id = t.category_id
@@ -39,7 +40,8 @@ SELECT
     NULL                AS notes,
     x.gantt_start_date,
     x.gantt_end_date,
-    NULL                AS css_class
+    NULL                AS css_class,
+    NULL                AS color_fill
 FROM trp_categories c
 CROSS JOIN x
 UNION ALL
@@ -55,7 +57,8 @@ SELECT
     t.notes,
     t.gantt_start_date,
     t.gantt_end_date,
-    t.category_id       AS css_class
+    'DEFAULT ' || t.category_id || NULLIF(' COLOR_' || LTRIM(t.color_fill, '#'), ' COLOR_') AS css_class,
+    t.color_fill
 FROM t
 ORDER BY 1, 2 NULLS FIRST, 3;
 --

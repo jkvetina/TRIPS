@@ -7,6 +7,7 @@ CREATE TABLE trp_itinerary (
     start_at                        DATE,
     end_at                          DATE,
     notes                           VARCHAR2(4000),
+    color_fill                      VARCHAR2(8),
     --
     CONSTRAINT pk_trp_itinerary
         PRIMARY KEY (trip_id, stop_id),
@@ -30,4 +31,5 @@ COMMENT ON COLUMN trp_itinerary.price           IS '';
 COMMENT ON COLUMN trp_itinerary.start_at        IS '';
 COMMENT ON COLUMN trp_itinerary.end_at          IS '';
 COMMENT ON COLUMN trp_itinerary.notes           IS '';
+COMMENT ON COLUMN trp_itinerary.color_fill      IS '';
 

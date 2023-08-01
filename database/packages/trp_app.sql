@@ -14,6 +14,7 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
         rec.start_at        := core.get_date(core.get_grid_data('START_AT'));
         rec.end_at          := core.get_date(core.get_grid_data('END_AT'));
         rec.notes           := core.get_grid_data('NOTES');
+        rec.color_fill      := core.get_grid_data('COLOR_FILL');
         --
         trp_tapi.save_itinerary (rec,
             in_action           => in_action,
@@ -33,6 +34,35 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
         RAISE;
     WHEN OTHERS THEN
         core.raise_error();
+    END;
+
+
+
+    FUNCTION set_colors
+    RETURN CLOB
+    AS
+        l_result        CLOB := '';
+    BEGIN
+        FOR c IN (
+            SELECT DISTINCT
+                t.category_id,
+                t.color_fill
+            FROM trp_categories t
+            WHERE t.color_fill IS NOT NULL
+        ) LOOP
+            l_result := l_result || '.' || c.category_id || ' { fill: ' || c.color_fill || '; }' || CHR(10);
+        END LOOP;
+        --
+        FOR c IN (
+            SELECT DISTINCT
+                t.color_fill
+            FROM trp_itinerary_v t
+            WHERE t.color_fill IS NOT NULL
+        ) LOOP
+            l_result := l_result || '.COLOR_' || LTRIM(c.color_fill, '#') || ' { fill: ' || c.color_fill || '; }' || CHR(10);
+        END LOOP;
+        --
+        RETURN TO_CLOB('<style>') || l_result || TO_CLOB('</style>');
     END;
 
 END;
