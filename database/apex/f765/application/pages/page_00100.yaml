@@ -22,8 +22,18 @@ navigation:
 
 css: 
   inline: |
-    .AIRPLANE {
-      background-color: red !important;
+    .DEFAULT {
+      stroke:           #222;
+      stroke-width:     1px;
+    }
+    .HOTEL {
+      fill:             #ccc;
+      stroke:           #666;
+      stroke-width:     1px;
+      stroke-dasharray: 4, 4;
+    }
+    .BASELINE {
+      fill:             #E7242D;
     }
 
 security: 

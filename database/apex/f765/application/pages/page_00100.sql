@@ -19,8 +19,18 @@ wwv_flow_imp_page.create_page(
 ,p_autocomplete_on_off=>'OFF'
 ,p_group_id=>wwv_flow_imp.id(53536909635676125)  -- MAIN
 ,p_inline_css=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'.AIRPLANE {',
-'  background-color: red !important;',
+'.DEFAULT {',
+'  stroke:           #222;',
+'  stroke-width:     1px;',
+'}',
+'.HOTEL {',
+'  fill:             #ccc;',
+'  stroke:           #666;',
+'  stroke-width:     1px;',
+'  stroke-dasharray: 4, 4;',
+'}',
+'.BASELINE {',
+'  fill:             #E7242D;',
 '}'))
 ,p_page_template_options=>'#DEFAULT#'
 ,p_required_role=>wwv_flow_imp.id(45845718540274027)  -- MASTER - IS_USER
