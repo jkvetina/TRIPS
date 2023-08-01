@@ -163,6 +163,8 @@ regions:
         task-name: STOP_NAME
         task-start-date: START_AT
         task-end-date: END_AT
+        baseline-start-date: BASELINE_START_AT
+        baseline-end-date: BASELINE_END_AT
 
       viewport: 
         start-date-source-type: Database Column
