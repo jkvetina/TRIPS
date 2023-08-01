@@ -82,6 +82,11 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
         --
         core.set_item('P100_DAY_PREV_ATTR',  CASE WHEN v_day_prev  IS NULL THEN ' disabled="disabled"' END);
         core.set_item('P100_DAY_NEXT_ATTR',  CASE WHEN v_day_next  IS NULL THEN ' disabled="disabled"' END);
+    EXCEPTION
+    WHEN core.app_exception THEN
+        RAISE;
+    WHEN OTHERS THEN
+        core.raise_error();
     END;
 
 
@@ -111,6 +116,11 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
         END LOOP;
         --
         RETURN TO_CLOB('<style>') || l_result || TO_CLOB('</style>');
+    EXCEPTION
+    WHEN core.app_exception THEN
+        RAISE;
+    WHEN OTHERS THEN
+        core.raise_error();
     END;
 
 END;
