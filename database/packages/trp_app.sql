@@ -115,7 +115,7 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
             FROM trp_trips t
             WHERE t.trip_id = core.get_number_item('P100_TRIP_ID')
         ) LOOP
-            core.set_item('P100_TRIP_NAME',     c.trip_name);
+            core.set_item('P100_TRIP_HEADER',   c.trip_name);
             core.set_item('P100_TRIP_START',    TO_CHAR(c.start_at, 'YYYY-MM-DD'));
             core.set_item('P100_TRIP_END',      TO_CHAR(c.end_at,   'YYYY-MM-DD'));
             --
@@ -123,8 +123,9 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
                 SELECT SUM(price) AS trip_price
                 FROM trp_itinerary
                 WHERE trip_id = c.trip_id
+                HAVING SUM(price) >= 0
             ) LOOP
-                core.set_item('P100_TRIP_PRICE', d.trip_price);
+                core.set_item('P100_TRIP_HEADER', c.trip_name || ' [' || d.trip_price || ']');
             END LOOP;
         END LOOP;
     EXCEPTION

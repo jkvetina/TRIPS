@@ -102,6 +102,13 @@ regions:
     region-display-selector: false
     exclude-title-from-translation: false
 
+  server-side-condition: 
+    type: Rows returned
+    sql-query: |
+      SELECT 1
+      FROM trp_itinerary_grid_v
+      WHERE ROWNUM = 1
+
   security: 
     escape-special-characters: true
 
@@ -1292,10 +1299,10 @@ regions:
       font-color: '#000000'
       alignment: center
 
-- # ====== Region: &P100_TRIP_NAME!RAW. [&P100_TRIP_PRICE.] ====
+- # ====== Region: &P100_TRIP_HEADER!RAW. ======================
   id: 9329549921174701
   identification: 
-    title: '&P100_TRIP_NAME!RAW. [&P100_TRIP_PRICE.]'
+    title: '&P100_TRIP_HEADER!RAW.'
     type: Static Content
 
   layout: 
@@ -1322,6 +1329,13 @@ regions:
   advanced: 
     region-display-selector: false
     exclude-title-from-translation: false
+
+  server-side-condition: 
+    type: Rows returned
+    sql-query: |
+      SELECT 1
+      FROM trp_itinerary_grid_v
+      WHERE ROWNUM = 1
 
   server-cache: 
     caching: Disabled
@@ -2003,8 +2017,8 @@ page-items:
     value-protected: true
 
   layout: 
-    sequence: 40
-    region: '&P100_TRIP_NAME!RAW. [&P100_TRIP_PRICE.]' # 9329549921174701
+    sequence: 30
+    region: '&P100_TRIP_HEADER!RAW.' # 9329549921174701
     position: BODY
 
   advanced: 
@@ -2033,8 +2047,8 @@ page-items:
     value-protected: true
 
   layout: 
-    sequence: 50
-    region: '&P100_TRIP_NAME!RAW. [&P100_TRIP_PRICE.]' # 9329549921174701
+    sequence: 40
+    region: '&P100_TRIP_HEADER!RAW.' # 9329549921174701
     position: BODY
 
   advanced: 
@@ -2064,37 +2078,7 @@ page-items:
 
   layout: 
     sequence: 10
-    region: '&P100_TRIP_NAME!RAW. [&P100_TRIP_PRICE.]' # 9329549921174701
-    position: BODY
-
-  advanced: 
-    warn-on-unsaved-changes: Page Default
-
-  source: 
-    type: Null
-    used: Only when current value in session state is null
-
-  session-state: 
-    data-type: VARCHAR2
-    storage: Per Session (Persistent)
-
-  security: 
-    session-state-protection: Unrestricted
-    store-value-encrypted-in-session-state: false
-    restricted-characters: All characters can be saved.
-
-- # ====== Page Item: P100_TRIP_PRICE ==========================
-  id: 9330379685174709
-  identification: 
-    name: P100_TRIP_PRICE
-    type: Hidden
-
-  settings: 
-    value-protected: true
-
-  layout: 
-    sequence: 30
-    region: '&P100_TRIP_NAME!RAW. [&P100_TRIP_PRICE.]' # 9329549921174701
+    region: '&P100_TRIP_HEADER!RAW.' # 9329549921174701
     position: BODY
 
   advanced: 
@@ -2123,8 +2107,8 @@ page-items:
     value-protected: true
 
   layout: 
-    sequence: 70
-    region: '&P100_TRIP_NAME!RAW. [&P100_TRIP_PRICE.]' # 9329549921174701
+    sequence: 50
+    region: '&P100_TRIP_HEADER!RAW.' # 9329549921174701
     position: BODY
 
   advanced: 
@@ -2153,8 +2137,8 @@ page-items:
     value-protected: true
 
   layout: 
-    sequence: 90
-    region: '&P100_TRIP_NAME!RAW. [&P100_TRIP_PRICE.]' # 9329549921174701
+    sequence: 70
+    region: '&P100_TRIP_HEADER!RAW.' # 9329549921174701
     position: BODY
 
   advanced: 
@@ -2183,8 +2167,8 @@ page-items:
     value-protected: true
 
   layout: 
-    sequence: 110
-    region: '&P100_TRIP_NAME!RAW. [&P100_TRIP_PRICE.]' # 9329549921174701
+    sequence: 90
+    region: '&P100_TRIP_HEADER!RAW.' # 9329549921174701
     position: BODY
 
   advanced: 
@@ -2213,8 +2197,8 @@ page-items:
     value-protected: true
 
   layout: 
-    sequence: 100
-    region: '&P100_TRIP_NAME!RAW. [&P100_TRIP_PRICE.]' # 9329549921174701
+    sequence: 80
+    region: '&P100_TRIP_HEADER!RAW.' # 9329549921174701
     position: BODY
 
   advanced: 
@@ -2243,8 +2227,8 @@ page-items:
     value-protected: true
 
   layout: 
-    sequence: 120
-    region: '&P100_TRIP_NAME!RAW. [&P100_TRIP_PRICE.]' # 9329549921174701
+    sequence: 100
+    region: '&P100_TRIP_HEADER!RAW.' # 9329549921174701
     position: BODY
 
   advanced: 
@@ -2263,10 +2247,10 @@ page-items:
     store-value-encrypted-in-session-state: false
     restricted-characters: All characters can be saved.
 
-- # ====== Page Item: P100_TRIP_NAME ===========================
+- # ====== Page Item: P100_TRIP_HEADER =========================
   id: 9332719394174733
   identification: 
-    name: P100_TRIP_NAME
+    name: P100_TRIP_HEADER
     type: Hidden
 
   settings: 
@@ -2274,7 +2258,7 @@ page-items:
 
   layout: 
     sequence: 20
-    region: '&P100_TRIP_NAME!RAW. [&P100_TRIP_PRICE.]' # 9329549921174701
+    region: '&P100_TRIP_HEADER!RAW.' # 9329549921174701
     position: BODY
 
   advanced: 
@@ -2303,8 +2287,8 @@ page-items:
     value-protected: true
 
   layout: 
-    sequence: 80
-    region: '&P100_TRIP_NAME!RAW. [&P100_TRIP_PRICE.]' # 9329549921174701
+    sequence: 60
+    region: '&P100_TRIP_HEADER!RAW.' # 9329549921174701
     position: BODY
 
   advanced: 
@@ -2332,7 +2316,7 @@ buttons:
 
   layout: 
     sequence: 10
-    region: '&P100_TRIP_NAME!RAW. [&P100_TRIP_PRICE.]' # 9329549921174701
+    region: '&P100_TRIP_HEADER!RAW.' # 9329549921174701
     position: RIGHT_OF_TITLE
     start-new-layout: false
     start-new-row: true
@@ -2369,7 +2353,7 @@ buttons:
 
   layout: 
     sequence: 20
-    region: '&P100_TRIP_NAME!RAW. [&P100_TRIP_PRICE.]' # 9329549921174701
+    region: '&P100_TRIP_HEADER!RAW.' # 9329549921174701
     position: RIGHT_OF_TITLE
     start-new-layout: false
     start-new-row: true
@@ -2406,7 +2390,7 @@ buttons:
 
   layout: 
     sequence: 30
-    region: '&P100_TRIP_NAME!RAW. [&P100_TRIP_PRICE.]' # 9329549921174701
+    region: '&P100_TRIP_HEADER!RAW.' # 9329549921174701
     position: RIGHT_OF_TITLE
     start-new-layout: false
     start-new-row: true
@@ -2513,6 +2497,38 @@ dynamic-actions:
     execution: 
       sequence: 20
       event: REFRESH_CHART # 9332248680174728
+      fire-when-event-result-is: True
+      fire-on-initialization: false
+
+- # ====== Dynamic Action: REFRESH_NAV =========================
+  id: 9730309168009005
+  identification: 
+    name: REFRESH_NAV
+
+  execution: 
+    sequence: 60
+
+  when: 
+    event: NATIVE_IG|REGION TYPE|interactivegridsave
+    selection-type: Region
+    region: Trips [GRID] # 28654809767461856
+
+  execution: 
+    event-scope: Static
+    type: Immediate
+
+  actions: 
+  - # ====== Action: Submit Page =================================
+    id: 9730479977009006
+    identification: 
+      action: Submit Page
+
+    settings: 
+      show-processing: true
+
+    execution: 
+      sequence: 10
+      event: REFRESH_NAV # 9730309168009005
       fire-when-event-result-is: True
       fire-on-initialization: false
 

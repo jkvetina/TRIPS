@@ -33,17 +33,17 @@ prompt APPLICATION 765 - Trips Planning
 -- Application Export:
 --   Application:     765
 --   Name:            Trips Planning
---   Date and Time:   20:20 Středa Srpen 2, 2023
+--   Date and Time:   20:40 Středa Srpen 2, 2023
 --   Exported By:     APPS
 --   Flashback:       0
 --   Export Type:     Application Export
 --     Pages:                      5
---       Items:                   15
+--       Items:                   14
 --       Computations:             1
 --       Processes:                9
 --       Regions:                 16
 --       Buttons:                  5
---       Dynamic Actions:         11
+--       Dynamic Actions:         12
 --     Shared Components:
 --       Logic:
 --         Build Options:          1
@@ -15222,6 +15222,11 @@ wwv_flow_imp_page.create_page_plug(
 ,p_include_rowid_column=>false
 ,p_plug_source_type=>'NATIVE_JET_CHART'
 ,p_ajax_items_to_submit=>'P100_TRIP_ID,P100_TRIP_START,P100_TRIP_END,P100_DAY'
+,p_plug_display_condition_type=>'EXISTS'
+,p_plug_display_when_condition=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT 1',
+'FROM trp_itinerary_grid_v',
+'WHERE ROWNUM = 1'))
 );
 wwv_flow_imp_page.create_jet_chart(
  p_id=>wwv_flow_imp.id(8772256501122240)
@@ -16601,12 +16606,17 @@ wwv_flow_imp_page.create_ig_report_filter(
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(9329549921174701)
-,p_plug_name=>'&P100_TRIP_NAME!RAW. [&P100_TRIP_PRICE.]'
+,p_plug_name=>'&P100_TRIP_HEADER!RAW.'
 ,p_parent_plug_id=>wwv_flow_imp.id(9334408323174750)
 ,p_region_template_options=>'#DEFAULT#:t-HeroRegion--hideIcon'
 ,p_plug_template=>wwv_flow_imp.id(45451267875075251)
 ,p_plug_display_sequence=>10
 ,p_plug_display_point=>'SUB_REGIONS'
+,p_plug_display_condition_type=>'EXISTS'
+,p_plug_display_when_condition=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'SELECT 1',
+'FROM trp_itinerary_grid_v',
+'WHERE ROWNUM = 1'))
 ,p_attribute_01=>'N'
 ,p_attribute_02=>'HTML'
 );
@@ -17043,7 +17053,7 @@ wwv_flow_imp_page.create_page_button(
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(8772875327122246)
 ,p_name=>'P100_TRIP_START'
-,p_item_sequence=>40
+,p_item_sequence=>30
 ,p_item_plug_id=>wwv_flow_imp.id(9329549921174701)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_encrypt_session_state_yn=>'N'
@@ -17052,7 +17062,7 @@ wwv_flow_imp_page.create_page_item(
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(8772943708122247)
 ,p_name=>'P100_TRIP_END'
-,p_item_sequence=>50
+,p_item_sequence=>40
 ,p_item_plug_id=>wwv_flow_imp.id(9329549921174701)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_encrypt_session_state_yn=>'N'
@@ -17068,18 +17078,9 @@ wwv_flow_imp_page.create_page_item(
 ,p_attribute_01=>'Y'
 );
 wwv_flow_imp_page.create_page_item(
- p_id=>wwv_flow_imp.id(9330379685174709)
-,p_name=>'P100_TRIP_PRICE'
-,p_item_sequence=>30
-,p_item_plug_id=>wwv_flow_imp.id(9329549921174701)
-,p_display_as=>'NATIVE_HIDDEN'
-,p_encrypt_session_state_yn=>'N'
-,p_attribute_01=>'Y'
-);
-wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(9331220071174718)
 ,p_name=>'P100_DAY'
-,p_item_sequence=>70
+,p_item_sequence=>50
 ,p_item_plug_id=>wwv_flow_imp.id(9329549921174701)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_encrypt_session_state_yn=>'N'
@@ -17088,7 +17089,7 @@ wwv_flow_imp_page.create_page_item(
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(9331618318174722)
 ,p_name=>'P100_DAY_PREV'
-,p_item_sequence=>90
+,p_item_sequence=>70
 ,p_item_plug_id=>wwv_flow_imp.id(9329549921174701)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_encrypt_session_state_yn=>'N'
@@ -17097,7 +17098,7 @@ wwv_flow_imp_page.create_page_item(
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(9331706834174723)
 ,p_name=>'P100_DAY_NEXT'
-,p_item_sequence=>110
+,p_item_sequence=>90
 ,p_item_plug_id=>wwv_flow_imp.id(9329549921174701)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_encrypt_session_state_yn=>'N'
@@ -17106,7 +17107,7 @@ wwv_flow_imp_page.create_page_item(
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(9332045403174726)
 ,p_name=>'P100_DAY_PREV_ATTR'
-,p_item_sequence=>100
+,p_item_sequence=>80
 ,p_item_plug_id=>wwv_flow_imp.id(9329549921174701)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_encrypt_session_state_yn=>'N'
@@ -17115,7 +17116,7 @@ wwv_flow_imp_page.create_page_item(
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(9332183025174727)
 ,p_name=>'P100_DAY_NEXT_ATTR'
-,p_item_sequence=>120
+,p_item_sequence=>100
 ,p_item_plug_id=>wwv_flow_imp.id(9329549921174701)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_encrypt_session_state_yn=>'N'
@@ -17123,7 +17124,7 @@ wwv_flow_imp_page.create_page_item(
 );
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(9332719394174733)
-,p_name=>'P100_TRIP_NAME'
+,p_name=>'P100_TRIP_HEADER'
 ,p_item_sequence=>20
 ,p_item_plug_id=>wwv_flow_imp.id(9329549921174701)
 ,p_display_as=>'NATIVE_HIDDEN'
@@ -17133,7 +17134,7 @@ wwv_flow_imp_page.create_page_item(
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(9730251063009004)
 ,p_name=>'P100_DAY_ATTR'
-,p_item_sequence=>80
+,p_item_sequence=>60
 ,p_item_plug_id=>wwv_flow_imp.id(9329549921174701)
 ,p_display_as=>'NATIVE_HIDDEN'
 ,p_encrypt_session_state_yn=>'N'
@@ -17244,6 +17245,25 @@ wwv_flow_imp_page.create_page_da_action(
 ,p_action=>'NATIVE_REFRESH'
 ,p_affected_elements_type=>'REGION'
 ,p_affected_region_id=>wwv_flow_imp.id(9332569039174731)
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(9730309168009005)
+,p_name=>'REFRESH_NAV'
+,p_event_sequence=>60
+,p_triggering_element_type=>'REGION'
+,p_triggering_region_id=>wwv_flow_imp.id(28654809767461856)
+,p_bind_type=>'bind'
+,p_execution_type=>'IMMEDIATE'
+,p_bind_event_type=>'NATIVE_IG|REGION TYPE|interactivegridsave'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(9730479977009006)
+,p_event_id=>wwv_flow_imp.id(9730309168009005)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_SUBMIT_PAGE'
+,p_attribute_02=>'Y'
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(9296199874868146)
