@@ -2,9 +2,26 @@ CREATE OR REPLACE FORCE VIEW trp_itinerary_v AS
 WITH d AS (
     SELECT /*+ MATERIALIZE */
         t.trip_id,
-        t.start_at      AS gantt_start_date,
-        t.end_at + 1    AS gantt_end_date
+        --
+        CASE WHEN core.get_item('P100_DAY') IS NULL
+            THEN t.start_at
+            ELSE g.gantt_start_date
+            END AS gantt_start_date,
+        --
+        CASE WHEN core.get_item('P100_DAY') IS NULL
+            THEN t.end_at
+            ELSE g.gantt_end_date
+            END + 1 AS gantt_end_date
     FROM trp_trips t
+    JOIN (
+        SELECT
+            t.trip_id,
+            MIN(TO_DATE(t.day_, 'YYYY-MM-DD')) AS gantt_start_date,
+            MAX(TO_DATE(t.day_, 'YYYY-MM-DD')) AS gantt_end_date
+        FROM trp_itinerary_grid_v t
+        GROUP BY t.trip_id
+    ) g
+        ON g.trip_id = t.trip_id
     WHERE t.trip_id = core.get_number_item('P100_TRIP_ID')
 ),
 t AS (
