@@ -99,8 +99,8 @@ navigation-menu:
 
 navigation-bar: 
   implementation: List
-  list: Navigation Bar # 73564673812403420
-  list-template: Navigation Bar # 45544599987075310
+  list: NAVIGATION_TOP # 9522281938721228
+  list-template: Navigation Bar Q # 46232168722191150
   template-options: 
   - '#DEFAULT#'
 
@@ -111,8 +111,8 @@ javascript:
 
 css: 
   file-urls: 
-  - '#WORKSPACE_FILES#master_fonts#MIN#.css?version=#APP_VERSION#'
-  - '#WORKSPACE_FILES#master_menu_top#MIN#.css?version=#APP_VERSION#'
+  - '#WORKSPACE_FILES#master_fonts#MIN#.css?version=#APP_VERSION#'
+  - '#WORKSPACE_FILES#master_menu_top#MIN#.css?version=#APP_VERSION#'
   - '#WORKSPACE_FILES#master_app#MIN#.css?version=#APP_VERSION#'
 
 attributes: 

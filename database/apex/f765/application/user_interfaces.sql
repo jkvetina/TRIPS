@@ -28,8 +28,8 @@ wwv_flow_imp_shared.create_user_interface(
 '#WORKSPACE_FILES#master_app#MIN#.css?version=#APP_VERSION#'))
 ,p_javascript_file_urls=>'#WORKSPACE_FILES#master_app#MIN#.js?version=#APP_VERSION#'
 ,p_nav_bar_type=>'LIST'
-,p_nav_bar_list_id=>wwv_flow_imp.id(73564673812403420)
-,p_nav_bar_list_template_id=>wwv_flow_imp.id(45544599987075310)
+,p_nav_bar_list_id=>wwv_flow_imp.id(9522281938721228)
+,p_nav_bar_list_template_id=>wwv_flow_imp.id(46232168722191150)
 ,p_nav_bar_template_options=>'#DEFAULT#'
 );
 wwv_flow_imp.component_end;

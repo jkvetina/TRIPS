@@ -20,7 +20,7 @@ wwv_flow_imp_shared.create_theme(
 ,p_nav_bar_type=>'LIST'
 ,p_reference_id=>38080028704322422
 ,p_is_locked=>false
-,p_default_page_template=>wwv_flow_imp.id(45408191775075219)
+,p_default_page_template=>wwv_flow_imp.id(49075986562405994)
 ,p_default_dialog_template=>wwv_flow_imp.id(45399604373075215)
 ,p_error_template=>wwv_flow_imp.id(45389606943075209)
 ,p_printer_friendly_template=>wwv_flow_imp.id(45404835659075218)

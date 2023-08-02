@@ -4,8 +4,6 @@ prompt --install
 @@application/create_application.sql
 @@application/user_interfaces.sql
 @@application/shared_components/navigation/lists/navigation_top.sql
-@@application/shared_components/navigation/lists/navigation_menu.sql
-@@application/shared_components/navigation/lists/navigation_bar.sql
 @@application/shared_components/files/icons_app_icon_144_rounded_png.sql
 @@application/shared_components/files/icons_app_icon_256_rounded_png.sql
 @@application/shared_components/files/icons_app_icon_32_png.sql

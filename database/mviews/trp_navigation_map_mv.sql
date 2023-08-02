@@ -36,7 +36,7 @@ LEFT JOIN all_procedures s
     ON s.owner                  = SYS_CONTEXT('USERENV', 'CURRENT_SCHEMA')
     AND s.object_name           = 'TRP_AUTH'
     AND s.procedure_name        = REGEXP_SUBSTR(p.authorization_scheme, '\S+$')
-WHERE p.application_id          = 710
+WHERE p.application_id          = 765
 GROUP BY
     p.application_id,
     p.page_id,

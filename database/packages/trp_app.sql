@@ -178,8 +178,9 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
         core.set_item('P100_DAY_PREV',  CASE WHEN v_day_prev  IS NOT NULL THEN core.get_date(v_day_prev,  'YYYY-MM-DD') END);
         core.set_item('P100_DAY_NEXT',  CASE WHEN v_day_next  IS NOT NULL THEN core.get_date(v_day_next,  'YYYY-MM-DD') END);
         --
-        core.set_item('P100_DAY_PREV_ATTR',  CASE WHEN v_day_prev  IS NULL THEN ' disabled="disabled"' END);
-        core.set_item('P100_DAY_NEXT_ATTR',  CASE WHEN v_day_next  IS NULL THEN ' disabled="disabled"' END);
+        core.set_item('P100_DAY_ATTR',      CASE WHEN v_day       IS NULL THEN ' disabled="disabled"' END);
+        core.set_item('P100_DAY_PREV_ATTR', CASE WHEN v_day_prev  IS NULL THEN ' disabled="disabled"' END);
+        core.set_item('P100_DAY_NEXT_ATTR', CASE WHEN v_day_next  IS NULL THEN ' disabled="disabled"' END);
     EXCEPTION
     WHEN core.app_exception THEN
         RAISE;

@@ -6,7 +6,7 @@ WITH curr AS (
         n.page_id,
         n.parent_id,
         core.get_page_group(n.page_id)  AS page_group,
-        u.user_id,
+        core.get_user_id()              AS user_id,
         u.user_name
     FROM trp_navigation n
     LEFT JOIN trp_users u
@@ -25,7 +25,7 @@ t AS (
         n.parent_id,
         --
         s.page_alias,
-        s.page_name,        -- core.get_page_name(t.page_id)    -- #icons
+        core.get_page_name(in_name => s.page_name) AS page_name,
         s.auth_scheme,
         n.is_reset,
         n.order#
@@ -146,7 +146,45 @@ SELECT
     n.auth_scheme,
     n.label__,
     n.order#
-FROM n;
+FROM n
+UNION ALL
+--
+SELECT                      -- append favorite boards
+    2 AS lvl,
+    t.trip_name AS label,
+    --
+    APEX_PAGE.GET_URL (
+        p_application       => curr.app_id,
+        p_page              => 100,--curr.page_id,
+        p_clear_cache       => 100,
+        p_items             => 'P100_TRIP_ID',
+        p_values            => t.trip_id
+    ) AS target,
+    --
+    NULL AS is_current_list_entry,
+    NULL AS image,
+    NULL AS image_attribute,
+    NULL AS image_alt_attribute,
+    NULL AS attribute01,
+    NULL AS attribute02,
+    NULL AS attribute03,
+    NULL AS attribute04,
+    NULL AS attribute05,
+    --'<span class="fa fa-heart-o"></span> &' || 'nbsp;'
+    NULL AS attribute06,
+    NULL AS attribute07,
+    NULL AS attribute08,
+    NULL AS attribute09,
+    NULL AS attribute10,
+    NULL AS page_id,
+    NULL AS parent_id,
+    NULL AS auth_scheme,
+    NULL AS label__,
+    '/100.100/' || LPAD(ROW_NUMBER() OVER (ORDER BY t.trip_id), 8, '0') AS order#
+FROM trp_trips t
+CROSS JOIN curr
+WHERE 1 = 1
+    AND UPPER(curr.user_id) = t.created_by;
 --
 COMMENT ON TABLE trp_navigation_top_v IS '';
 
