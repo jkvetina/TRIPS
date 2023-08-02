@@ -10,15 +10,6 @@ CREATE OR REPLACE PACKAGE BODY trp_tapi as
     AS
         c_action            CONSTANT CHAR                       := gen_tapi.get_action(in_action);
     BEGIN
-        -- evaluate access to this table
-        tsk_auth.check_allowed_dml (
-            in_table_name       => gen_tapi.get_table_name(),
-            in_action           => c_action,
-            in_user_id          => core.get_user_id(),
-            in_client_id        => NULL,
-            in_project_id       => NULL
-        );
-
         -- delete record
         IF c_action = 'D' THEN
             trp_tapi.save_itinerary_d (
