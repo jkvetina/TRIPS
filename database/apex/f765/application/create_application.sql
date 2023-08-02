@@ -14,8 +14,8 @@ wwv_flow_imp.component_begin (
 wwv_imp_workspace.create_flow(
  p_id=>wwv_flow.g_flow_id
 ,p_owner=>nvl(wwv_flow_application_install.get_schema,'APPS')
-,p_name=>nvl(wwv_flow_application_install.get_application_name,'Trip Planning')
-,p_alias=>nvl(wwv_flow_application_install.get_application_alias,'TRIP')
+,p_name=>nvl(wwv_flow_application_install.get_application_name,'Trips Planning')
+,p_alias=>nvl(wwv_flow_application_install.get_application_alias,'TRIPS')
 ,p_page_view_logging=>'YES'
 ,p_page_protection_enabled_y_n=>'Y'
 ,p_checksum_salt=>'9CBCC171912554FE4A8996BCA5DC653BEC59C661B634BF18F954B71B4DA3D6FD'
@@ -53,7 +53,7 @@ wwv_imp_workspace.create_flow(
 ,p_csv_encoding=>'Y'
 ,p_auto_time_zone=>'N'
 ,p_substitution_string_01=>'APP_NAME'
-,p_substitution_value_01=>'Trip Planning'
+,p_substitution_value_01=>'Trips Planning'
 ,p_last_updated_by=>'DEV'
 ,p_last_upd_yyyymmddhh24miss=>'20220101000000'
 ,p_file_prefix => nvl(wwv_flow_application_install.get_static_app_file_prefix,'')

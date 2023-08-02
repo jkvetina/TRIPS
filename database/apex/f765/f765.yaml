@@ -1,9 +1,9 @@
 ---
-# ====== Application: Trip Planning ==========================
+# ====== Application: Trips Planning =========================
 id: 765
 identification: 
-  name: Trip Planning
-  alias: TRIP
+  name: Trips Planning
+  alias: TRIPS
   version: 2023-07-30
 
 row-search: 
@@ -128,5 +128,5 @@ substitutions:
     name: APP_NAME
 
   value: 
-    static-value: Trip Planning
+    static-value: Trips Planning
 
