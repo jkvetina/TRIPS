@@ -1889,27 +1889,16 @@ regions:
     id: 28696456878768493
     identification: 
       column-name: CREATED_BY
-      type: Text Field
-
-    heading: 
-      heading: Created By
-      alignment: start
+      type: Hidden
 
     settings: 
-      trim-spaces: Leading and Trailing
-      text-case: NO CHANGE
+      value-protected: true
 
     layout: 
       sequence: 80
-      column-alignment: start
-      stretch: Use Report Setting
 
     accessibility: 
       value-identifies-row: false
-
-    validation: 
-      value-required: false
-      maximum-length: 128
 
     source: 
       type: Database Column
@@ -1921,53 +1910,29 @@ regions:
     default: 
       duplicate-copies-existing-value: true
 
-    column-filter: 
-      enabled: true
-      performance-impacting-operators: 
-      - Contains
-      - Starts With
-      - Case Insensitive
-      - Regular Expression
-      text-case: Mixed
-      lov-type: Distinct Column
-      exact-match: true
+    session-state: 
+      data-type: VARCHAR2
 
     export-/-printing: 
-      include-in-export-/-print: true
+      include-in-export-/-print: false
 
     enable-users-to: 
-      sort: true
-      control-break/aggregate: true
-      hide: true
+      sort: false
 
   - # ====== Column: CREATED_AT ==================================
     id: 28696514129768494
     identification: 
       column-name: CREATED_AT
-      type: Date Picker
-
-    heading: 
-      heading: Created At
-      alignment: start
+      type: Hidden
 
     settings: 
-      show-time: false
-      display-as: Popup
-      minimum-date: None
-      maximum-date: None
-      multiple-months: No
-      use-defaults: true
+      value-protected: true
 
     layout: 
       sequence: 100
-      column-alignment: start
-      stretch: Use Report Setting
 
     accessibility: 
       value-identifies-row: false
-
-    validation: 
-      value-required: false
 
     source: 
       type: Database Column
@@ -1979,18 +1944,14 @@ regions:
     default: 
       duplicate-copies-existing-value: true
 
-    column-filter: 
-      enabled: true
-      lov-type: Distinct Column
-      date-ranges: All
+    session-state: 
+      data-type: VARCHAR2
 
     export-/-printing: 
-      include-in-export-/-print: true
+      include-in-export-/-print: false
 
     enable-users-to: 
-      sort: true
-      control-break/aggregate: true
-      hide: true
+      sort: false
 
   printing: 
     page: 
