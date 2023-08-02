@@ -5,6 +5,7 @@ identification:
   name: Login Page
   alias: LOGIN
   title: '&APP_NAME.'
+  page-group: _INTERNAL # 9548806082891001
 
 appearance: 
   page-mode: Normal

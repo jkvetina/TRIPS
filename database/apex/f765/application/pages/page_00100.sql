@@ -17,7 +17,7 @@ wwv_flow_imp_page.create_page(
 ,p_alias=>'HOME'
 ,p_step_title=>'&APP_NAME.'
 ,p_autocomplete_on_off=>'OFF'
-,p_group_id=>wwv_flow_imp.id(53536909635676125)  -- MAIN
+,p_group_id=>wwv_flow_imp.id(53536909635676125)  --  MAIN
 ,p_inline_css=>wwv_flow_string.join(wwv_flow_t_varchar2(
 '.DEFAULT {',
 '  stroke:           #222;',

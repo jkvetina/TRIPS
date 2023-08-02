@@ -3,6 +3,7 @@
 id: 0
 identification: 
   name: Global Page
+  page-group: _INTERNAL # 9548806082891001
 
 regions: 
 - # ====== Region: JS ==========================================

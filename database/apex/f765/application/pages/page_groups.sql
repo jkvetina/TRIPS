@@ -12,12 +12,16 @@ wwv_flow_imp.component_begin (
 ,p_default_owner=>'APPS'
 );
 wwv_flow_imp_page.create_page_group(
+ p_id=>wwv_flow_imp.id(53536909635676125)  --  MAIN
+,p_group_name=>' MAIN'
+);
+wwv_flow_imp_page.create_page_group(
  p_id=>wwv_flow_imp.id(53537085390676579)  -- ADMIN
 ,p_group_name=>'ADMIN'
 );
 wwv_flow_imp_page.create_page_group(
- p_id=>wwv_flow_imp.id(53536909635676125)  -- MAIN
-,p_group_name=>'MAIN'
+ p_id=>wwv_flow_imp.id(9548806082891001)  -- _INTERNAL
+,p_group_name=>'_INTERNAL'
 );
 wwv_flow_imp.component_end;
 end;

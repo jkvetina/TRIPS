@@ -14,9 +14,8 @@ wwv_flow_imp.component_begin (
 wwv_flow_imp_page.create_page(
  p_id=>0
 ,p_name=>'Global Page'
-,p_step_title=>'Global Page'
 ,p_autocomplete_on_off=>'OFF'
-,p_page_template_options=>'#DEFAULT#'
+,p_group_id=>wwv_flow_imp.id(9548806082891001)  -- _INTERNAL
 ,p_protection_level=>'D'
 ,p_page_component_map=>'14'
 ,p_last_updated_by=>'DEV'
