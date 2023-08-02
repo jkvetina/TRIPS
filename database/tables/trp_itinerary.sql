@@ -10,9 +10,21 @@ CREATE TABLE trp_itinerary (
     color_fill                      VARCHAR2(8),
     created_by                      VARCHAR2(128),
     created_at                      DATE,
+    is_reserved                     CHAR(1),
+    is_paid                         CHAR(1),
+    is_pending                      CHAR(1),
     --
     CONSTRAINT pk_trp_itinerary
         PRIMARY KEY (trip_id, stop_id),
+    --
+    CONSTRAINT fk_trp_itinerary_reserved
+        CHECK (is_reserved = 'Y' OR is_reserved IS NULL),
+    --
+    CONSTRAINT fk_trp_itinerary_paid
+        CHECK (is_paid = 'Y' OR is_paid IS NULL),
+    --
+    CONSTRAINT fk_trp_itinerary_pending
+        CHECK (is_pending = 'Y' OR is_pending IS NULL),
     --
     CONSTRAINT fk_trp_itinerary_trip
         FOREIGN KEY (trip_id)
@@ -34,4 +46,7 @@ COMMENT ON COLUMN trp_itinerary.start_at        IS '';
 COMMENT ON COLUMN trp_itinerary.end_at          IS '';
 COMMENT ON COLUMN trp_itinerary.notes           IS '';
 COMMENT ON COLUMN trp_itinerary.color_fill      IS '';
+COMMENT ON COLUMN trp_itinerary.is_reserved     IS '';
+COMMENT ON COLUMN trp_itinerary.is_paid         IS '';
+COMMENT ON COLUMN trp_itinerary.is_pending      IS '';
 

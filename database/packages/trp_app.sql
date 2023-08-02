@@ -42,6 +42,9 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
         rec.stop_name       := core.get_grid_data('STOP_NAME');
         rec.category_id     := core.get_grid_data('CATEGORY_ID');
         rec.price           := core.get_grid_data('PRICE');
+        rec.is_reserved     := core.get_grid_data('IS_RESERVED');
+        rec.is_paid         := core.get_grid_data('IS_PAID');
+        rec.is_pending      := core.get_grid_data('IS_PENDING');
         rec.start_at        := core.get_date(core.get_grid_data('START_AT'));
         rec.end_at          := core.get_date(core.get_grid_data('END_AT'));
         rec.notes           := core.get_grid_data('NOTES');

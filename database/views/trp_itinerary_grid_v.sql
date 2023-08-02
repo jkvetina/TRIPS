@@ -26,16 +26,22 @@ r AS (
 SELECT
     t.trip_id       AS old_trip_id,
     t.stop_id       AS old_stop_id,
+    --
     t.trip_id,
     t.stop_id,
     t.stop_name,
     t.category_id,
     t.price,
+    t.is_reserved,
+    t.is_paid,
+    t.is_pending,
     t.start_at,
     t.end_at,
     t.notes,
     t.color_fill,
-    r.day# || ') ' || r.day_ AS day#
+    --
+    r.day#,
+    r.day_
 FROM trp_itinerary t
 JOIN x
     ON x.trip_id = t.trip_id
