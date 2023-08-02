@@ -3,6 +3,8 @@ CREATE TABLE trp_trips (
     trip_name                       VARCHAR2(128)   NOT NULL,
     start_at                        DATE            NOT NULL,
     end_at                          DATE            NOT NULL,
+    created_by                      VARCHAR2(128),
+    created_at                      DATE,
     --
     CONSTRAINT pk_trp_trips
         PRIMARY KEY (trip_id)

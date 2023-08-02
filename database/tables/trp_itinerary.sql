@@ -8,6 +8,8 @@ CREATE TABLE trp_itinerary (
     end_at                          DATE,
     notes                           VARCHAR2(4000),
     color_fill                      VARCHAR2(8),
+    created_by                      VARCHAR2(128),
+    created_at                      DATE,
     --
     CONSTRAINT pk_trp_itinerary
         PRIMARY KEY (trip_id, stop_id),

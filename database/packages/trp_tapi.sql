@@ -48,6 +48,8 @@ CREATE OR REPLACE PACKAGE BODY trp_tapi as
         END IF;
 
         -- overwrite some values
+        rec.created_by          := NVL(rec.created_by, core.get_user_id());
+        rec.created_at          := NVL(rec.created_at, SYSDATE);
 
         -- upsert record
         UPDATE trp_itinerary t

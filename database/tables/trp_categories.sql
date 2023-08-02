@@ -3,6 +3,8 @@ CREATE TABLE trp_categories (
     category_name                   VARCHAR2(128)   NOT NULL,
     order#                          NUMBER(4,0),
     color_fill                      VARCHAR2(8),
+    created_by                      VARCHAR2(128),
+    created_at                      DATE,
     --
     CONSTRAINT pk_trp_categories
         PRIMARY KEY (category_id)
