@@ -1,6 +1,14 @@
 CREATE OR REPLACE PACKAGE trp_app as
 
+    PROCEDURE save_trips;
+
+
+
     PROCEDURE save_itinerary;
+
+
+
+    PROCEDURE save_categories;
 
 
 
