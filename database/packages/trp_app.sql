@@ -207,7 +207,7 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
         FOR c IN (
             SELECT DISTINCT
                 t.color_fill
-            FROM trp_itinerary_v t
+            FROM trp_itinerary_grid_v t
             WHERE t.color_fill IS NOT NULL
         ) LOOP
             l_result := l_result || '.COLOR_' || LTRIM(c.color_fill, '#') || ' { fill: ' || c.color_fill || '; }' || CHR(10);

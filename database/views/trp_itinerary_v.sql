@@ -1,18 +1,11 @@
 CREATE OR REPLACE FORCE VIEW trp_itinerary_v AS
-WITH x AS (
-    SELECT /*+ MATERIALIZE */
-        core.get_number_item('P100_TRIP_ID')            AS trip_id,
-        core.get_date_item('P100_DAY', 'YYYY-MM-DD')    AS day_
-    FROM DUAL
-),
-d AS (
+WITH d AS (
     SELECT /*+ MATERIALIZE */
         t.trip_id,
-        CASE WHEN x.day_ IS NOT NULL THEN x.day_ ELSE t.start_at END    AS gantt_start_date,
-        CASE WHEN x.day_ IS NOT NULL THEN x.day_ ELSE t.end_at END + 1  AS gantt_end_date
-    FROM trp_trips t
-    JOIN x
-        ON x.trip_id = t.trip_id
+        MIN(CASE WHEN t.day_ IS NOT NULL THEN TO_DATE(t.day_, 'YYYY-MM-DD') ELSE t.start_at END)    AS gantt_start_date,
+        MAX(CASE WHEN t.day_ IS NOT NULL THEN TO_DATE(t.day_, 'YYYY-MM-DD') ELSE t.end_at END + 1)  AS gantt_end_date
+    FROM trp_itinerary_grid_v t
+    GROUP BY t.trip_id
 ),
 t AS (
     SELECT /*+ MATERIALIZE */
@@ -29,7 +22,7 @@ t AS (
         d.gantt_end_date,
         c.order#,
         t.color_fill
-    FROM trp_itinerary t
+    FROM trp_itinerary_grid_v t
     JOIN trp_categories c
         ON c.category_id = t.category_id
     JOIN d
@@ -49,8 +42,7 @@ SELECT
     NULL                AS notes,
     d.gantt_start_date,
     d.gantt_end_date,
-    NULL                AS css_class,
-    NULL                AS color_fill
+    NULL                AS css_class
 FROM trp_categories c
 CROSS JOIN d
 UNION ALL
@@ -68,8 +60,7 @@ SELECT
     t.notes,
     t.gantt_start_date,
     t.gantt_end_date,
-    'DEFAULT ' || t.category_id || NULLIF(' COLOR_' || LTRIM(t.color_fill, '#'), ' COLOR_') AS css_class,
-    t.color_fill
+    'DEFAULT ' || t.category_id || NULLIF(' COLOR_' || LTRIM(t.color_fill, '#'), ' COLOR_') AS css_class
 FROM t
 ORDER BY 1, 2 NULLS FIRST, 3;
 --
