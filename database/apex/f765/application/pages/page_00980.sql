@@ -18,12 +18,14 @@ wwv_flow_imp_page.create_page(
 ,p_page_mode=>'MODAL'
 ,p_step_title=>'Help'
 ,p_autocomplete_on_off=>'OFF'
+,p_group_id=>wwv_flow_imp.id(9775084414340395)  -- _ABOUT
 ,p_inline_css=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'ol li {',
 '  line-height: 200%;',
 '}'))
 ,p_step_template=>wwv_flow_imp.id(45378986090075202)
 ,p_page_template_options=>'#DEFAULT#:js-dialog-class-t-Drawer--pullOutEnd:js-dialog-class-t-Drawer--md'
+,p_required_role=>wwv_flow_imp.id(45845718540274027)  -- MASTER - IS_USER
 ,p_protection_level=>'C'
 ,p_page_component_map=>'11'
 ,p_last_updated_by=>'DEV'

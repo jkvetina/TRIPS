@@ -1,8 +1,8 @@
 ---
-# ====== Page: Login Page ====================================
+# ====== Page: &APP_USER. ====================================
 id: 9999
 identification: 
-  name: Login Page
+  name: '&APP_USER.'
   alias: LOGIN
   title: '&APP_NAME.'
   page-group: _INTERNAL # 9548806082891001

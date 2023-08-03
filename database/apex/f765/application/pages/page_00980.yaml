@@ -5,6 +5,7 @@ identification:
   name: '#fa-question-circle'
   alias: HELP
   title: Help
+  page-group: _ABOUT # 9775084414340395
 
 appearance: 
   page-mode: Modal Dialog
@@ -31,6 +32,7 @@ css:
     }
 
 security: 
+  authorization-scheme: MASTER - IS_USER # 45845718540274027
   authentication: Page Requires Authentication
   deep-linking: Application Default
   page-access-protection: Arguments Must Have Checksum

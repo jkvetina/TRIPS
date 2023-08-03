@@ -13,7 +13,7 @@ wwv_flow_imp.component_begin (
 );
 wwv_flow_imp_page.create_page(
  p_id=>9999
-,p_name=>'Login Page'
+,p_name=>'&APP_USER.'
 ,p_alias=>'LOGIN'
 ,p_step_title=>'&APP_NAME.'
 ,p_warn_on_unsaved_changes=>'N'

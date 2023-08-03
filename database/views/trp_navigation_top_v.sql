@@ -2,12 +2,12 @@ CREATE OR REPLACE FORCE VIEW trp_navigation_top_v AS
 WITH curr AS (
     -- current context
     SELECT /*+ MATERIALIZE */
-        core.get_app_id()               AS app_id,
+        core.get_app_id()   AS app_id,
         n.page_id,
         n.parent_id,
-        core.get_page_group(n.page_id)  AS page_group,
-        core.get_user_id()              AS user_id,
-        u.user_name
+        core.get_page_group(n.page_id)          AS page_group,
+        core.get_user_id()                      AS user_id,
+        NVL(u.user_name, core.get_user_id())    AS user_name
     FROM trp_navigation n
     LEFT JOIN trp_users u
         ON u.user_id        = core.get_user_id()
@@ -69,7 +69,6 @@ n AS (
         CASE WHEN t.parent_id IS NULL THEN 1 ELSE 2 END AS lvl,
         --
         CASE
-            WHEN t.page_id = 9999   THEN 'Logout'
             WHEN t.page_id = 0      THEN '</li></ul><ul class="empty"></ul><ul><li>'
             ELSE REPLACE(t.page_name, '&' || 'APP_USER.', t.user_name)
             END AS label,
