@@ -89,13 +89,16 @@ wwv_flow_imp_page.create_jet_chart(
 ,p_row_axis_rendered=>'on'
 ,p_gantt_axis_position=>'top'
 ,p_javascript_code=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'function( options ) {',
+'function (options) {',
 '    var event = new Date();',
 '',
-'    // Define Reference Object line on the chart',
-'    var constantLine = [ { value: event.toISOString() } ];',
+'    // define reference object line on the chart',
+'    var constantLine = [',
+'        { value: event.toISOString() }',
+'    ];',
 '    options.referenceObjects = constantLine;',
-'    ',
+'    options.selectionMode = ''single'';',
+'',
 '    return options;',
 '}',
 ''))
@@ -1883,6 +1886,19 @@ wwv_flow_imp_page.create_page_button(
 ,p_icon_css_classes=>'fa-plus'
 );
 wwv_flow_imp_page.create_page_button(
+ p_id=>wwv_flow_imp.id(9731847867009020)
+,p_button_sequence=>10
+,p_button_plug_id=>wwv_flow_imp.id(9294476628868129)
+,p_button_name=>'ADD_STOP'
+,p_button_action=>'DEFINED_BY_DA'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_imp.id(45556489878075320)
+,p_button_image_alt=>'Add Stop'
+,p_button_position=>'RIGHT_OF_TITLE'
+,p_warn_on_unsaved_changes=>null
+,p_icon_css_classes=>'fa-plus'
+);
+wwv_flow_imp_page.create_page_button(
  p_id=>wwv_flow_imp.id(9331119602174717)
 ,p_button_sequence=>20
 ,p_button_plug_id=>wwv_flow_imp.id(9329549921174701)
@@ -2127,6 +2143,44 @@ wwv_flow_imp_page.create_page_da_action(
 ,p_action=>'NATIVE_SUBMIT_PAGE'
 ,p_attribute_02=>'Y'
 );
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(9732077248009022)
+,p_name=>'GANTT_CLICKED'
+,p_event_sequence=>70
+,p_triggering_element_type=>'REGION'
+,p_triggering_region_id=>wwv_flow_imp.id(8772187965122239)
+,p_bind_type=>'bind'
+,p_execution_type=>'IMMEDIATE'
+,p_bind_event_type=>'custom'
+,p_bind_event_type_custom=>'ojoptionchange'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(9732190293009023)
+,p_event_id=>wwv_flow_imp.id(9732077248009022)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_JAVASCRIPT_CODE'
+,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'var data = this.data;',
+'if (data.option === "selection" && data.value[0] !== undefined) {',
+'    var trip_id = apex.item(''P100_TRIP_ID'').getValue();',
+'    var stop_id = data.value[0];',
+'    console.log(''TASK'', trip_id, stop_id, data);',
+'    //',
+'    apex.server.process(''GET_DETAIL_LINK'', {',
+'        x01: trip_id,',
+'        x02: stop_id,',
+'    },',
+'    {',
+'        dataType: ''text'',',
+'        success: function(url) {',
+'            apex.navigation.redirect(url);',
+'        }',
+'    });',
+'}',
+''))
+);
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(9296199874868146)
 ,p_process_sequence=>10
@@ -2139,6 +2193,18 @@ wwv_flow_imp_page.create_page_process(
 ,p_attribute_04=>'SAVE_ITINERARY'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_internal_uid=>9296199874868146
+);
+wwv_flow_imp.component_end;
+end;
+/
+begin
+wwv_flow_imp.component_begin (
+ p_version_yyyy_mm_dd=>'2023.04.28'
+,p_release=>'23.1.0'
+,p_default_workspace_id=>8506563800894011
+,p_default_application_id=>765
+,p_default_id_offset=>59434108571287006
+,p_default_owner=>'APPS'
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(9729659983006805)
@@ -2174,6 +2240,22 @@ wwv_flow_imp_page.create_page_process(
 ,p_attribute_03=>'TRP_APP'
 ,p_attribute_04=>'SET_DAYS'
 ,p_internal_uid=>9331900535174725
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(9733243456009034)
+,p_process_sequence=>10
+,p_process_point=>'ON_DEMAND'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'GET_DETAIL_LINK'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'HTP.P(APEX_PAGE.GET_URL(',
+'    p_page      => 110,',
+'    p_items     => ''P110_TRIP_ID,P110_STOP_ID'',',
+'    p_values    => APEX_APPLICATION.G_X01 || '','' || APEX_APPLICATION.G_X02',
+'));',
+''))
+,p_process_clob_language=>'PLSQL'
+,p_internal_uid=>9733243456009034
 );
 wwv_flow_imp.component_end;
 end;
