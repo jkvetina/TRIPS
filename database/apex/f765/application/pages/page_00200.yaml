@@ -1,8 +1,8 @@
 ---
-# ====== Page: #fa-wrench Setup ==============================
+# ====== Page: #fa-wrench ====================================
 id: 200
 identification: 
-  name: '#fa-wrench Setup'
+  name: '#fa-wrench'
   alias: SETUP
   title: Setup
   page-group: ' MAIN' # 53536909635676125

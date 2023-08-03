@@ -13,7 +13,7 @@ wwv_flow_imp.component_begin (
 );
 wwv_flow_imp_page.create_page(
  p_id=>200
-,p_name=>'#fa-wrench Setup'
+,p_name=>'#fa-wrench'
 ,p_alias=>'SETUP'
 ,p_step_title=>'Setup'
 ,p_autocomplete_on_off=>'OFF'
