@@ -16,23 +16,6 @@
     default-sort: CATEGORY_NAME
     sort-direction: Ascending (Nulls Last)
 
-- # ====== List of Values: LOV_TRIPS ===========================
-  id: 9328350606152164
-  identification: 
-    name: LOV_TRIPS
-
-  source: 
-    location: Local Database
-    type: Table / View
-    table-owner: Parsing Schema
-    table-name: TRP_TRIPS
-
-  column-mapping: 
-    return: TRIP_ID
-    display: TRIP_NAME
-    default-sort: TRIP_NAME
-    sort-direction: Ascending (Nulls Last)
-
 - # ====== List of Values: MASTER - LOV_APPLICATIONS ===========
   id: 29211822659806305
   identification: 

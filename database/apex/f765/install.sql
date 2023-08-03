@@ -19,7 +19,6 @@ prompt --install
 @@application/shared_components/navigation/tabs/standard.sql
 @@application/shared_components/navigation/tabs/parent.sql
 @@application/shared_components/user_interface/lovs/lov_categories.sql
-@@application/shared_components/user_interface/lovs/lov_trips.sql
 @@application/shared_components/user_interface/lovs/master_lov_applications.sql
 @@application/shared_components/user_interface/lovs/master_lov_users.sql
 @@application/pages/page_groups.sql
