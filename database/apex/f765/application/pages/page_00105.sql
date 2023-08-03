@@ -13,13 +13,14 @@ wwv_flow_imp.component_begin (
 );
 wwv_flow_imp_page.create_page(
  p_id=>105
-,p_name=>'MODAL DIALOG TEMPLATE'
-,p_alias=>'MODAL-DIALOG-TEMPLATE'
+,p_name=>'Add Trip'
+,p_alias=>'ADD-TRIP'
 ,p_page_mode=>'MODAL'
-,p_step_title=>'MODAL DIALOG TEMPLATE'
+,p_step_title=>'Add Trip'
 ,p_autocomplete_on_off=>'OFF'
-,p_group_id=>wwv_flow_imp.id(9548806082891001)  -- _INTERNAL
+,p_group_id=>wwv_flow_imp.id(53536909635676125)  --  MAIN
 ,p_page_template_options=>'#DEFAULT#'
+,p_dialog_chained=>'N'
 ,p_protection_level=>'C'
 ,p_page_component_map=>'17'
 ,p_last_updated_by=>'DEV'
@@ -37,13 +38,32 @@ wwv_flow_imp_page.create_page_plug(
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(37800608877944241)
-,p_plug_name=>'CONTENT'
+,p_plug_name=>'[FORM]'
 ,p_region_template_options=>'#DEFAULT#'
 ,p_plug_template=>wwv_flow_imp.id(45418266646075228)
 ,p_plug_display_sequence=>20
 ,p_include_in_reg_disp_sel_yn=>'Y'
-,p_attribute_01=>'N'
-,p_attribute_02=>'HTML'
+,p_query_type=>'TABLE'
+,p_query_table=>'TRP_TRIPS'
+,p_include_rowid_column=>false
+,p_is_editable=>true
+,p_edit_operations=>'i:u'
+,p_lost_update_check_type=>'VALUES'
+,p_plug_source_type=>'NATIVE_FORM'
+);
+wwv_flow_imp_page.create_page_button(
+ p_id=>wwv_flow_imp.id(9731761657009019)
+,p_button_sequence=>70
+,p_button_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_button_name=>'CREATE_TRIP'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_imp.id(45557146799075321)
+,p_button_is_hot=>'Y'
+,p_button_image_alt=>'Create Trip'
+,p_button_position=>'NEXT'
+,p_button_css_classes=>'u-pullRight'
+,p_database_action=>'INSERT'
 );
 wwv_flow_imp_page.create_page_button(
  p_id=>wwv_flow_imp.id(37800652906944242)
@@ -59,6 +79,124 @@ wwv_flow_imp_page.create_page_button(
 ,p_warn_on_unsaved_changes=>null
 ,p_button_css_classes=>'u-pullRight'
 ,p_icon_css_classes=>'fa-times'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9731015572009012)
+,p_name=>'P105_TRIP_ID'
+,p_source_data_type=>'NUMBER'
+,p_is_primary_key=>true
+,p_item_sequence=>10
+,p_item_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_item_source_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_source=>'TRIP_ID'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_is_persistent=>'N'
+,p_protection_level=>'S'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9731179405009013)
+,p_name=>'P105_TRIP_NAME'
+,p_source_data_type=>'VARCHAR2'
+,p_is_required=>true
+,p_item_sequence=>20
+,p_item_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_item_source_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_prompt=>'Trip Name'
+,p_source=>'TRIP_NAME'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_TEXT_FIELD'
+,p_cSize=>30
+,p_cMaxlength=>128
+,p_field_template=>wwv_flow_imp.id(45554742274075318)
+,p_item_template_options=>'#DEFAULT#'
+,p_is_persistent=>'N'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'N'
+,p_attribute_02=>'N'
+,p_attribute_04=>'TEXT'
+,p_attribute_05=>'BOTH'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9731279509009014)
+,p_name=>'P105_START_AT'
+,p_source_data_type=>'DATE'
+,p_is_required=>true
+,p_item_sequence=>30
+,p_item_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_item_source_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_prompt=>'Start At'
+,p_format_mask=>'YYYY-MM-DD'
+,p_source=>'START_AT'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_DATE_PICKER_APEX'
+,p_cSize=>30
+,p_field_template=>wwv_flow_imp.id(45554742274075318)
+,p_item_template_options=>'#DEFAULT#'
+,p_is_persistent=>'N'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'N'
+,p_attribute_02=>'POPUP'
+,p_attribute_03=>'NONE'
+,p_attribute_06=>'NONE'
+,p_attribute_09=>'N'
+,p_attribute_11=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9731325154009015)
+,p_name=>'P105_END_AT'
+,p_source_data_type=>'DATE'
+,p_is_required=>true
+,p_item_sequence=>40
+,p_item_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_item_source_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_prompt=>'End At'
+,p_format_mask=>'YYYY-MM-DD'
+,p_source=>'END_AT'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_DATE_PICKER_APEX'
+,p_cSize=>30
+,p_begin_on_new_line=>'N'
+,p_field_template=>wwv_flow_imp.id(45554742274075318)
+,p_item_template_options=>'#DEFAULT#'
+,p_is_persistent=>'N'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'N'
+,p_attribute_02=>'POPUP'
+,p_attribute_03=>'NONE'
+,p_attribute_06=>'NONE'
+,p_attribute_09=>'N'
+,p_attribute_11=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9731432451009016)
+,p_name=>'P105_CREATED_BY'
+,p_source_data_type=>'VARCHAR2'
+,p_item_sequence=>50
+,p_item_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_item_source_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_source=>'CREATED_BY'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_is_persistent=>'N'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9731529501009017)
+,p_name=>'P105_CREATED_AT'
+,p_source_data_type=>'DATE'
+,p_item_sequence=>60
+,p_item_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_item_source_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_source=>'CREATED_AT'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_is_persistent=>'N'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'Y'
 );
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(37801016877944245)
@@ -97,6 +235,27 @@ wwv_flow_imp_page.create_page_da_action(
 ,p_action_sequence=>10
 ,p_execute_on_page_init=>'N'
 ,p_action=>'NATIVE_DIALOG_CLOSE'
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(9731655903009018)
+,p_process_sequence=>10
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_INVOKE_API'
+,p_process_name=>'SAVE_FORM'
+,p_attribute_01=>'PLSQL_PACKAGE'
+,p_attribute_03=>'TRP_APP'
+,p_attribute_04=>'SAVE_TRIPS'
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_internal_uid=>9731655903009018
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(9730922610009011)
+,p_process_sequence=>10
+,p_process_point=>'BEFORE_HEADER'
+,p_region_id=>wwv_flow_imp.id(37800608877944241)
+,p_process_type=>'NATIVE_FORM_INIT'
+,p_process_name=>'Initialize form Add Trip'
+,p_internal_uid=>9730922610009011
 );
 wwv_flow_imp.component_end;
 end;

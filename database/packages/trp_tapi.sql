@@ -30,6 +30,10 @@ CREATE OR REPLACE PACKAGE BODY trp_tapi as
         -- overwrite some values
         rec.created_by      := NVL(rec.created_by, core.get_user_id());
         rec.created_at      := NVL(rec.created_at, SYSDATE);
+        --
+        IF rec.trip_id IS NULL THEN
+            rec.trip_id := trp_trip_id.NEXTVAL;
+        END IF;
 
         -- upsert record
         UPDATE trp_trips t

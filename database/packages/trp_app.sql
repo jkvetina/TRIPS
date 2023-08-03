@@ -6,10 +6,17 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
         in_action           CONSTANT CHAR := core.get_grid_action();
     BEGIN
         -- change record in table
-        rec.trip_id         := core.get_grid_data('TRIP_ID');
-        rec.trip_name       := core.get_grid_data('TRIP_NAME');
-        rec.start_at        := core.get_date(core.get_grid_data('START_AT'));
-        rec.end_at          := core.get_date(core.get_grid_data('END_AT'));
+        IF core.get_page_id() = 105 THEN
+            rec.trip_id         := core.get_number_item('$TRIP_ID');
+            rec.trip_name       := core.get_item('$TRIP_NAME');
+            rec.start_at        := core.get_date_item('$START_AT');
+            rec.end_at          := core.get_date_item('$END_AT');
+        ELSE
+            rec.trip_id         := core.get_grid_data('TRIP_ID');
+            rec.trip_name       := core.get_grid_data('TRIP_NAME');
+            rec.start_at        := core.get_date(core.get_grid_data('START_AT'));
+            rec.end_at          := core.get_date(core.get_grid_data('END_AT'));
+        END IF;
         --
         TRP_TAPI.save_trips (rec,
             in_action           => in_action,
@@ -21,7 +28,11 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
         END IF;
 
         -- update primary key back to APEX grid for proper row refresh
-        core.set_grid_data('OLD_TRIP_ID',       rec.trip_id);
+        IF core.get_page_id() = 105 THEN
+            core.set_item('$TRIP_ID', rec.trip_id);
+        ELSE
+            core.set_grid_data('OLD_TRIP_ID',       rec.trip_id);
+        END IF;
     EXCEPTION
     WHEN core.app_exception THEN
         RAISE;

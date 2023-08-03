@@ -33,16 +33,16 @@ prompt APPLICATION 765 - Trips Planning
 -- Application Export:
 --   Application:     765
 --   Name:            Trips Planning
---   Date and Time:   20:40 Středa Srpen 2, 2023
+--   Date and Time:   15:16 Čtvrtek Srpen 3, 2023
 --   Exported By:     APPS
 --   Flashback:       0
 --   Export Type:     Application Export
---     Pages:                      5
---       Items:                   14
+--     Pages:                      6
+--       Items:                   20
 --       Computations:             1
---       Processes:                9
---       Regions:                 16
---       Buttons:                  5
+--       Processes:               11
+--       Regions:                 18
+--       Buttons:                  7
 --       Dynamic Actions:         12
 --     Shared Components:
 --       Logic:
@@ -64,7 +64,7 @@ prompt APPLICATION 765 - Trips Planning
 --           Breadcrumb:           1
 --           Button:               3
 --           Report:              12
---         LOVs:                   4
+--         LOVs:                   3
 --       PWA:
 --       Globalization:
 --       Reports:
@@ -111,7 +111,7 @@ wwv_imp_workspace.create_flow(
 ,p_public_user=>'APEX_PUBLIC_USER'
 ,p_proxy_server=>nvl(wwv_flow_application_install.get_proxy,'')
 ,p_no_proxy_domains=>nvl(wwv_flow_application_install.get_no_proxy_domains,'')
-,p_flow_version=>'2023-08-02'
+,p_flow_version=>'2023-08-03'
 ,p_flow_status=>'AVAILABLE_W_EDIT_LINK'
 ,p_flow_unavailable_text=>'This application is currently unavailable at this time.'
 ,p_exact_substitutions_only=>'Y'
@@ -617,21 +617,6 @@ wwv_flow_imp_shared.create_list_of_values(
 );
 end;
 /
-prompt --application/shared_components/user_interface/lovs/lov_trips
-begin
-wwv_flow_imp_shared.create_list_of_values(
- p_id=>wwv_flow_imp.id(9328350606152164)  -- LOV_TRIPS
-,p_lov_name=>'LOV_TRIPS'
-,p_source_type=>'TABLE'
-,p_location=>'LOCAL'
-,p_query_table=>'TRP_TRIPS'
-,p_return_column_name=>'TRIP_ID'
-,p_display_column_name=>'TRIP_NAME'
-,p_default_sort_column_name=>'TRIP_NAME'
-,p_default_sort_direction=>'ASC'
-);
-end;
-/
 prompt --application/shared_components/user_interface/lovs/master_lov_applications
 begin
 wwv_flow_imp_shared.create_list_of_values(
@@ -677,6 +662,10 @@ wwv_flow_imp_page.create_page_group(
 wwv_flow_imp_page.create_page_group(
  p_id=>wwv_flow_imp.id(53537085390676579)  -- ADMIN
 ,p_group_name=>'ADMIN'
+);
+wwv_flow_imp_page.create_page_group(
+ p_id=>wwv_flow_imp.id(9775084414340395)  -- _ABOUT
+,p_group_name=>'_ABOUT'
 );
 wwv_flow_imp_page.create_page_group(
  p_id=>wwv_flow_imp.id(9548806082891001)  -- _INTERNAL
@@ -15378,22 +15367,17 @@ wwv_flow_imp_page.create_region_column(
 ,p_source_type=>'DB_COLUMN'
 ,p_source_expression=>'TRIP_ID'
 ,p_data_type=>'NUMBER'
+,p_session_state_data_type=>'VARCHAR2'
 ,p_is_query_only=>false
-,p_item_type=>'NATIVE_SELECT_LIST'
+,p_item_type=>'NATIVE_DISPLAY_ONLY'
 ,p_heading=>'Trip Id'
 ,p_heading_alignment=>'LEFT'
 ,p_display_sequence=>50
 ,p_value_alignment=>'LEFT'
-,p_is_required=>true
-,p_lov_type=>'SHARED'
-,p_lov_id=>wwv_flow_imp.id(9328350606152164)  -- LOV_TRIPS
-,p_lov_display_extra=>false
-,p_lov_display_null=>true
+,p_attribute_02=>'VALUE'
+,p_attribute_05=>'PLAIN'
 ,p_enable_filter=>true
-,p_filter_operators=>'C:S:CASE_INSENSITIVE:REGEXP'
 ,p_filter_is_required=>false
-,p_filter_text_case=>'MIXED'
-,p_filter_exact_match=>true
 ,p_filter_lov_type=>'LOV'
 ,p_use_as_row_header=>false
 ,p_enable_sort_group=>true
@@ -16724,17 +16708,18 @@ wwv_flow_imp_page.create_region_column(
 ,p_data_type=>'NUMBER'
 ,p_session_state_data_type=>'VARCHAR2'
 ,p_is_query_only=>false
-,p_item_type=>'NATIVE_NUMBER_FIELD'
+,p_item_type=>'NATIVE_DISPLAY_ONLY'
 ,p_heading=>'Trip Id'
 ,p_heading_alignment=>'RIGHT'
 ,p_display_sequence=>40
 ,p_value_alignment=>'RIGHT'
-,p_attribute_03=>'left'
-,p_attribute_04=>'decimal'
-,p_is_required=>true
+,p_attribute_02=>'VALUE'
+,p_attribute_05=>'PLAIN'
+,p_link_target=>'f?p=&APP_ID.:105:&SESSION.::&DEBUG.:105:P105_TRIP_ID:&OLD_TRIP_ID.'
+,p_link_text=>'&TRIP_ID.'
 ,p_enable_filter=>true
 ,p_filter_is_required=>false
-,p_filter_lov_type=>'NONE'
+,p_filter_lov_type=>'LOV'
 ,p_use_as_row_header=>false
 ,p_enable_sort_group=>true
 ,p_enable_control_break=>true
@@ -16940,7 +16925,7 @@ wwv_flow_imp_page.create_ig_report_view(
 wwv_flow_imp_page.create_ig_report_column(
  p_id=>wwv_flow_imp.id(19440997163802246)
 ,p_view_id=>wwv_flow_imp.id(28666212134668364)
-,p_display_seq=>9
+,p_display_seq=>8
 ,p_column_id=>wwv_flow_imp.id(19059246412179619)
 ,p_is_visible=>true
 ,p_is_frozen=>false
@@ -16972,6 +16957,7 @@ wwv_flow_imp_page.create_ig_report_column(
 ,p_column_id=>wwv_flow_imp.id(28655209953461860)
 ,p_is_visible=>true
 ,p_is_frozen=>false
+,p_width=>180
 );
 wwv_flow_imp_page.create_ig_report_column(
  p_id=>wwv_flow_imp.id(28670864415668388)
@@ -16980,6 +16966,7 @@ wwv_flow_imp_page.create_ig_report_column(
 ,p_column_id=>wwv_flow_imp.id(28655390743461861)
 ,p_is_visible=>true
 ,p_is_frozen=>false
+,p_width=>180
 );
 wwv_flow_imp_page.create_ig_report_column(
  p_id=>wwv_flow_imp.id(28672607447668394)
@@ -16992,7 +16979,7 @@ wwv_flow_imp_page.create_ig_report_column(
 wwv_flow_imp_page.create_ig_report_column(
  p_id=>wwv_flow_imp.id(28908359144148902)
 ,p_view_id=>wwv_flow_imp.id(28666212134668364)
-,p_display_seq=>7
+,p_display_seq=>6
 ,p_column_id=>wwv_flow_imp.id(28696456878768493)
 ,p_is_visible=>true
 ,p_is_frozen=>false
@@ -17000,7 +16987,7 @@ wwv_flow_imp_page.create_ig_report_column(
 wwv_flow_imp_page.create_ig_report_column(
  p_id=>wwv_flow_imp.id(28909224370148907)
 ,p_view_id=>wwv_flow_imp.id(28666212134668364)
-,p_display_seq=>8
+,p_display_seq=>7
 ,p_column_id=>wwv_flow_imp.id(28696514129768494)
 ,p_is_visible=>true
 ,p_is_frozen=>false
@@ -17019,6 +17006,19 @@ wwv_flow_imp_page.create_page_button(
 ,p_warn_on_unsaved_changes=>null
 ,p_icon_css_classes=>'fa-arrow-left'
 ,p_button_cattributes=>'&P100_DAY_PREV_ATTR.'
+);
+wwv_flow_imp_page.create_page_button(
+ p_id=>wwv_flow_imp.id(9730710442009009)
+,p_button_sequence=>10
+,p_button_plug_id=>wwv_flow_imp.id(9730189450009003)
+,p_button_name=>'ADD_TRIP'
+,p_button_action=>'REDIRECT_PAGE'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_imp.id(45556489878075320)
+,p_button_image_alt=>'Add Trip'
+,p_button_position=>'RIGHT_OF_TITLE'
+,p_button_redirect_url=>'f?p=&APP_ID.:105:&SESSION.::&DEBUG.:105::'
+,p_icon_css_classes=>'fa-plus'
 );
 wwv_flow_imp_page.create_page_button(
  p_id=>wwv_flow_imp.id(9331119602174717)
@@ -17319,13 +17319,14 @@ prompt --application/pages/page_00105
 begin
 wwv_flow_imp_page.create_page(
  p_id=>105
-,p_name=>'MODAL DIALOG TEMPLATE'
-,p_alias=>'MODAL-DIALOG-TEMPLATE'
+,p_name=>'Add Trip'
+,p_alias=>'ADD-TRIP'
 ,p_page_mode=>'MODAL'
-,p_step_title=>'MODAL DIALOG TEMPLATE'
+,p_step_title=>'Add Trip'
 ,p_autocomplete_on_off=>'OFF'
-,p_group_id=>wwv_flow_imp.id(9548806082891001)  -- _INTERNAL
+,p_group_id=>wwv_flow_imp.id(53536909635676125)  --  MAIN
 ,p_page_template_options=>'#DEFAULT#'
+,p_dialog_chained=>'N'
 ,p_protection_level=>'C'
 ,p_page_component_map=>'17'
 ,p_last_updated_by=>'DEV'
@@ -17343,13 +17344,32 @@ wwv_flow_imp_page.create_page_plug(
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(37800608877944241)
-,p_plug_name=>'CONTENT'
+,p_plug_name=>'[FORM]'
 ,p_region_template_options=>'#DEFAULT#'
 ,p_plug_template=>wwv_flow_imp.id(45418266646075228)
 ,p_plug_display_sequence=>20
 ,p_include_in_reg_disp_sel_yn=>'Y'
-,p_attribute_01=>'N'
-,p_attribute_02=>'HTML'
+,p_query_type=>'TABLE'
+,p_query_table=>'TRP_TRIPS'
+,p_include_rowid_column=>false
+,p_is_editable=>true
+,p_edit_operations=>'i:u'
+,p_lost_update_check_type=>'VALUES'
+,p_plug_source_type=>'NATIVE_FORM'
+);
+wwv_flow_imp_page.create_page_button(
+ p_id=>wwv_flow_imp.id(9731761657009019)
+,p_button_sequence=>70
+,p_button_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_button_name=>'CREATE_TRIP'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_imp.id(45557146799075321)
+,p_button_is_hot=>'Y'
+,p_button_image_alt=>'Create Trip'
+,p_button_position=>'NEXT'
+,p_button_css_classes=>'u-pullRight'
+,p_database_action=>'INSERT'
 );
 wwv_flow_imp_page.create_page_button(
  p_id=>wwv_flow_imp.id(37800652906944242)
@@ -17365,6 +17385,124 @@ wwv_flow_imp_page.create_page_button(
 ,p_warn_on_unsaved_changes=>null
 ,p_button_css_classes=>'u-pullRight'
 ,p_icon_css_classes=>'fa-times'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9731015572009012)
+,p_name=>'P105_TRIP_ID'
+,p_source_data_type=>'NUMBER'
+,p_is_primary_key=>true
+,p_item_sequence=>10
+,p_item_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_item_source_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_source=>'TRIP_ID'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_is_persistent=>'N'
+,p_protection_level=>'S'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9731179405009013)
+,p_name=>'P105_TRIP_NAME'
+,p_source_data_type=>'VARCHAR2'
+,p_is_required=>true
+,p_item_sequence=>20
+,p_item_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_item_source_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_prompt=>'Trip Name'
+,p_source=>'TRIP_NAME'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_TEXT_FIELD'
+,p_cSize=>30
+,p_cMaxlength=>128
+,p_field_template=>wwv_flow_imp.id(45554742274075318)
+,p_item_template_options=>'#DEFAULT#'
+,p_is_persistent=>'N'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'N'
+,p_attribute_02=>'N'
+,p_attribute_04=>'TEXT'
+,p_attribute_05=>'BOTH'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9731279509009014)
+,p_name=>'P105_START_AT'
+,p_source_data_type=>'DATE'
+,p_is_required=>true
+,p_item_sequence=>30
+,p_item_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_item_source_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_prompt=>'Start At'
+,p_format_mask=>'YYYY-MM-DD'
+,p_source=>'START_AT'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_DATE_PICKER_APEX'
+,p_cSize=>30
+,p_field_template=>wwv_flow_imp.id(45554742274075318)
+,p_item_template_options=>'#DEFAULT#'
+,p_is_persistent=>'N'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'N'
+,p_attribute_02=>'POPUP'
+,p_attribute_03=>'NONE'
+,p_attribute_06=>'NONE'
+,p_attribute_09=>'N'
+,p_attribute_11=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9731325154009015)
+,p_name=>'P105_END_AT'
+,p_source_data_type=>'DATE'
+,p_is_required=>true
+,p_item_sequence=>40
+,p_item_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_item_source_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_prompt=>'End At'
+,p_format_mask=>'YYYY-MM-DD'
+,p_source=>'END_AT'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_DATE_PICKER_APEX'
+,p_cSize=>30
+,p_begin_on_new_line=>'N'
+,p_field_template=>wwv_flow_imp.id(45554742274075318)
+,p_item_template_options=>'#DEFAULT#'
+,p_is_persistent=>'N'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'N'
+,p_attribute_02=>'POPUP'
+,p_attribute_03=>'NONE'
+,p_attribute_06=>'NONE'
+,p_attribute_09=>'N'
+,p_attribute_11=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9731432451009016)
+,p_name=>'P105_CREATED_BY'
+,p_source_data_type=>'VARCHAR2'
+,p_item_sequence=>50
+,p_item_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_item_source_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_source=>'CREATED_BY'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_is_persistent=>'N'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9731529501009017)
+,p_name=>'P105_CREATED_AT'
+,p_source_data_type=>'DATE'
+,p_item_sequence=>60
+,p_item_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_item_source_plug_id=>wwv_flow_imp.id(37800608877944241)
+,p_source=>'CREATED_AT'
+,p_source_type=>'REGION_SOURCE_COLUMN'
+,p_display_as=>'NATIVE_HIDDEN'
+,p_is_persistent=>'N'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'Y'
 );
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(37801016877944245)
@@ -17404,13 +17542,34 @@ wwv_flow_imp_page.create_page_da_action(
 ,p_execute_on_page_init=>'N'
 ,p_action=>'NATIVE_DIALOG_CLOSE'
 );
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(9731655903009018)
+,p_process_sequence=>10
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_INVOKE_API'
+,p_process_name=>'SAVE_FORM'
+,p_attribute_01=>'PLSQL_PACKAGE'
+,p_attribute_03=>'TRP_APP'
+,p_attribute_04=>'SAVE_TRIPS'
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_internal_uid=>9731655903009018
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(9730922610009011)
+,p_process_sequence=>10
+,p_process_point=>'BEFORE_HEADER'
+,p_region_id=>wwv_flow_imp.id(37800608877944241)
+,p_process_type=>'NATIVE_FORM_INIT'
+,p_process_name=>'Initialize form Add Trip'
+,p_internal_uid=>9730922610009011
+);
 end;
 /
 prompt --application/pages/page_00200
 begin
 wwv_flow_imp_page.create_page(
  p_id=>200
-,p_name=>'#fa-wrench Setup'
+,p_name=>'#fa-wrench'
 ,p_alias=>'SETUP'
 ,p_step_title=>'Setup'
 ,p_autocomplete_on_off=>'OFF'
@@ -17868,6 +18027,53 @@ wwv_flow_imp_page.create_page_process(
 ,p_attribute_04=>'SAVE_CATEGORIES'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_internal_uid=>9591615170532973
+);
+end;
+/
+prompt --application/pages/page_00980
+begin
+wwv_flow_imp_page.create_page(
+ p_id=>980
+,p_name=>'#fa-question-circle'
+,p_alias=>'HELP'
+,p_page_mode=>'MODAL'
+,p_step_title=>'Help'
+,p_autocomplete_on_off=>'OFF'
+,p_inline_css=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'ol li {',
+'  line-height: 200%;',
+'}'))
+,p_step_template=>wwv_flow_imp.id(45378986090075202)
+,p_page_template_options=>'#DEFAULT#:js-dialog-class-t-Drawer--pullOutEnd:js-dialog-class-t-Drawer--md'
+,p_protection_level=>'C'
+,p_page_component_map=>'11'
+,p_last_updated_by=>'DEV'
+,p_last_upd_yyyymmddhh24miss=>'20220101000000'
+);
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(9730589196009007)
+,p_plug_name=>'How to use the app'
+,p_region_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_imp.id(45451267875075251)
+,p_plug_display_sequence=>10
+,p_attribute_01=>'N'
+,p_attribute_02=>'HTML'
+);
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(9730648793009008)
+,p_plug_name=>'[CONTENT]'
+,p_region_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_imp.id(45418266646075228)
+,p_plug_display_sequence=>20
+,p_plug_source=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'<ol>',
+'<li>create a trip on the Trips Planning page</li>',
+'<li>fill in the itinerary</li>',
+'<li>check your trip in the chart</li>',
+'</ol>',
+''))
+,p_attribute_01=>'N'
+,p_attribute_02=>'HTML'
 );
 end;
 /
