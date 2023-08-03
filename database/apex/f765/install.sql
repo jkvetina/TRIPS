@@ -112,6 +112,7 @@ prompt --install
 @@application/pages/page_00000.sql
 @@application/pages/page_00100.sql
 @@application/pages/page_00105.sql
+@@application/pages/page_00110.sql
 @@application/pages/page_00200.sql
 @@application/pages/page_00980.sql
 @@application/pages/page_09999.sql
