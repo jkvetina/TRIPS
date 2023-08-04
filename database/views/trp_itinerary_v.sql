@@ -62,6 +62,10 @@ SELECT
     NULL                AS css_class
 FROM trp_categories c
 CROSS JOIN d
+WHERE c.category_id IN (
+    SELECT t.category_id
+    FROM t
+)
 UNION ALL
 SELECT
     t.trip_id,
