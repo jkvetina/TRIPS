@@ -33,17 +33,17 @@ prompt APPLICATION 765 - Trips Planning
 -- Application Export:
 --   Application:     765
 --   Name:            Trips Planning
---   Date and Time:   06:22 Pátek Srpen 4, 2023
+--   Date and Time:   21:26 Pátek Srpen 4, 2023
 --   Exported By:     APPS
 --   Flashback:       0
 --   Export Type:     Application Export
 --     Pages:                      7
---       Items:                   35
---       Computations:             2
---       Processes:               14
+--       Items:                   36
+--       Computations:             3
+--       Processes:               16
 --       Regions:                 20
 --       Buttons:                 10
---       Dynamic Actions:         14
+--       Dynamic Actions:         16
 --     Shared Components:
 --       Logic:
 --         Build Options:          1
@@ -15200,6 +15200,7 @@ wwv_flow_imp_page.create_page_plug(
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(8772187965122239)
 ,p_plug_name=>'Gantt [CHART]'
+,p_region_name=>'GANTT_CHART'
 ,p_parent_plug_id=>wwv_flow_imp.id(9334408323174750)
 ,p_region_template_options=>'#DEFAULT#:margin-top-md:margin-bottom-lg'
 ,p_escape_on_http_output=>'Y'
@@ -15221,7 +15222,7 @@ wwv_flow_imp_page.create_jet_chart(
  p_id=>wwv_flow_imp.id(8772256501122240)
 ,p_region_id=>wwv_flow_imp.id(8772187965122239)
 ,p_chart_type=>'gantt'
-,p_height=>'415'
+,p_height=>'70'
 ,p_animation_on_display=>'none'
 ,p_animation_on_data_change=>'none'
 ,p_tooltip_rendered=>'Y'
@@ -17300,6 +17301,7 @@ wwv_flow_imp_page.create_page_da_action(
 ,p_execute_on_page_init=>'N'
 ,p_action=>'NATIVE_JAVASCRIPT_CODE'
 ,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'// open modal dialog with detail',
 'var data = this.data;',
 'if (data.option === "selection" && data.value[0] !== undefined) {',
 '    var trip_id = apex.item(''P100_TRIP_ID'').getValue();',
@@ -17318,6 +17320,78 @@ wwv_flow_imp_page.create_page_da_action(
 '    });',
 '}',
 ''))
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(9733317722009035)
+,p_name=>'DETECT_MODAL_CLOSED'
+,p_event_sequence=>80
+,p_triggering_element_type=>'JAVASCRIPT_EXPRESSION'
+,p_triggering_element=>'window'
+,p_bind_type=>'bind'
+,p_execution_type=>'IMMEDIATE'
+,p_bind_event_type=>'apexafterclosedialog'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(9733434759009036)
+,p_event_id=>wwv_flow_imp.id(9733317722009035)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_REFRESH'
+,p_affected_elements_type=>'REGION'
+,p_affected_region_id=>wwv_flow_imp.id(8772187965122239)
+);
+end;
+/
+begin
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(9733599336009037)
+,p_event_id=>wwv_flow_imp.id(9733317722009035)
+,p_event_result=>'TRUE'
+,p_action_sequence=>20
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_REFRESH'
+,p_affected_elements_type=>'REGION'
+,p_affected_region_id=>wwv_flow_imp.id(9294939246868134)
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(9734175069009043)
+,p_name=>'GANTT_REFRESHED'
+,p_event_sequence=>90
+,p_triggering_element_type=>'REGION'
+,p_triggering_region_id=>wwv_flow_imp.id(8772187965122239)
+,p_bind_type=>'bind'
+,p_execution_type=>'IMMEDIATE'
+,p_bind_event_type=>'apexafterrefresh'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(9734288830009044)
+,p_event_id=>wwv_flow_imp.id(9734175069009043)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_JAVASCRIPT_CODE'
+,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'// adjust gantt chart height',
+'try {',
+'    var chart_id    = ''GANTT_CHART'';',
+'    var trip_id     = apex.item(''P100_TRIP_ID'').getValue();',
+'    //',
+'    apex.server.process(''GET_LINES'', {',
+'        x01: trip_id',
+'    },',
+'    {',
+'        dataType: ''text'',',
+'        success: function(lines) {',
+'            var height = 70 + (49 * lines);',
+'            console.log(''Refreshing'', chart_id, height);',
+'            $(''#'' + chart_id + ''_jet'').css(''height'', height);',
+'        }',
+'    });',
+'}',
+'catch (err) {',
+'    console.error(''ERROR'', err);',
+'}'))
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(9296199874868146)
@@ -17345,9 +17419,6 @@ wwv_flow_imp_page.create_page_process(
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_internal_uid=>9729659983006805
 );
-end;
-/
-begin
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(9333255610174738)
 ,p_process_sequence=>10
@@ -17385,6 +17456,23 @@ wwv_flow_imp_page.create_page_process(
 ''))
 ,p_process_clob_language=>'PLSQL'
 ,p_internal_uid=>9733243456009034
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(9734359983009045)
+,p_process_sequence=>20
+,p_process_point=>'ON_DEMAND'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'GET_LINES'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'FOR c IN (',
+'    SELECT COUNT(DISTINCT category_name) AS lines',
+'    FROM trp_itinerary_v',
+') LOOP',
+'    HTP.P(c.lines);',
+'END LOOP;',
+''))
+,p_process_clob_language=>'PLSQL'
+,p_internal_uid=>9734359983009045
 );
 end;
 /
@@ -17643,10 +17731,10 @@ prompt --application/pages/page_00110
 begin
 wwv_flow_imp_page.create_page(
  p_id=>110
-,p_name=>'Add Stop'
-,p_alias=>'ADD-STOP'
+,p_name=>'Add/Edit Stop'
+,p_alias=>'STOP'
 ,p_page_mode=>'MODAL'
-,p_step_title=>'Add Stop'
+,p_step_title=>'Add/Edit Stop'
 ,p_autocomplete_on_off=>'OFF'
 ,p_group_id=>wwv_flow_imp.id(53536909635676125)  --  MAIN
 ,p_page_template_options=>'#DEFAULT#'
@@ -17692,7 +17780,7 @@ wwv_flow_imp_page.create_page_button(
 ,p_button_template_options=>'#DEFAULT#'
 ,p_button_template_id=>wwv_flow_imp.id(45557146799075321)
 ,p_button_is_hot=>'Y'
-,p_button_image_alt=>'Create Stop'
+,p_button_image_alt=>'&P110_SUBMIT.'
 ,p_button_position=>'NEXT'
 ,p_button_css_classes=>'u-pullRight'
 ,p_database_action=>'INSERT'
@@ -17847,7 +17935,9 @@ wwv_flow_imp_page.create_page_item(
 ,p_field_template=>wwv_flow_imp.id(45554742274075318)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
-,p_attribute_01=>'Y'
+,p_attribute_01=>'N'
+,p_attribute_02=>'Y'
+,p_attribute_03=>'Y'
 );
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(9732938584009031)
@@ -17866,7 +17956,9 @@ wwv_flow_imp_page.create_page_item(
 ,p_field_template=>wwv_flow_imp.id(45554742274075318)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
-,p_attribute_01=>'Y'
+,p_attribute_01=>'N'
+,p_attribute_02=>'Y'
+,p_attribute_03=>'Y'
 );
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(9733096158009032)
@@ -17885,6 +17977,16 @@ wwv_flow_imp_page.create_page_item(
 ,p_field_template=>wwv_flow_imp.id(45554742274075318)
 ,p_item_template_options=>'#DEFAULT#'
 ,p_is_persistent=>'N'
+,p_attribute_01=>'N'
+,p_attribute_02=>'Y'
+,p_attribute_03=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9733887526009040)
+,p_name=>'P110_SUBMIT'
+,p_item_sequence=>30
+,p_item_plug_id=>wwv_flow_imp.id(47623340692696205)
+,p_display_as=>'NATIVE_HIDDEN'
 ,p_attribute_01=>'Y'
 );
 wwv_flow_imp_page.create_page_item(
@@ -17925,7 +18027,11 @@ wwv_flow_imp_page.create_page_item(
 ,p_attribute_03=>'NONE'
 ,p_attribute_06=>'NONE'
 ,p_attribute_09=>'N'
-,p_attribute_11=>'Y'
+,p_attribute_11=>'N'
+,p_attribute_12=>'MONTH-PICKER:YEAR-PICKER:TODAY-BUTTON'
+,p_attribute_13=>'VISIBLE'
+,p_attribute_14=>'5'
+,p_attribute_15=>'FOCUS'
 );
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(19556260801760987)
@@ -17950,7 +18056,11 @@ wwv_flow_imp_page.create_page_item(
 ,p_attribute_03=>'NONE'
 ,p_attribute_06=>'NONE'
 ,p_attribute_09=>'N'
-,p_attribute_11=>'Y'
+,p_attribute_11=>'N'
+,p_attribute_12=>'MONTH-PICKER:YEAR-PICKER:TODAY-BUTTON'
+,p_attribute_13=>'VISIBLE'
+,p_attribute_14=>'5'
+,p_attribute_15=>'FOCUS'
 );
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(19556368098760988)
@@ -17993,12 +18103,24 @@ wwv_flow_imp_page.create_page_computation(
 ,p_computation_sequence=>10
 ,p_computation_item=>'P110_HEADER'
 ,p_computation_point=>'BEFORE_BOX_BODY'
-,p_computation_type=>'QUERY'
+,p_computation_type=>'EXPRESSION'
+,p_computation_language=>'SQL'
 ,p_computation=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'SELECT p.page_name',
-'FROM apex_application_pages p',
-'WHERE p.application_id  = :APP_ID',
-'    AND p.page_id       = :APP_PAGE_ID;'))
+'CASE WHEN :P110_STOP_ID IS NULL',
+'    THEN ''Create Stop''',
+'    ELSE ''Update Stop'' END'))
+);
+wwv_flow_imp_page.create_page_computation(
+ p_id=>wwv_flow_imp.id(9733984898009041)
+,p_computation_sequence=>20
+,p_computation_item=>'P110_SUBMIT'
+,p_computation_point=>'BEFORE_BOX_BODY'
+,p_computation_type=>'EXPRESSION'
+,p_computation_language=>'SQL'
+,p_computation=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'CASE WHEN :P110_STOP_ID IS NULL',
+'    THEN ''Create Stop''',
+'    ELSE ''Update Stop'' END'))
 );
 wwv_flow_imp_page.create_page_da_event(
  p_id=>wwv_flow_imp.id(9829923777751977)
@@ -18026,9 +18148,18 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_name=>'SAVE_FORM'
 ,p_attribute_01=>'PLSQL_PACKAGE'
 ,p_attribute_03=>'TRP_APP'
-,p_attribute_04=>'SAVE_TRIPS'
+,p_attribute_04=>'SAVE_ITINERARY'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_internal_uid=>9829599713751976
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(9734022101009042)
+,p_process_sequence=>20
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_CLOSE_WINDOW'
+,p_process_name=>'CLOSE_DIALOG'
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_internal_uid=>9734022101009042
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(9828682198751975)
@@ -18036,7 +18167,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_point=>'BEFORE_HEADER'
 ,p_region_id=>wwv_flow_imp.id(47623496005696206)
 ,p_process_type=>'NATIVE_FORM_INIT'
-,p_process_name=>'Initialize form Add Trip'
+,p_process_name=>'INIT_FORM'
 ,p_internal_uid=>9828682198751975
 );
 end;

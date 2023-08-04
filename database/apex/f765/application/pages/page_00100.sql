@@ -53,6 +53,7 @@ wwv_flow_imp_page.create_page_plug(
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(8772187965122239)
 ,p_plug_name=>'Gantt [CHART]'
+,p_region_name=>'GANTT_CHART'
 ,p_parent_plug_id=>wwv_flow_imp.id(9334408323174750)
 ,p_region_template_options=>'#DEFAULT#:margin-top-md:margin-bottom-lg'
 ,p_escape_on_http_output=>'Y'
@@ -74,7 +75,7 @@ wwv_flow_imp_page.create_jet_chart(
  p_id=>wwv_flow_imp.id(8772256501122240)
 ,p_region_id=>wwv_flow_imp.id(8772187965122239)
 ,p_chart_type=>'gantt'
-,p_height=>'415'
+,p_height=>'70'
 ,p_animation_on_display=>'none'
 ,p_animation_on_data_change=>'none'
 ,p_tooltip_rendered=>'Y'
@@ -2162,6 +2163,7 @@ wwv_flow_imp_page.create_page_da_action(
 ,p_execute_on_page_init=>'N'
 ,p_action=>'NATIVE_JAVASCRIPT_CODE'
 ,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'// open modal dialog with detail',
 'var data = this.data;',
 'if (data.option === "selection" && data.value[0] !== undefined) {',
 '    var trip_id = apex.item(''P100_TRIP_ID'').getValue();',
@@ -2222,6 +2224,45 @@ wwv_flow_imp_page.create_page_da_action(
 ,p_action=>'NATIVE_REFRESH'
 ,p_affected_elements_type=>'REGION'
 ,p_affected_region_id=>wwv_flow_imp.id(9294939246868134)
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(9734175069009043)
+,p_name=>'GANTT_REFRESHED'
+,p_event_sequence=>90
+,p_triggering_element_type=>'REGION'
+,p_triggering_region_id=>wwv_flow_imp.id(8772187965122239)
+,p_bind_type=>'bind'
+,p_execution_type=>'IMMEDIATE'
+,p_bind_event_type=>'apexafterrefresh'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(9734288830009044)
+,p_event_id=>wwv_flow_imp.id(9734175069009043)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_JAVASCRIPT_CODE'
+,p_attribute_01=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'// adjust gantt chart height',
+'try {',
+'    var chart_id    = ''GANTT_CHART'';',
+'    var trip_id     = apex.item(''P100_TRIP_ID'').getValue();',
+'    //',
+'    apex.server.process(''GET_LINES'', {',
+'        x01: trip_id',
+'    },',
+'    {',
+'        dataType: ''text'',',
+'        success: function(lines) {',
+'            var height = 70 + (49 * lines);',
+'            console.log(''Refreshing'', chart_id, height);',
+'            $(''#'' + chart_id + ''_jet'').css(''height'', height);',
+'        }',
+'    });',
+'}',
+'catch (err) {',
+'    console.error(''ERROR'', err);',
+'}'))
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(9296199874868146)
@@ -2286,6 +2327,23 @@ wwv_flow_imp_page.create_page_process(
 ''))
 ,p_process_clob_language=>'PLSQL'
 ,p_internal_uid=>9733243456009034
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(9734359983009045)
+,p_process_sequence=>20
+,p_process_point=>'ON_DEMAND'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'GET_LINES'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'FOR c IN (',
+'    SELECT COUNT(DISTINCT category_name) AS lines',
+'    FROM trp_itinerary_v',
+') LOOP',
+'    HTP.P(c.lines);',
+'END LOOP;',
+''))
+,p_process_clob_language=>'PLSQL'
+,p_internal_uid=>9734359983009045
 );
 wwv_flow_imp.component_end;
 end;

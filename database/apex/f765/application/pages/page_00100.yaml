@@ -99,6 +99,7 @@ regions:
     landmark-type: Template Default
 
   advanced: 
+    static-id: GANTT_CHART
     region-display-selector: false
     exclude-title-from-translation: false
 
@@ -124,7 +125,7 @@ regions:
       type: Gantt
 
     layout: 
-      height: 415
+      height: 70
 
     settings: 
       show-horizontal-grid: true
@@ -2481,7 +2482,7 @@ buttons:
     action: Redirect to Page in this Application
     target: 
       url: 'f?p=&APP_ID.:110:&SESSION.::&DEBUG.:110:P110_TRIP_ID,P110_STOP_ID:&P100_TRIP_ID.,'
-      page: 110 # Add Stop
+      page: 110 # Add/Edit Stop
       clear-cache: 110
       values: 
         p110_trip_id: '&P100_TRIP_ID.'
@@ -2628,6 +2629,7 @@ dynamic-actions:
 
     settings: 
       code: |
+        // open modal dialog with detail
         var data = this.data;
         if (data.option === "selection" && data.value[0] !== undefined) {
             var trip_id = apex.item('P100_TRIP_ID').getValue();
@@ -2698,6 +2700,58 @@ dynamic-actions:
     execution: 
       sequence: 20
       event: DETECT_MODAL_CLOSED # 9733317722009035
+      fire-when-event-result-is: True
+      fire-on-initialization: false
+
+- # ====== Dynamic Action: GANTT_REFRESHED =====================
+  id: 9734175069009043
+  identification: 
+    name: GANTT_REFRESHED
+
+  execution: 
+    sequence: 90
+
+  when: 
+    event: EVENT.EVENT.FAMEWORK.APEXAFTERREFRESH
+    selection-type: Region
+    region: Gantt [CHART] # 8772187965122239
+
+  execution: 
+    event-scope: Static
+    type: Immediate
+
+  actions: 
+  - # ====== Action: Execute JavaScript Code =====================
+    id: 9734288830009044
+    identification: 
+      action: Execute JavaScript Code
+
+    settings: 
+      code: |
+        // adjust gantt chart height
+        try {
+            var chart_id    = 'GANTT_CHART';
+            var trip_id     = apex.item('P100_TRIP_ID').getValue();
+            //
+            apex.server.process('GET_LINES', {
+                x01: trip_id
+            },
+            {
+                dataType: 'text',
+                success: function(lines) {
+                    var height = 70 + (49 * lines);
+                    console.log('Refreshing', chart_id, height);
+                    $('#' + chart_id + '_jet').css('height', height);
+                }
+            });
+        }
+        catch (err) {
+            console.error('ERROR', err);
+        }
+
+    execution: 
+      sequence: 10
+      event: GANTT_REFRESHED # 9734175069009043
       fire-when-event-result-is: True
       fire-on-initialization: false
 
@@ -2907,6 +2961,30 @@ processes:
 
   execution: 
     sequence: 10
+    point: Ajax Callback
+    run-process: Once Per Page Visit (default)
+
+- # ====== Process: GET_LINES ==================================
+  id: 9734359983009045
+  identification: 
+    name: GET_LINES
+    type: Execute Code
+    execution-chain: None
+
+  source: 
+    location: Local Database
+    language: PL/SQL
+    pl/sql-code: |
+      FOR c IN (
+          SELECT COUNT(DISTINCT category_name) AS lines
+          FROM trp_itinerary_v
+      ) LOOP
+          HTP.P(c.lines);
+      END LOOP;
+      
+
+  execution: 
+    sequence: 20
     point: Ajax Callback
     run-process: Once Per Page Visit (default)
 
