@@ -2478,8 +2478,15 @@ buttons:
     icon: fa-plus
 
   behavior: 
-    action: Defined by Dynamic Action
-    execute-validations: true
+    action: Redirect to Page in this Application
+    target: 
+      url: 'f?p=&APP_ID.:110:&SESSION.::&DEBUG.:110:P110_TRIP_ID,P110_STOP_ID:&P100_TRIP_ID.,'
+      page: 110 # Add Stop
+      clear-cache: 110
+      values: 
+        p110_trip_id: '&P100_TRIP_ID.'
+
+    warn-on-unsaved-changes: Do Not Check
 
 dynamic-actions: 
 - # ====== Dynamic Action: CHANGED_FILTERS =====================
