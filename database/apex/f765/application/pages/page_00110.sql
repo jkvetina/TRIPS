@@ -13,10 +13,10 @@ wwv_flow_imp.component_begin (
 );
 wwv_flow_imp_page.create_page(
  p_id=>110
-,p_name=>'Add Stop'
-,p_alias=>'ADD-STOP'
+,p_name=>'Add/Edit Stop'
+,p_alias=>'STOP'
 ,p_page_mode=>'MODAL'
-,p_step_title=>'Add Stop'
+,p_step_title=>'Add/Edit Stop'
 ,p_autocomplete_on_off=>'OFF'
 ,p_group_id=>wwv_flow_imp.id(53536909635676125)  --  MAIN
 ,p_page_template_options=>'#DEFAULT#'
@@ -62,7 +62,7 @@ wwv_flow_imp_page.create_page_button(
 ,p_button_template_options=>'#DEFAULT#'
 ,p_button_template_id=>wwv_flow_imp.id(45557146799075321)
 ,p_button_is_hot=>'Y'
-,p_button_image_alt=>'Create Stop'
+,p_button_image_alt=>'&P110_SUBMIT.'
 ,p_button_position=>'NEXT'
 ,p_button_css_classes=>'u-pullRight'
 ,p_database_action=>'INSERT'
@@ -264,6 +264,14 @@ wwv_flow_imp_page.create_page_item(
 ,p_attribute_03=>'Y'
 );
 wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(9733887526009040)
+,p_name=>'P110_SUBMIT'
+,p_item_sequence=>30
+,p_item_plug_id=>wwv_flow_imp.id(47623340692696205)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_attribute_01=>'Y'
+);
+wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(19555951219760984)
 ,p_name=>'P110_TRIP_ID'
 ,p_source_data_type=>'NUMBER'
@@ -301,7 +309,11 @@ wwv_flow_imp_page.create_page_item(
 ,p_attribute_03=>'NONE'
 ,p_attribute_06=>'NONE'
 ,p_attribute_09=>'N'
-,p_attribute_11=>'Y'
+,p_attribute_11=>'N'
+,p_attribute_12=>'MONTH-PICKER:YEAR-PICKER:TODAY-BUTTON'
+,p_attribute_13=>'VISIBLE'
+,p_attribute_14=>'5'
+,p_attribute_15=>'FOCUS'
 );
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(19556260801760987)
@@ -326,7 +338,11 @@ wwv_flow_imp_page.create_page_item(
 ,p_attribute_03=>'NONE'
 ,p_attribute_06=>'NONE'
 ,p_attribute_09=>'N'
-,p_attribute_11=>'Y'
+,p_attribute_11=>'N'
+,p_attribute_12=>'MONTH-PICKER:YEAR-PICKER:TODAY-BUTTON'
+,p_attribute_13=>'VISIBLE'
+,p_attribute_14=>'5'
+,p_attribute_15=>'FOCUS'
 );
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(19556368098760988)
@@ -369,12 +385,24 @@ wwv_flow_imp_page.create_page_computation(
 ,p_computation_sequence=>10
 ,p_computation_item=>'P110_HEADER'
 ,p_computation_point=>'BEFORE_BOX_BODY'
-,p_computation_type=>'QUERY'
+,p_computation_type=>'EXPRESSION'
+,p_computation_language=>'SQL'
 ,p_computation=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'SELECT p.page_name',
-'FROM apex_application_pages p',
-'WHERE p.application_id  = :APP_ID',
-'    AND p.page_id       = :APP_PAGE_ID;'))
+'CASE WHEN :P110_STOP_ID IS NULL',
+'    THEN ''Create Stop''',
+'    ELSE ''Update Stop'' END'))
+);
+wwv_flow_imp_page.create_page_computation(
+ p_id=>wwv_flow_imp.id(9733984898009041)
+,p_computation_sequence=>20
+,p_computation_item=>'P110_SUBMIT'
+,p_computation_point=>'BEFORE_BOX_BODY'
+,p_computation_type=>'EXPRESSION'
+,p_computation_language=>'SQL'
+,p_computation=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'CASE WHEN :P110_STOP_ID IS NULL',
+'    THEN ''Create Stop''',
+'    ELSE ''Update Stop'' END'))
 );
 wwv_flow_imp_page.create_page_da_event(
  p_id=>wwv_flow_imp.id(9829923777751977)
@@ -402,9 +430,18 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_name=>'SAVE_FORM'
 ,p_attribute_01=>'PLSQL_PACKAGE'
 ,p_attribute_03=>'TRP_APP'
-,p_attribute_04=>'SAVE_TRIPS'
+,p_attribute_04=>'SAVE_ITINERARY'
 ,p_error_display_location=>'INLINE_IN_NOTIFICATION'
 ,p_internal_uid=>9829599713751976
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(9734022101009042)
+,p_process_sequence=>20
+,p_process_point=>'AFTER_SUBMIT'
+,p_process_type=>'NATIVE_CLOSE_WINDOW'
+,p_process_name=>'CLOSE_DIALOG'
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_internal_uid=>9734022101009042
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(9828682198751975)
@@ -412,7 +449,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_point=>'BEFORE_HEADER'
 ,p_region_id=>wwv_flow_imp.id(47623496005696206)
 ,p_process_type=>'NATIVE_FORM_INIT'
-,p_process_name=>'Initialize form Add Trip'
+,p_process_name=>'INIT_FORM'
 ,p_internal_uid=>9828682198751975
 );
 wwv_flow_imp.component_end;

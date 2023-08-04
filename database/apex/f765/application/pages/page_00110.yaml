@@ -1,10 +1,10 @@
 ---
-# ====== Page: Add Stop ======================================
+# ====== Page: Add/Edit Stop =================================
 id: 110
 identification: 
-  name: Add Stop
-  alias: ADD-STOP
-  title: Add Stop
+  name: Add/Edit Stop
+  alias: STOP
+  title: Add/Edit Stop
   page-group: ' MAIN' # 53536909635676125
 
 appearance: 
@@ -622,6 +622,36 @@ page-items:
     store-value-encrypted-in-session-state: true
     restricted-characters: All characters can be saved.
 
+- # ====== Page Item: P110_SUBMIT ==============================
+  id: 9733887526009040
+  identification: 
+    name: P110_SUBMIT
+    type: Hidden
+
+  settings: 
+    value-protected: true
+
+  layout: 
+    sequence: 30
+    region: '&P110_HEADER.' # 47623340692696205
+    position: BODY
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: Null
+    used: Only when current value in session state is null
+
+  session-state: 
+    data-type: VARCHAR2
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
 - # ====== Page Item: P110_TRIP_ID =============================
   id: 19555951219760984
   identification: 
@@ -671,7 +701,11 @@ page-items:
     minimum-date: None
     maximum-date: None
     multiple-months: No
-    use-defaults: true
+    use-defaults: false
+    appearance-&-behavior: 'MONTH-PICKER:YEAR-PICKER:TODAY-BUTTON'
+    days-outside-month: Visible
+    time-increment: 5
+    show-on: Item Focus
 
   layout: 
     sequence: 60
@@ -732,7 +766,11 @@ page-items:
     minimum-date: None
     maximum-date: None
     multiple-months: No
-    use-defaults: true
+    use-defaults: false
+    appearance-&-behavior: 'MONTH-PICKER:YEAR-PICKER:TODAY-BUTTON'
+    days-outside-month: Visible
+    time-increment: 5
+    show-on: Item Focus
 
   layout: 
     sequence: 70
@@ -907,7 +945,7 @@ buttons:
   id: 9824541315751971
   identification: 
     button-name: CREATE_STOP
-    label: Create Stop
+    label: '&P110_SUBMIT.'
 
   layout: 
     sequence: 70
@@ -964,6 +1002,23 @@ dynamic-actions:
       fire-on-initialization: false
 
 computations: 
+- # ====== Computation: P110_SUBMIT ============================
+  id: 9733984898009041
+  identification: 
+    item-name: P110_SUBMIT
+
+  execution: 
+    sequence: 20
+    point: Before Regions
+
+  computation: 
+    type: Expression
+    language: SQL
+    sql-expression: |
+      CASE WHEN :P110_STOP_ID IS NULL
+          THEN 'Create Stop'
+          ELSE 'Update Stop' END
+
 - # ====== Computation: P110_HEADER ============================
   id: 9829226981751976
   identification: 
@@ -974,18 +1029,33 @@ computations:
     point: Before Regions
 
   computation: 
-    type: SQL Query (return single value)
-    sql-query: |
-      SELECT p.page_name
-      FROM apex_application_pages p
-      WHERE p.application_id  = :APP_ID
-          AND p.page_id       = :APP_PAGE_ID;
+    type: Expression
+    language: SQL
+    sql-expression: |
+      CASE WHEN :P110_STOP_ID IS NULL
+          THEN 'Create Stop'
+          ELSE 'Update Stop' END
 
 processes: 
-- # ====== Process: Initialize form Add Trip ===================
+- # ====== Process: CLOSE_DIALOG ===============================
+  id: 9734022101009042
+  identification: 
+    name: CLOSE_DIALOG
+    type: Close Dialog
+    execution-chain: None
+
+  execution: 
+    sequence: 20
+    point: Processing
+    run-process: Once Per Page Visit (default)
+
+  error: 
+    display-location: Inline in Notification
+
+- # ====== Process: INIT_FORM ==================================
   id: 9828682198751975
   identification: 
-    name: Initialize form Add Trip
+    name: INIT_FORM
     type: Form - Initialization
     execution-chain: None
     form-region: '[FORM]' # 47623496005696206
@@ -1006,7 +1076,7 @@ processes:
     type: PL/SQL Package
     owner: PARSING SCHEMA
     package: TRP_APP
-    procedure-or-function: SAVE_TRIPS
+    procedure-or-function: SAVE_ITINERARY
 
   execution: 
     sequence: 10
