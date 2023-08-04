@@ -474,7 +474,9 @@ page-items:
     alignment: Left
 
   settings: 
-    use-defaults: true
+    use-defaults: false
+    on-value: Y
+    on-label: Y
 
   layout: 
     sequence: 120
@@ -525,7 +527,9 @@ page-items:
     alignment: Left
 
   settings: 
-    use-defaults: true
+    use-defaults: false
+    on-value: Y
+    on-label: Y
 
   layout: 
     sequence: 130
@@ -576,7 +580,9 @@ page-items:
     alignment: Left
 
   settings: 
-    use-defaults: true
+    use-defaults: false
+    on-value: Y
+    on-label: Y
 
   layout: 
     sequence: 140
