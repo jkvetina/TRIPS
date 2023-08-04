@@ -306,12 +306,12 @@ page-items:
     virtual-keyboard: Decimal
 
   layout: 
-    sequence: 100
+    sequence: 30
     region: '[FORM]' # 47623496005696206
     position: BODY
     alignment: Left
     start-new-layout: false
-    start-new-row: true
+    start-new-row: false
     column: Automatic
     new-column: true
     column-span: Automatic
@@ -427,7 +427,7 @@ page-items:
     position: BODY
     alignment: Left
     start-new-layout: false
-    start-new-row: false
+    start-new-row: true
     column: Automatic
     new-column: true
     column-span: Automatic
@@ -483,9 +483,9 @@ page-items:
     alignment: Left
     start-new-layout: false
     start-new-row: false
-    column: Automatic
+    column: 7
     new-column: true
-    column-span: Automatic
+    column-span: 2
     label-column-span: Page Template Default
 
   appearance: 
@@ -534,9 +534,9 @@ page-items:
     alignment: Left
     start-new-layout: false
     start-new-row: false
-    column: Automatic
-    new-column: false
-    column-span: Automatic
+    column: 9
+    new-column: true
+    column-span: 2
     label-column-span: Page Template Default
 
   appearance: 
@@ -585,9 +585,9 @@ page-items:
     alignment: Left
     start-new-layout: false
     start-new-row: false
-    column: Automatic
-    new-column: false
-    column-span: Automatic
+    column: 11
+    new-column: true
+    column-span: 2
     label-column-span: Page Template Default
 
   appearance: 
@@ -660,7 +660,7 @@ page-items:
     alignment: Left
 
   settings: 
-    show-time: false
+    show-time: true
     display-as: Popup
     minimum-date: None
     maximum-date: None
@@ -673,7 +673,7 @@ page-items:
     position: BODY
     alignment: Left
     start-new-layout: false
-    start-new-row: false
+    start-new-row: true
     column: Automatic
     new-column: true
     column-span: Automatic
@@ -721,7 +721,7 @@ page-items:
     alignment: Left
 
   settings: 
-    show-time: false
+    show-time: true
     display-as: Popup
     minimum-date: None
     maximum-date: None
