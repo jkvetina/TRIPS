@@ -2181,18 +2181,15 @@ wwv_flow_imp_page.create_page_da_action(
 '}',
 ''))
 );
-wwv_flow_imp_page.create_page_process(
- p_id=>wwv_flow_imp.id(9296199874868146)
-,p_process_sequence=>10
-,p_process_point=>'AFTER_SUBMIT'
-,p_region_id=>wwv_flow_imp.id(9294939246868134)
-,p_process_type=>'NATIVE_INVOKE_API'
-,p_process_name=>'SAVE_ITINERARY'
-,p_attribute_01=>'PLSQL_PACKAGE'
-,p_attribute_03=>'TRP_APP'
-,p_attribute_04=>'SAVE_ITINERARY'
-,p_error_display_location=>'INLINE_IN_NOTIFICATION'
-,p_internal_uid=>9296199874868146
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(9733317722009035)
+,p_name=>'DETECT_MODAL_CLOSED'
+,p_event_sequence=>80
+,p_triggering_element_type=>'JAVASCRIPT_EXPRESSION'
+,p_triggering_element=>'window'
+,p_bind_type=>'bind'
+,p_execution_type=>'IMMEDIATE'
+,p_bind_event_type=>'apexafterclosedialog'
 );
 wwv_flow_imp.component_end;
 end;
@@ -2205,6 +2202,39 @@ wwv_flow_imp.component_begin (
 ,p_default_application_id=>765
 ,p_default_id_offset=>59434108571287006
 ,p_default_owner=>'APPS'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(9733434759009036)
+,p_event_id=>wwv_flow_imp.id(9733317722009035)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_REFRESH'
+,p_affected_elements_type=>'REGION'
+,p_affected_region_id=>wwv_flow_imp.id(8772187965122239)
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(9733599336009037)
+,p_event_id=>wwv_flow_imp.id(9733317722009035)
+,p_event_result=>'TRUE'
+,p_action_sequence=>20
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_REFRESH'
+,p_affected_elements_type=>'REGION'
+,p_affected_region_id=>wwv_flow_imp.id(9294939246868134)
+);
+wwv_flow_imp_page.create_page_process(
+ p_id=>wwv_flow_imp.id(9296199874868146)
+,p_process_sequence=>10
+,p_process_point=>'AFTER_SUBMIT'
+,p_region_id=>wwv_flow_imp.id(9294939246868134)
+,p_process_type=>'NATIVE_INVOKE_API'
+,p_process_name=>'SAVE_ITINERARY'
+,p_attribute_01=>'PLSQL_PACKAGE'
+,p_attribute_03=>'TRP_APP'
+,p_attribute_04=>'SAVE_ITINERARY'
+,p_error_display_location=>'INLINE_IN_NOTIFICATION'
+,p_internal_uid=>9296199874868146
 );
 wwv_flow_imp_page.create_page_process(
  p_id=>wwv_flow_imp.id(9729659983006805)

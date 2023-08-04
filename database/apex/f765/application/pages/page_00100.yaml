@@ -2653,6 +2653,54 @@ dynamic-actions:
       fire-when-event-result-is: True
       fire-on-initialization: false
 
+- # ====== Dynamic Action: DETECT_MODAL_CLOSED =================
+  id: 9733317722009035
+  identification: 
+    name: DETECT_MODAL_CLOSED
+
+  execution: 
+    sequence: 80
+
+  when: 
+    event: EVENT.EVENT.FAMEWORK.APEXAFTERCLOSEDIALOG
+    selection-type: JavaScript Expression
+    javascript-expression: window
+
+  execution: 
+    event-scope: Static
+    type: Immediate
+
+  actions: 
+  - # ====== Action: Refresh =====================================
+    id: 9733434759009036
+    identification: 
+      action: Refresh
+
+    affected-elements: 
+      selection-type: Region
+      region: Gantt [CHART] # 8772187965122239
+
+    execution: 
+      sequence: 10
+      event: DETECT_MODAL_CLOSED # 9733317722009035
+      fire-when-event-result-is: True
+      fire-on-initialization: false
+
+  - # ====== Action: Refresh =====================================
+    id: 9733599336009037
+    identification: 
+      action: Refresh
+
+    affected-elements: 
+      selection-type: Region
+      region: Itinerary [GRID] # 9294939246868134
+
+    execution: 
+      sequence: 20
+      event: DETECT_MODAL_CLOSED # 9733317722009035
+      fire-when-event-result-is: True
+      fire-on-initialization: false
+
 - # ====== Dynamic Action: CHANGED_SET =========================
   id: 59359981130119663
   identification: 
