@@ -48,18 +48,33 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
         in_action           CONSTANT CHAR := core.get_grid_action();
     BEGIN
         -- change record in table
-        rec.trip_id         := core.get_grid_data('TRIP_ID');
-        rec.stop_id         := core.get_grid_data('STOP_ID');
-        rec.stop_name       := core.get_grid_data('STOP_NAME');
-        rec.category_id     := core.get_grid_data('CATEGORY_ID');
-        rec.price           := core.get_grid_data('PRICE');
-        rec.is_reserved     := core.get_grid_data('IS_RESERVED');
-        rec.is_paid         := core.get_grid_data('IS_PAID');
-        rec.is_pending      := core.get_grid_data('IS_PENDING');
-        rec.start_at        := core.get_date(core.get_grid_data('START_AT'));
-        rec.end_at          := core.get_date(core.get_grid_data('END_AT'));
-        rec.notes           := core.get_grid_data('NOTES');
-        rec.color_fill      := core.get_grid_data('COLOR_FILL');
+        IF core.get_page_id() = 110 THEN
+            rec.trip_id         := core.get_number_item('$TRIP_ID');
+            rec.stop_id         := core.get_number_item('$STOP_ID');
+            rec.stop_name       := core.get_item('$STOP_NAME');
+            rec.category_id     := core.get_item('$CATEGORY_ID');
+            rec.price           := core.get_number_item('$PRICE');
+            rec.is_reserved     := NULLIF(core.get_item('$IS_RESERVED'), 'N');
+            rec.is_paid         := NULLIF(core.get_item('$IS_PAID'), 'N');
+            rec.is_pending      := NULLIF(core.get_item('$IS_PENDING'), 'N');
+            rec.start_at        := core.get_date_item('$START_AT');
+            rec.end_at          := core.get_date_item('$END_AT');
+            rec.notes           := core.get_item('$NOTES');
+            rec.color_fill      := core.get_item('$COLOR_FILL');
+        ELSE
+            rec.trip_id         := core.get_grid_data('TRIP_ID');
+            rec.stop_id         := core.get_grid_data('STOP_ID');
+            rec.stop_name       := core.get_grid_data('STOP_NAME');
+            rec.category_id     := core.get_grid_data('CATEGORY_ID');
+            rec.price           := core.get_grid_data('PRICE');
+            rec.is_reserved     := core.get_grid_data('IS_RESERVED');
+            rec.is_paid         := core.get_grid_data('IS_PAID');
+            rec.is_pending      := core.get_grid_data('IS_PENDING');
+            rec.start_at        := core.get_date(core.get_grid_data('START_AT'));
+            rec.end_at          := core.get_date(core.get_grid_data('END_AT'));
+            rec.notes           := core.get_grid_data('NOTES');
+            rec.color_fill      := core.get_grid_data('COLOR_FILL');
+        END IF;
         --
         trp_tapi.save_itinerary (rec,
             in_action           => in_action,
@@ -72,8 +87,13 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
         END IF;
 
         -- update primary key back to APEX grid for proper row refresh
-        core.set_grid_data('OLD_TRIP_ID',       rec.trip_id);
-        core.set_grid_data('OLD_STOP_ID',       rec.stop_id);
+        IF core.get_page_id() = 110 THEN
+            core.set_item('$TRIP_ID', rec.trip_id);
+            core.set_item('$STOP_ID', rec.stop_id);
+        ELSE
+            core.set_grid_data('OLD_TRIP_ID',       rec.trip_id);
+            core.set_grid_data('OLD_STOP_ID',       rec.stop_id);
+        END IF;
     EXCEPTION
     WHEN core.app_exception THEN
         RAISE;
