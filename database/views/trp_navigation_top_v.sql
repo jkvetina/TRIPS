@@ -179,7 +179,7 @@ SELECT                      -- append favorite boards
     NULL AS parent_id,
     NULL AS auth_scheme,
     NULL AS label__,
-    '/100.100/' || LPAD(ROW_NUMBER() OVER (ORDER BY t.trip_id), 8, '0') AS order#
+    '/100.100/' || LPAD(ROW_NUMBER() OVER (ORDER BY t.start_at, t.end_at, t.trip_id), 8, '0') AS order#
 FROM trp_trips t
 CROSS JOIN curr
 WHERE 1 = 1
