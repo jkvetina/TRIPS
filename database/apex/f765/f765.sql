@@ -19,7 +19,7 @@ whenever sqlerror exit sql.sqlcode rollback
 begin
 wwv_flow_imp.import_begin (
  p_version_yyyy_mm_dd=>'2023.04.28'
-,p_release=>'23.1.0'
+,p_release=>'23.1.2'
 ,p_default_workspace_id=>8506563800894011
 ,p_default_application_id=>765
 ,p_default_id_offset=>59434108571287006
@@ -33,7 +33,7 @@ prompt APPLICATION 765 - Trips Planning
 -- Application Export:
 --   Application:     765
 --   Name:            Trips Planning
---   Date and Time:   21:26 Pátek Srpen 4, 2023
+--   Date and Time:   16:38 Neděle Srpen 6, 2023
 --   Exported By:     APPS
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -70,7 +70,7 @@ prompt APPLICATION 765 - Trips Planning
 --       Reports:
 --       E-Mail:
 --     Supporting Objects:  Included
---   Version:         23.1.0
+--   Version:         23.1.2
 --   Instance ID:     8506457523050662
 --
 
@@ -111,7 +111,7 @@ wwv_imp_workspace.create_flow(
 ,p_public_user=>'APEX_PUBLIC_USER'
 ,p_proxy_server=>nvl(wwv_flow_application_install.get_proxy,'')
 ,p_no_proxy_domains=>nvl(wwv_flow_application_install.get_no_proxy_domains,'')
-,p_flow_version=>'2023-08-04'
+,p_flow_version=>'2023-08-06'
 ,p_flow_status=>'AVAILABLE_W_EDIT_LINK'
 ,p_flow_unavailable_text=>'This application is currently unavailable at this time.'
 ,p_exact_substitutions_only=>'Y'
@@ -609,10 +609,13 @@ wwv_flow_imp_shared.create_list_of_values(
 ,p_lov_name=>'LOV_CATEGORIES'
 ,p_source_type=>'TABLE'
 ,p_location=>'LOCAL'
+,p_use_local_sync_table=>false
 ,p_query_table=>'TRP_CATEGORIES'
+,p_query_where=>'order# IS NOT NULL'
 ,p_return_column_name=>'CATEGORY_ID'
 ,p_display_column_name=>'CATEGORY_NAME'
-,p_default_sort_column_name=>'CATEGORY_NAME'
+,p_group_sort_direction=>'ASC'
+,p_default_sort_column_name=>'ORDER#'
 ,p_default_sort_direction=>'ASC'
 );
 end;
@@ -15900,7 +15903,7 @@ wwv_flow_imp_page.create_ig_report_column(
 ,p_view_id=>wwv_flow_imp.id(9304562497074614)
 ,p_display_seq=>3
 ,p_column_id=>wwv_flow_imp.id(9295286744868137)
-,p_is_visible=>true
+,p_is_visible=>false
 ,p_is_frozen=>false
 ,p_width=>100
 );
