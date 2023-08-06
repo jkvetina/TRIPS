@@ -16,10 +16,13 @@ wwv_flow_imp_shared.create_list_of_values(
 ,p_lov_name=>'LOV_CATEGORIES'
 ,p_source_type=>'TABLE'
 ,p_location=>'LOCAL'
+,p_use_local_sync_table=>false
 ,p_query_table=>'TRP_CATEGORIES'
+,p_query_where=>'order# IS NOT NULL'
 ,p_return_column_name=>'CATEGORY_ID'
 ,p_display_column_name=>'CATEGORY_NAME'
-,p_default_sort_column_name=>'CATEGORY_NAME'
+,p_group_sort_direction=>'ASC'
+,p_default_sort_column_name=>'ORDER#'
 ,p_default_sort_direction=>'ASC'
 );
 wwv_flow_imp.component_end;

@@ -9,11 +9,12 @@
     type: Table / View
     table-owner: Parsing Schema
     table-name: TRP_CATEGORIES
+    where-clause: order# IS NOT NULL
 
   column-mapping: 
     return: CATEGORY_ID
     display: CATEGORY_NAME
-    default-sort: CATEGORY_NAME
+    default-sort: ORDER#
     sort-direction: Ascending (Nulls Last)
 
 - # ====== List of Values: MASTER - LOV_APPLICATIONS ===========
