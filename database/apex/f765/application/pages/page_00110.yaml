@@ -133,6 +133,7 @@ regions:
       allowed-operations: 
       - Add Row
       - Update Row
+      - Delete Row
       lost-update-type: Row Values
 
 page-items: 
@@ -912,6 +913,41 @@ page-items:
     restricted-characters: All characters can be saved.
 
 buttons: 
+- # ====== Button: DELETE_STOP =================================
+  id: 9734454065009046
+  identification: 
+    button-name: DELETE_STOP
+    label: Delete Stop
+
+  layout: 
+    sequence: 80
+    region: '[FORM]' # 47623496005696206
+    position: NEXT
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    button-template: Icon # 45556489878075320
+    hot: false
+    template-options: 
+    - '#DEFAULT#'
+    css-classes: 
+    - u-pullRight
+    icon: fa-trash-o
+
+  behavior: 
+    action: Submit Page
+    execute-validations: false
+    warn-on-unsaved-changes: Do Not Check
+    database-action: SQL DELETE action
+
+  confirmation: 
+    message: Do you really want to delete the stop?
+    style: Default
+
 - # ====== Button: CLOSE_DIALOG ================================
   id: 9823481777751970
   identification: 

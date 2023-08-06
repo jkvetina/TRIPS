@@ -33,7 +33,7 @@ prompt APPLICATION 765 - Trips Planning
 -- Application Export:
 --   Application:     765
 --   Name:            Trips Planning
---   Date and Time:   16:38 Neděle Srpen 6, 2023
+--   Date and Time:   17:06 Neděle Srpen 6, 2023
 --   Exported By:     APPS
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -42,7 +42,7 @@ prompt APPLICATION 765 - Trips Planning
 --       Computations:             3
 --       Processes:               16
 --       Regions:                 20
---       Buttons:                 10
+--       Buttons:                 11
 --       Dynamic Actions:         16
 --     Shared Components:
 --       Logic:
@@ -17770,7 +17770,7 @@ wwv_flow_imp_page.create_page_plug(
 ,p_query_table=>'TRP_ITINERARY'
 ,p_include_rowid_column=>false
 ,p_is_editable=>true
-,p_edit_operations=>'i:u'
+,p_edit_operations=>'i:u:d'
 ,p_lost_update_check_type=>'VALUES'
 ,p_plug_source_type=>'NATIVE_FORM'
 );
@@ -17787,6 +17787,22 @@ wwv_flow_imp_page.create_page_button(
 ,p_button_position=>'NEXT'
 ,p_button_css_classes=>'u-pullRight'
 ,p_database_action=>'INSERT'
+);
+wwv_flow_imp_page.create_page_button(
+ p_id=>wwv_flow_imp.id(9734454065009046)
+,p_button_sequence=>80
+,p_button_plug_id=>wwv_flow_imp.id(47623496005696206)
+,p_button_name=>'DELETE_STOP'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_imp.id(45556489878075320)
+,p_button_image_alt=>'Delete Stop'
+,p_button_position=>'NEXT'
+,p_button_execute_validations=>'N'
+,p_confirm_message=>'Do you really want to delete the stop?'
+,p_button_css_classes=>'u-pullRight'
+,p_icon_css_classes=>'fa-trash-o'
+,p_database_action=>'DELETE'
 );
 wwv_flow_imp_page.create_page_button(
  p_id=>wwv_flow_imp.id(9823481777751970)
