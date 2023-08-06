@@ -8,11 +8,13 @@ CREATE TABLE trp_itinerary (
     end_at                          DATE,
     notes                           VARCHAR2(4000),
     color_fill                      VARCHAR2(8),
-    created_by                      VARCHAR2(128),
-    created_at                      DATE,
+    link_reservation                VARCHAR2(2000),
+    link_event                      VARCHAR2(2000),
     is_reserved                     CHAR(1),
     is_paid                         CHAR(1),
     is_pending                      CHAR(1),
+    created_by                      VARCHAR2(128),
+    created_at                      DATE,
     --
     CONSTRAINT pk_trp_itinerary
         PRIMARY KEY (trip_id, stop_id),
@@ -37,16 +39,18 @@ CREATE TABLE trp_itinerary (
 --
 COMMENT ON TABLE trp_itinerary IS '';
 --
-COMMENT ON COLUMN trp_itinerary.trip_id         IS '';
-COMMENT ON COLUMN trp_itinerary.stop_id         IS '';
-COMMENT ON COLUMN trp_itinerary.stop_name       IS '';
-COMMENT ON COLUMN trp_itinerary.category_id     IS '';
-COMMENT ON COLUMN trp_itinerary.price           IS '';
-COMMENT ON COLUMN trp_itinerary.start_at        IS '';
-COMMENT ON COLUMN trp_itinerary.end_at          IS '';
-COMMENT ON COLUMN trp_itinerary.notes           IS '';
-COMMENT ON COLUMN trp_itinerary.color_fill      IS '';
-COMMENT ON COLUMN trp_itinerary.is_reserved     IS '';
-COMMENT ON COLUMN trp_itinerary.is_paid         IS '';
-COMMENT ON COLUMN trp_itinerary.is_pending      IS '';
+COMMENT ON COLUMN trp_itinerary.trip_id             IS '';
+COMMENT ON COLUMN trp_itinerary.stop_id             IS '';
+COMMENT ON COLUMN trp_itinerary.stop_name           IS '';
+COMMENT ON COLUMN trp_itinerary.category_id         IS '';
+COMMENT ON COLUMN trp_itinerary.price               IS '';
+COMMENT ON COLUMN trp_itinerary.start_at            IS '';
+COMMENT ON COLUMN trp_itinerary.end_at              IS '';
+COMMENT ON COLUMN trp_itinerary.notes               IS '';
+COMMENT ON COLUMN trp_itinerary.color_fill          IS '';
+COMMENT ON COLUMN trp_itinerary.link_reservation    IS '';
+COMMENT ON COLUMN trp_itinerary.link_event          IS '';
+COMMENT ON COLUMN trp_itinerary.is_reserved         IS '';
+COMMENT ON COLUMN trp_itinerary.is_paid             IS '';
+COMMENT ON COLUMN trp_itinerary.is_pending          IS '';
 

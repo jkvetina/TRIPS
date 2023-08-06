@@ -54,26 +54,30 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
             rec.stop_name       := core.get_item('$STOP_NAME');
             rec.category_id     := core.get_item('$CATEGORY_ID');
             rec.price           := core.get_number_item('$PRICE');
+            rec.notes           := core.get_item('$NOTES');
+            rec.color_fill      := core.get_item('$COLOR_FILL');
+            rec.link_reservation := core.get_item('$LINK_RESERVATION');
+            rec.link_event      := core.get_item('$LINK_EVENT');
             rec.is_reserved     := NULLIF(core.get_item('$IS_RESERVED'), 'N');
             rec.is_paid         := NULLIF(core.get_item('$IS_PAID'), 'N');
             rec.is_pending      := NULLIF(core.get_item('$IS_PENDING'), 'N');
             rec.start_at        := core.get_date_item('$START_AT');
             rec.end_at          := core.get_date_item('$END_AT');
-            rec.notes           := core.get_item('$NOTES');
-            rec.color_fill      := core.get_item('$COLOR_FILL');
         ELSE
             rec.trip_id         := core.get_grid_data('TRIP_ID');
             rec.stop_id         := core.get_grid_data('STOP_ID');
             rec.stop_name       := core.get_grid_data('STOP_NAME');
             rec.category_id     := core.get_grid_data('CATEGORY_ID');
             rec.price           := core.get_grid_data('PRICE');
+            rec.notes           := core.get_grid_data('NOTES');
+            rec.color_fill      := core.get_grid_data('COLOR_FILL');
+            rec.link_reservation := core.get_grid_data('LINK_RESERVATION');
+            rec.link_event      := core.get_grid_data('LINK_EVENT');
             rec.is_reserved     := core.get_grid_data('IS_RESERVED');
             rec.is_paid         := core.get_grid_data('IS_PAID');
             rec.is_pending      := core.get_grid_data('IS_PENDING');
             rec.start_at        := core.get_date(core.get_grid_data('START_AT'));
             rec.end_at          := core.get_date(core.get_grid_data('END_AT'));
-            rec.notes           := core.get_grid_data('NOTES');
-            rec.color_fill      := core.get_grid_data('COLOR_FILL');
         END IF;
         --
         trp_tapi.save_itinerary (rec,

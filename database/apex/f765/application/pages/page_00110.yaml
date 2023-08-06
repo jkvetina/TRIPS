@@ -365,7 +365,7 @@ page-items:
     trim-spaces: Leading and Trailing
 
   layout: 
-    sequence: 150
+    sequence: 140
     region: '[FORM]' # 47623496005696206
     position: BODY
     alignment: Left
@@ -423,7 +423,7 @@ page-items:
     use-defaults: true
 
   layout: 
-    sequence: 110
+    sequence: 100
     region: '[FORM]' # 47623496005696206
     position: BODY
     alignment: Left
@@ -480,7 +480,7 @@ page-items:
     on-label: Y
 
   layout: 
-    sequence: 120
+    sequence: 110
     region: '[FORM]' # 47623496005696206
     position: BODY
     alignment: Left
@@ -533,7 +533,7 @@ page-items:
     on-label: Y
 
   layout: 
-    sequence: 130
+    sequence: 120
     region: '[FORM]' # 47623496005696206
     position: BODY
     alignment: Left
@@ -586,7 +586,7 @@ page-items:
     on-label: Y
 
   layout: 
-    sequence: 140
+    sequence: 130
     region: '[FORM]' # 47623496005696206
     position: BODY
     alignment: Left
@@ -647,6 +647,126 @@ page-items:
   session-state: 
     data-type: VARCHAR2
     storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P110_LINK_RESERVATION ====================
+  id: 9734588749009047
+  identification: 
+    name: P110_LINK_RESERVATION
+    type: Text Field
+
+  label: 
+    label: Link Reservation
+    alignment: Left
+
+  settings: 
+    subtype: Text
+    trim-spaces: Leading and Trailing
+    text-case: NO CHANGE
+    submit-when-enter-pressed: false
+    disabled: false
+
+  layout: 
+    sequence: 80
+    region: '[FORM]' # 47623496005696206
+    position: BODY
+    alignment: Left
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    label-column-span: Page Template Default
+
+  appearance: 
+    template: Optional - Floating # 45554742274075318
+    template-options: 
+    - '#DEFAULT#'
+    width: 30
+
+  validation: 
+    value-required: false
+    maximum-length: 2000
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    form-region: '[FORM]' # 47623496005696206
+    column: LINK_RESERVATION
+    data-type: VARCHAR2
+    query-only: false
+    primary-key: false
+
+  session-state: 
+    storage: Per Request (Memory Only)
+
+  quick-picks: 
+    show-quick-picks: false
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: true
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P110_LINK_EVENT ==========================
+  id: 9734633910009048
+  identification: 
+    name: P110_LINK_EVENT
+    type: Text Field
+
+  label: 
+    label: Link Event
+    alignment: Left
+
+  settings: 
+    subtype: Text
+    trim-spaces: Leading and Trailing
+    text-case: NO CHANGE
+    submit-when-enter-pressed: false
+    disabled: false
+
+  layout: 
+    sequence: 90
+    region: '[FORM]' # 47623496005696206
+    position: BODY
+    alignment: Left
+    start-new-layout: false
+    start-new-row: false
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+    label-column-span: Page Template Default
+
+  appearance: 
+    template: Optional - Floating # 45554742274075318
+    template-options: 
+    - '#DEFAULT#'
+    width: 30
+
+  validation: 
+    value-required: false
+    maximum-length: 2000
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    form-region: '[FORM]' # 47623496005696206
+    column: LINK_EVENT
+    data-type: VARCHAR2
+    query-only: false
+    primary-key: false
+
+  session-state: 
+    storage: Per Request (Memory Only)
+
+  quick-picks: 
+    show-quick-picks: false
 
   security: 
     session-state-protection: Unrestricted
@@ -826,7 +946,7 @@ page-items:
     value-protected: true
 
   layout: 
-    sequence: 80
+    sequence: 150
     region: '[FORM]' # 47623496005696206
     position: BODY
 
@@ -859,7 +979,7 @@ page-items:
     value-protected: true
 
   layout: 
-    sequence: 90
+    sequence: 160
     region: '[FORM]' # 47623496005696206
     position: BODY
 

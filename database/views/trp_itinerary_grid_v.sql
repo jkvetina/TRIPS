@@ -32,6 +32,8 @@ SELECT
     t.stop_name,
     t.category_id,
     t.price,
+    t.link_reservation,
+    t.link_event,
     t.is_reserved,
     t.is_paid,
     t.is_pending,
