@@ -160,9 +160,11 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
                 WHERE trip_id = c.trip_id
                 HAVING SUM(price) >= 0
             ) LOOP
-                core.set_item('P100_TRIP_HEADER', c.trip_name || ' [' || d.trip_price || ']');
+                core.set_item('P100_TRIP_HEADER', REPLACE(c.trip_name, ' - ', ' &' || 'ndash; ') || ' [' || d.trip_price || ']');
             END LOOP;
         END LOOP;
+        --
+        core.set_item('P100_ITINERARY_HEADER', REPLACE(RTRIM('Itinerary - ' || core.get_item('P100_DAY'), ' - '), ' - ', ' &' || 'ndash; '));
     EXCEPTION
     WHEN core.app_exception THEN
         RAISE;

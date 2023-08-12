@@ -33,17 +33,17 @@ prompt APPLICATION 765 - Trips Planning
 -- Application Export:
 --   Application:     765
 --   Name:            Trips Planning
---   Date and Time:   18:18 Neděle Srpen 6, 2023
+--   Date and Time:   14:45 Sobota Srpen 12, 2023
 --   Exported By:     APPS
 --   Flashback:       0
 --   Export Type:     Application Export
 --     Pages:                      7
---       Items:                   38
+--       Items:                   39
 --       Computations:             3
 --       Processes:               16
 --       Regions:                 20
 --       Buttons:                 11
---       Dynamic Actions:         16
+--       Dynamic Actions:         12
 --     Shared Components:
 --       Logic:
 --         Build Options:          1
@@ -111,7 +111,7 @@ wwv_imp_workspace.create_flow(
 ,p_public_user=>'APEX_PUBLIC_USER'
 ,p_proxy_server=>nvl(wwv_flow_application_install.get_proxy,'')
 ,p_no_proxy_domains=>nvl(wwv_flow_application_install.get_no_proxy_domains,'')
-,p_flow_version=>'2023-08-06'
+,p_flow_version=>'2023-08-12'
 ,p_flow_status=>'AVAILABLE_W_EDIT_LINK'
 ,p_flow_unavailable_text=>'This application is currently unavailable at this time.'
 ,p_exact_substitutions_only=>'Y'
@@ -15173,7 +15173,7 @@ wwv_flow_imp_page.create_page(
 '  stroke:           #222;',
 '  stroke-width:     1px;',
 '}',
-'.HOTEL {',
+'.HOTEL, .CAR_RENTAL {',
 '  fill:             #ccc;',
 '  stroke:           #666;',
 '  stroke-width:     1px;',
@@ -15317,7 +15317,7 @@ wwv_flow_imp_page.create_jet_chart_axis(
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(9294476628868129)
-,p_plug_name=>'Itinerary - &P100_DAY.'
+,p_plug_name=>'&P100_ITINERARY_HEADER!RAW.'
 ,p_parent_plug_id=>wwv_flow_imp.id(9334408323174750)
 ,p_region_template_options=>'#DEFAULT#:t-HeroRegion--hideIcon'
 ,p_plug_template=>wwv_flow_imp.id(45451267875075251)
@@ -17238,81 +17238,14 @@ wwv_flow_imp_page.create_page_item(
 ,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'Y'
 );
-wwv_flow_imp_page.create_page_da_event(
- p_id=>wwv_flow_imp.id(59359981130119663)
-,p_name=>'CHANGED_SET'
-,p_event_sequence=>10
-,p_triggering_element_type=>'ITEM'
-,p_triggering_element=>'P100_SET_ID'
-,p_bind_type=>'bind'
-,p_execution_type=>'IMMEDIATE'
-,p_bind_event_type=>'change'
-);
-wwv_flow_imp_page.create_page_da_action(
- p_id=>wwv_flow_imp.id(59360020677119664)
-,p_event_id=>wwv_flow_imp.id(59359981130119663)
-,p_event_result=>'TRUE'
-,p_action_sequence=>10
-,p_execute_on_page_init=>'N'
-,p_action=>'NATIVE_SUBMIT_PAGE'
-,p_attribute_02=>'Y'
-);
-wwv_flow_imp_page.create_page_da_event(
- p_id=>wwv_flow_imp.id(59360218323119666)
-,p_name=>'CHANGED_CATEGORY'
-,p_event_sequence=>20
-,p_triggering_element_type=>'ITEM'
-,p_triggering_element=>'P100_CATEGORY_ID'
-,p_bind_type=>'bind'
-,p_execution_type=>'IMMEDIATE'
-,p_bind_event_type=>'change'
-);
-wwv_flow_imp_page.create_page_da_action(
- p_id=>wwv_flow_imp.id(59360356529119667)
-,p_event_id=>wwv_flow_imp.id(59360218323119666)
-,p_event_result=>'TRUE'
-,p_action_sequence=>10
-,p_execute_on_page_init=>'N'
-,p_action=>'NATIVE_SUBMIT_PAGE'
-,p_attribute_02=>'Y'
-);
-wwv_flow_imp_page.create_page_da_event(
- p_id=>wwv_flow_imp.id(59360530474119669)
-,p_name=>'CHANGED_SECTION'
-,p_event_sequence=>30
-,p_triggering_element_type=>'ITEM'
-,p_triggering_element=>'P100_SECTION_ID'
-,p_bind_type=>'bind'
-,p_execution_type=>'IMMEDIATE'
-,p_bind_event_type=>'change'
-);
-wwv_flow_imp_page.create_page_da_action(
- p_id=>wwv_flow_imp.id(59360667785119670)
-,p_event_id=>wwv_flow_imp.id(59360530474119669)
-,p_event_result=>'TRUE'
-,p_action_sequence=>10
-,p_execute_on_page_init=>'N'
-,p_action=>'NATIVE_SUBMIT_PAGE'
-,p_attribute_02=>'Y'
-);
-wwv_flow_imp_page.create_page_da_event(
- p_id=>wwv_flow_imp.id(8773168594122249)
-,p_name=>'CHANGED_FILTERS'
-,p_event_sequence=>40
-,p_triggering_element_type=>'ITEM'
-,p_triggering_element=>'P100_TRIP_ID'
-,p_bind_type=>'bind'
-,p_execution_type=>'IMMEDIATE'
-,p_bind_event_type=>'change'
-);
-wwv_flow_imp_page.create_page_da_action(
- p_id=>wwv_flow_imp.id(8773224088122250)
-,p_event_id=>wwv_flow_imp.id(8773168594122249)
-,p_event_result=>'TRUE'
-,p_action_sequence=>10
-,p_execute_on_page_init=>'N'
-,p_action=>'NATIVE_SUBMIT_PAGE'
-,p_attribute_02=>'Y'
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(10096578383751102)
+,p_name=>'P100_ITINERARY_HEADER'
+,p_item_sequence=>110
+,p_item_plug_id=>wwv_flow_imp.id(9329549921174701)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'Y'
 );
 wwv_flow_imp_page.create_page_da_event(
  p_id=>wwv_flow_imp.id(9332248680174728)
@@ -17346,7 +17279,7 @@ wwv_flow_imp_page.create_page_da_action(
 );
 wwv_flow_imp_page.create_page_da_event(
  p_id=>wwv_flow_imp.id(9730309168009005)
-,p_name=>'REFRESH_NAV'
+,p_name=>'REFRESH_TRIPS'
 ,p_event_sequence=>60
 ,p_triggering_element_type=>'REGION'
 ,p_triggering_region_id=>wwv_flow_imp.id(28654809767461856)
@@ -17354,9 +17287,6 @@ wwv_flow_imp_page.create_page_da_event(
 ,p_execution_type=>'IMMEDIATE'
 ,p_bind_event_type=>'NATIVE_IG|REGION TYPE|interactivegridsave'
 );
-end;
-/
-begin
 wwv_flow_imp_page.create_page_da_action(
  p_id=>wwv_flow_imp.id(9730479977009006)
 ,p_event_id=>wwv_flow_imp.id(9730309168009005)
@@ -17415,6 +17345,9 @@ wwv_flow_imp_page.create_page_da_event(
 ,p_execution_type=>'IMMEDIATE'
 ,p_bind_event_type=>'apexafterclosedialog'
 );
+end;
+/
+begin
 wwv_flow_imp_page.create_page_da_action(
  p_id=>wwv_flow_imp.id(9733434759009036)
 ,p_event_id=>wwv_flow_imp.id(9733317722009035)
@@ -18321,20 +18254,6 @@ wwv_flow_imp_page.create_page(
 ,p_step_title=>'Setup'
 ,p_autocomplete_on_off=>'OFF'
 ,p_group_id=>wwv_flow_imp.id(53536909635676125)  --  MAIN
-,p_inline_css=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'.DEFAULT {',
-'  stroke:           #222;',
-'  stroke-width:     1px;',
-'}',
-'.HOTEL {',
-'  fill:             #ccc;',
-'  stroke:           #666;',
-'  stroke-width:     1px;',
-'  stroke-dasharray: 4, 4;',
-'}',
-'.BASELINE {',
-'  fill:             #E7242D;',
-'}'))
 ,p_page_template_options=>'#DEFAULT#'
 ,p_required_role=>wwv_flow_imp.id(45845718540274027)  -- MASTER - IS_USER
 ,p_protection_level=>'C'
@@ -18649,6 +18568,7 @@ wwv_flow_imp_page.create_ig_report_column(
 ,p_column_id=>wwv_flow_imp.id(18909093643707626)
 ,p_is_visible=>true
 ,p_is_frozen=>false
+,p_width=>100
 ,p_sort_order=>1
 ,p_sort_direction=>'ASC'
 ,p_sort_nulls=>'LAST'

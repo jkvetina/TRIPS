@@ -20,22 +20,6 @@ navigation:
   cursor-focus: Do not focus cursor
   warn-on-unsaved-changes: true
 
-css: 
-  inline: |
-    .DEFAULT {
-      stroke:           #222;
-      stroke-width:     1px;
-    }
-    .HOTEL {
-      fill:             #ccc;
-      stroke:           #666;
-      stroke-width:     1px;
-      stroke-dasharray: 4, 4;
-    }
-    .BASELINE {
-      fill:             #E7242D;
-    }
-
 security: 
   authorization-scheme: MASTER - IS_USER # 45845718540274027
   authentication: Page Requires Authentication

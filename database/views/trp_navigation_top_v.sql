@@ -150,7 +150,7 @@ UNION ALL
 --
 SELECT                      -- append favorite boards
     2 AS lvl,
-    t.trip_name AS label,
+    REPLACE(t.trip_name, ' - ', ' &' || 'ndash; ') AS label,
     --
     APEX_PAGE.GET_URL (
         p_application       => curr.app_id,

@@ -26,7 +26,7 @@ css:
       stroke:           #222;
       stroke-width:     1px;
     }
-    .HOTEL {
+    .HOTEL, .CAR_RENTAL {
       fill:             #ccc;
       stroke:           #666;
       stroke-width:     1px;
@@ -257,10 +257,10 @@ regions:
         format: Time - Long
         pattern: HH
 
-- # ====== Region: Itinerary - &P100_DAY. ======================
+- # ====== Region: &P100_ITINERARY_HEADER!RAW. =================
   id: 9294476628868129
   identification: 
-    title: Itinerary - &P100_DAY.
+    title: '&P100_ITINERARY_HEADER!RAW.'
     type: Static Content
 
   layout: 
@@ -2426,6 +2426,36 @@ page-items:
     store-value-encrypted-in-session-state: false
     restricted-characters: All characters can be saved.
 
+- # ====== Page Item: P100_ITINERARY_HEADER ====================
+  id: 10096578383751102
+  identification: 
+    name: P100_ITINERARY_HEADER
+    type: Hidden
+
+  settings: 
+    value-protected: true
+
+  layout: 
+    sequence: 110
+    region: '&P100_TRIP_HEADER!RAW.' # 9329549921174701
+    position: BODY
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: Null
+    used: Only when current value in session state is null
+
+  session-state: 
+    data-type: VARCHAR2
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: false
+    restricted-characters: All characters can be saved.
+
 buttons: 
 - # ====== Button: PREV_DAY ====================================
   id: 9331077062174716
@@ -2577,7 +2607,7 @@ buttons:
 
   layout: 
     sequence: 10
-    region: Itinerary - &P100_DAY. # 9294476628868129
+    region: '&P100_ITINERARY_HEADER!RAW.' # 9294476628868129
     position: RIGHT_OF_TITLE
     start-new-layout: false
     start-new-row: true
@@ -2604,39 +2634,6 @@ buttons:
     warn-on-unsaved-changes: Do Not Check
 
 dynamic-actions: 
-- # ====== Dynamic Action: CHANGED_FILTERS =====================
-  id: 8773168594122249
-  identification: 
-    name: CHANGED_FILTERS
-
-  execution: 
-    sequence: 40
-
-  when: 
-    event: EVENT.EVENT.BROWSER.CHANGE
-    selection-type: Item(s)
-    item(s): 
-    - P100_TRIP_ID
-
-  execution: 
-    event-scope: Static
-    type: Immediate
-
-  actions: 
-  - # ====== Action: Submit Page =================================
-    id: 8773224088122250
-    identification: 
-      action: Submit Page
-
-    settings: 
-      show-processing: true
-
-    execution: 
-      sequence: 10
-      event: CHANGED_FILTERS # 8773168594122249
-      fire-when-event-result-is: True
-      fire-on-initialization: false
-
 - # ====== Dynamic Action: REFRESH_CHART =======================
   id: 9332248680174728
   identification: 
@@ -2685,10 +2682,10 @@ dynamic-actions:
       fire-when-event-result-is: True
       fire-on-initialization: false
 
-- # ====== Dynamic Action: REFRESH_NAV =========================
+- # ====== Dynamic Action: REFRESH_TRIPS =======================
   id: 9730309168009005
   identification: 
-    name: REFRESH_NAV
+    name: REFRESH_TRIPS
 
   execution: 
     sequence: 60
@@ -2713,7 +2710,7 @@ dynamic-actions:
 
     execution: 
       sequence: 10
-      event: REFRESH_NAV # 9730309168009005
+      event: REFRESH_TRIPS # 9730309168009005
       fire-when-event-result-is: True
       fire-on-initialization: false
 
@@ -2866,105 +2863,6 @@ dynamic-actions:
     execution: 
       sequence: 10
       event: GANTT_REFRESHED # 9734175069009043
-      fire-when-event-result-is: True
-      fire-on-initialization: false
-
-- # ====== Dynamic Action: CHANGED_SET =========================
-  id: 59359981130119663
-  identification: 
-    name: CHANGED_SET
-
-  execution: 
-    sequence: 10
-
-  when: 
-    event: EVENT.EVENT.BROWSER.CHANGE
-    selection-type: Item(s)
-    item(s): 
-    - P100_SET_ID
-
-  execution: 
-    event-scope: Static
-    type: Immediate
-
-  actions: 
-  - # ====== Action: Submit Page =================================
-    id: 59360020677119664
-    identification: 
-      action: Submit Page
-
-    settings: 
-      show-processing: true
-
-    execution: 
-      sequence: 10
-      event: CHANGED_SET # 59359981130119663
-      fire-when-event-result-is: True
-      fire-on-initialization: false
-
-- # ====== Dynamic Action: CHANGED_CATEGORY ====================
-  id: 59360218323119666
-  identification: 
-    name: CHANGED_CATEGORY
-
-  execution: 
-    sequence: 20
-
-  when: 
-    event: EVENT.EVENT.BROWSER.CHANGE
-    selection-type: Item(s)
-    item(s): 
-    - P100_CATEGORY_ID
-
-  execution: 
-    event-scope: Static
-    type: Immediate
-
-  actions: 
-  - # ====== Action: Submit Page =================================
-    id: 59360356529119667
-    identification: 
-      action: Submit Page
-
-    settings: 
-      show-processing: true
-
-    execution: 
-      sequence: 10
-      event: CHANGED_CATEGORY # 59360218323119666
-      fire-when-event-result-is: True
-      fire-on-initialization: false
-
-- # ====== Dynamic Action: CHANGED_SECTION =====================
-  id: 59360530474119669
-  identification: 
-    name: CHANGED_SECTION
-
-  execution: 
-    sequence: 30
-
-  when: 
-    event: EVENT.EVENT.BROWSER.CHANGE
-    selection-type: Item(s)
-    item(s): 
-    - P100_SECTION_ID
-
-  execution: 
-    event-scope: Static
-    type: Immediate
-
-  actions: 
-  - # ====== Action: Submit Page =================================
-    id: 59360667785119670
-    identification: 
-      action: Submit Page
-
-    settings: 
-      show-processing: true
-
-    execution: 
-      sequence: 10
-      event: CHANGED_SECTION # 59360530474119669
       fire-when-event-result-is: True
       fire-on-initialization: false
 

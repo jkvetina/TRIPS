@@ -18,20 +18,6 @@ wwv_flow_imp_page.create_page(
 ,p_step_title=>'Setup'
 ,p_autocomplete_on_off=>'OFF'
 ,p_group_id=>wwv_flow_imp.id(53536909635676125)  --  MAIN
-,p_inline_css=>wwv_flow_string.join(wwv_flow_t_varchar2(
-'.DEFAULT {',
-'  stroke:           #222;',
-'  stroke-width:     1px;',
-'}',
-'.HOTEL {',
-'  fill:             #ccc;',
-'  stroke:           #666;',
-'  stroke-width:     1px;',
-'  stroke-dasharray: 4, 4;',
-'}',
-'.BASELINE {',
-'  fill:             #E7242D;',
-'}'))
 ,p_page_template_options=>'#DEFAULT#'
 ,p_required_role=>wwv_flow_imp.id(45845718540274027)  -- MASTER - IS_USER
 ,p_protection_level=>'C'
@@ -346,6 +332,7 @@ wwv_flow_imp_page.create_ig_report_column(
 ,p_column_id=>wwv_flow_imp.id(18909093643707626)
 ,p_is_visible=>true
 ,p_is_frozen=>false
+,p_width=>100
 ,p_sort_order=>1
 ,p_sort_direction=>'ASC'
 ,p_sort_nulls=>'LAST'
