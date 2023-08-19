@@ -35,7 +35,9 @@ authorization:
 
 session-management: 
   rejoin-sessions: Disabled
+  maximum-session-length: 86400
   session-timeout-url: '#LOGOUT_URL#'
+  maximum-session-idle-time: 14400
   session-idle-timeout-url: '#LOGOUT_URL#'
 
 session-state-protection: 

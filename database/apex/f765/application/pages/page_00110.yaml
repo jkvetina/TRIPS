@@ -884,7 +884,8 @@ page-items:
   settings: 
     show-time: true
     display-as: Popup
-    minimum-date: None
+    minimum-date: Item
+    minimum-item: P110_START_AT
     maximum-date: None
     multiple-months: No
     use-defaults: false

@@ -33,7 +33,7 @@ prompt APPLICATION 765 - Trips Planning
 -- Application Export:
 --   Application:     765
 --   Name:            Trips Planning
---   Date and Time:   14:45 Sobota Srpen 12, 2023
+--   Date and Time:   14:10 Sobota Srpen 19, 2023
 --   Exported By:     APPS
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -90,7 +90,9 @@ wwv_imp_workspace.create_flow(
 ,p_page_protection_enabled_y_n=>'Y'
 ,p_checksum_salt=>'9CBCC171912554FE4A8996BCA5DC653BEC59C661B634BF18F954B71B4DA3D6FD'
 ,p_bookmark_checksum_function=>'SH512'
+,p_max_session_length_sec=>86400
 ,p_on_max_session_timeout_url=>'#LOGOUT_URL#'
+,p_max_session_idle_sec=>14400
 ,p_on_max_idle_timeout_url=>'#LOGOUT_URL#'
 ,p_compatibility_mode=>'21.2'
 ,p_session_state_commits=>'IMMEDIATE'
@@ -111,7 +113,7 @@ wwv_imp_workspace.create_flow(
 ,p_public_user=>'APEX_PUBLIC_USER'
 ,p_proxy_server=>nvl(wwv_flow_application_install.get_proxy,'')
 ,p_no_proxy_domains=>nvl(wwv_flow_application_install.get_no_proxy_domains,'')
-,p_flow_version=>'2023-08-12'
+,p_flow_version=>'2023-08-19'
 ,p_flow_status=>'AVAILABLE_W_EDIT_LINK'
 ,p_flow_unavailable_text=>'This application is currently unavailable at this time.'
 ,p_exact_substitutions_only=>'Y'
@@ -17115,7 +17117,7 @@ wwv_flow_imp_page.create_page_button(
 ,p_button_template_id=>wwv_flow_imp.id(45556489878075320)
 ,p_button_image_alt=>'Add Stop'
 ,p_button_position=>'RIGHT_OF_TITLE'
-,p_button_redirect_url=>'f?p=&APP_ID.:110:&SESSION.::&DEBUG.:110:P110_TRIP_ID,P110_STOP_ID:&P100_TRIP_ID.,'
+,p_button_redirect_url=>'f?p=&APP_ID.:110:&SESSION.::&DEBUG.:110:P110_TRIP_ID,P110_STOP_ID,P110_START_AT:&P100_TRIP_ID.,,&P100_DAY.'
 ,p_icon_css_classes=>'fa-plus'
 );
 wwv_flow_imp_page.create_page_button(
@@ -18126,7 +18128,8 @@ wwv_flow_imp_page.create_page_item(
 ,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'Y'
 ,p_attribute_02=>'POPUP'
-,p_attribute_03=>'NONE'
+,p_attribute_03=>'ITEM'
+,p_attribute_05=>'P110_START_AT'
 ,p_attribute_06=>'NONE'
 ,p_attribute_09=>'N'
 ,p_attribute_11=>'N'

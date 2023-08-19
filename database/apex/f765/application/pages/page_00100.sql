@@ -1974,7 +1974,7 @@ wwv_flow_imp_page.create_page_button(
 ,p_button_template_id=>wwv_flow_imp.id(45556489878075320)
 ,p_button_image_alt=>'Add Stop'
 ,p_button_position=>'RIGHT_OF_TITLE'
-,p_button_redirect_url=>'f?p=&APP_ID.:110:&SESSION.::&DEBUG.:110:P110_TRIP_ID,P110_STOP_ID:&P100_TRIP_ID.,'
+,p_button_redirect_url=>'f?p=&APP_ID.:110:&SESSION.::&DEBUG.:110:P110_TRIP_ID,P110_STOP_ID,P110_START_AT:&P100_TRIP_ID.,,&P100_DAY.'
 ,p_icon_css_classes=>'fa-plus'
 );
 wwv_flow_imp_page.create_page_button(

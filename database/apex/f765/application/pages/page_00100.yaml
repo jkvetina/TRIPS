@@ -2625,11 +2625,12 @@ buttons:
   behavior: 
     action: Redirect to Page in this Application
     target: 
-      url: 'f?p=&APP_ID.:110:&SESSION.::&DEBUG.:110:P110_TRIP_ID,P110_STOP_ID:&P100_TRIP_ID.,'
+      url: 'f?p=&APP_ID.:110:&SESSION.::&DEBUG.:110:P110_TRIP_ID,P110_STOP_ID,P110_START_AT:&P100_TRIP_ID.,,&P100_DAY.'
       page: 110 # Add/Edit Stop
       clear-cache: 110
       values: 
         p110_trip_id: '&P100_TRIP_ID.'
+        p110_start_at: '&P100_DAY.'
 
     warn-on-unsaved-changes: Do Not Check
 

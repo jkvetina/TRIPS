@@ -20,7 +20,9 @@ wwv_imp_workspace.create_flow(
 ,p_page_protection_enabled_y_n=>'Y'
 ,p_checksum_salt=>'9CBCC171912554FE4A8996BCA5DC653BEC59C661B634BF18F954B71B4DA3D6FD'
 ,p_bookmark_checksum_function=>'SH512'
+,p_max_session_length_sec=>86400
 ,p_on_max_session_timeout_url=>'#LOGOUT_URL#'
+,p_max_session_idle_sec=>14400
 ,p_on_max_idle_timeout_url=>'#LOGOUT_URL#'
 ,p_compatibility_mode=>'21.2'
 ,p_session_state_commits=>'IMMEDIATE'
@@ -41,7 +43,7 @@ wwv_imp_workspace.create_flow(
 ,p_public_user=>'APEX_PUBLIC_USER'
 ,p_proxy_server=>nvl(wwv_flow_application_install.get_proxy,'')
 ,p_no_proxy_domains=>nvl(wwv_flow_application_install.get_no_proxy_domains,'')
-,p_flow_version=>'2023-08-12'
+,p_flow_version=>'2023-08-19'
 ,p_flow_status=>'AVAILABLE_W_EDIT_LINK'
 ,p_flow_unavailable_text=>'This application is currently unavailable at this time.'
 ,p_exact_substitutions_only=>'Y'
