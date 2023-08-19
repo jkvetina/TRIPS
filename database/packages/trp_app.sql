@@ -140,31 +140,39 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
 
     PROCEDURE set_defaults
     AS
+        v_trip_header           VARCHAR2(256);
+        v_itinerary_header      VARCHAR2(256);
     BEGIN
         FOR c IN (
             SELECT
                 t.trip_id,
                 t.trip_name,
                 t.start_at,
-                t.end_at + 1 AS end_at
+                t.end_at + 1    AS end_at,
+                SUM(price)      AS price
+                --
             FROM trp_trips t
-            WHERE t.trip_id = core.get_number_item('P100_TRIP_ID')
+            LEFT JOIN trp_itinerary i
+                ON i.trip_id    = t.trip_id
+                AND (i.start_at >= core.get_date_item('P100_DAY')       OR core.get_date_item('P100_DAY') IS NULL)
+                AND (i.end_at   < core.get_date_item('P100_DAY') + 1    OR core.get_date_item('P100_DAY') IS NULL OR i.end_at IS NULL)
+            WHERE t.trip_id     = core.get_number_item('P100_TRIP_ID')
+            GROUP BY
+                t.trip_id,
+                t.trip_name,
+                t.start_at,
+                t.end_at + 1
         ) LOOP
             core.set_item('P100_TRIP_HEADER',   c.trip_name);
             core.set_item('P100_TRIP_START',    TO_CHAR(c.start_at, 'YYYY-MM-DD'));
             core.set_item('P100_TRIP_END',      TO_CHAR(c.end_at,   'YYYY-MM-DD'));
             --
-            FOR d IN (
-                SELECT SUM(price) AS trip_price
-                FROM trp_itinerary
-                WHERE trip_id = c.trip_id
-                HAVING SUM(price) >= 0
-            ) LOOP
-                core.set_item('P100_TRIP_HEADER', REPLACE(c.trip_name, ' - ', ' &' || 'ndash; ') || ' [' || d.trip_price || ']');
-            END LOOP;
+            v_trip_header       := c.trip_name;
+            v_itinerary_header  := RTRIM('Itinerary - ' || core.get_item('P100_DAY'), ' - ') || NULLIF(' [' || c.price || ']', ' [0]');
         END LOOP;
         --
-        core.set_item('P100_ITINERARY_HEADER', REPLACE(RTRIM('Itinerary - ' || core.get_item('P100_DAY'), ' - '), ' - ', ' &' || 'ndash; '));
+        core.set_item('P100_TRIP_HEADER',       REPLACE(v_trip_header,      ' - ', ' &' || 'ndash; '));
+        core.set_item('P100_ITINERARY_HEADER',  REPLACE(v_itinerary_header, ' - ', ' &' || 'ndash; '));
     EXCEPTION
     WHEN core.app_exception THEN
         RAISE;
