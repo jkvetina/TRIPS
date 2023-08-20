@@ -35,6 +35,7 @@ css:
     .BASELINE {
       fill:             #E7242D;
     }
+    
 
 security: 
   authorization-scheme: MASTER - IS_USER # 45845718540274027
@@ -2456,6 +2457,36 @@ page-items:
     store-value-encrypted-in-session-state: false
     restricted-characters: All characters can be saved.
 
+- # ====== Page Item: P100_STATUS ==============================
+  id: 10097332927751110
+  identification: 
+    name: P100_STATUS
+    type: Hidden
+
+  settings: 
+    value-protected: true
+
+  layout: 
+    sequence: 120
+    region: '&P100_TRIP_HEADER!RAW.' # 9329549921174701
+    position: BODY
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: Null
+    used: Only when current value in session state is null
+
+  session-state: 
+    data-type: VARCHAR2
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: false
+    restricted-characters: All characters can be saved.
+
 buttons: 
 - # ====== Button: PREV_DAY ====================================
   id: 9331077062174716
@@ -2633,6 +2664,44 @@ buttons:
         p110_start_at: '&P100_DAY.'
 
     warn-on-unsaved-changes: Do Not Check
+
+- # ====== Button: SWITCH_COLORS ===============================
+  id: 10097444434751111
+  identification: 
+    button-name: SWITCH_COLORS
+    label: Colors by Status
+
+  layout: 
+    sequence: 40
+    region: '&P100_TRIP_HEADER!RAW.' # 9329549921174701
+    position: RIGHT_OF_TITLE
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    button-template: Text # 45557146799075321
+    hot: false
+    template-options: 
+    - '#DEFAULT#'
+    css-classes: 
+    - u-pullRight
+
+  behavior: 
+    action: Redirect to Page in this Application
+    target: 
+      url: 'f?p=&APP_ID.:100:&SESSION.::&DEBUG.::P100_STATUS:PAID'
+      page: 100 # &APP_NAME.
+      values: 
+        p100_status: PAID
+
+    warn-on-unsaved-changes: Page Default
+
+  server-side-condition: 
+    type: Item is NULL
+    item: P100_STATUS
 
 dynamic-actions: 
 - # ====== Dynamic Action: REFRESH_CHART =======================

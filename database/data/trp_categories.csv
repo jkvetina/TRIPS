@@ -12,4 +12,5 @@
 "STATUS_PAID";"Paid";"";"#778d45";""
 "STATUS_PENDING";"Pending";"";"#e7242d";""
 "STATUS_RESERVED";"Reserved";"";"#f7c815";""
+"STATUS_UNKNOWN";"Unknown";"";"#ffffff";""
 "TRANSFER";"Transfer";20;"#ffffff";"Y"

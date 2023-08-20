@@ -31,7 +31,8 @@ wwv_flow_imp_page.create_page(
 '}',
 '.BASELINE {',
 '  fill:             #E7242D;',
-'}'))
+'}',
+''))
 ,p_page_template_options=>'#DEFAULT#'
 ,p_required_role=>wwv_flow_imp.id(45845718540274027)  -- MASTER - IS_USER
 ,p_protection_level=>'C'
@@ -2007,6 +2008,22 @@ wwv_flow_imp_page.create_page_button(
 ,p_icon_css_classes=>'fa-calendar-o'
 ,p_button_cattributes=>'&P100_DAY_ATTR.'
 );
+wwv_flow_imp_page.create_page_button(
+ p_id=>wwv_flow_imp.id(10097444434751111)
+,p_button_sequence=>40
+,p_button_plug_id=>wwv_flow_imp.id(9329549921174701)
+,p_button_name=>'SWITCH_COLORS'
+,p_button_action=>'REDIRECT_PAGE'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_imp.id(45557146799075321)
+,p_button_image_alt=>'Colors by Status'
+,p_button_position=>'RIGHT_OF_TITLE'
+,p_button_redirect_url=>'f?p=&APP_ID.:100:&SESSION.::&DEBUG.::P100_STATUS:PAID'
+,p_warn_on_unsaved_changes=>null
+,p_button_condition=>'P100_STATUS'
+,p_button_condition_type=>'ITEM_IS_NULL'
+,p_button_css_classes=>'u-pullRight'
+);
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(8772875327122246)
 ,p_name=>'P100_TRIP_START'
@@ -2106,6 +2123,15 @@ wwv_flow_imp_page.create_page_item(
 ,p_encrypt_session_state_yn=>'N'
 ,p_attribute_01=>'Y'
 );
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(10097332927751110)
+,p_name=>'P100_STATUS'
+,p_item_sequence=>120
+,p_item_plug_id=>wwv_flow_imp.id(9329549921174701)
+,p_display_as=>'NATIVE_HIDDEN'
+,p_encrypt_session_state_yn=>'N'
+,p_attribute_01=>'Y'
+);
 wwv_flow_imp_page.create_page_da_event(
  p_id=>wwv_flow_imp.id(9332248680174728)
 ,p_name=>'REFRESH_CHART'
@@ -2155,6 +2181,18 @@ wwv_flow_imp_page.create_page_da_action(
 ,p_action=>'NATIVE_SUBMIT_PAGE'
 ,p_attribute_02=>'Y'
 );
+wwv_flow_imp.component_end;
+end;
+/
+begin
+wwv_flow_imp.component_begin (
+ p_version_yyyy_mm_dd=>'2023.04.28'
+,p_release=>'23.1.2'
+,p_default_workspace_id=>8506563800894011
+,p_default_application_id=>765
+,p_default_id_offset=>59434108571287006
+,p_default_owner=>'APPS'
+);
 wwv_flow_imp_page.create_page_da_event(
  p_id=>wwv_flow_imp.id(9732077248009022)
 ,p_name=>'GANTT_CLICKED'
@@ -2193,18 +2231,6 @@ wwv_flow_imp_page.create_page_da_action(
 '    });',
 '}',
 ''))
-);
-wwv_flow_imp.component_end;
-end;
-/
-begin
-wwv_flow_imp.component_begin (
- p_version_yyyy_mm_dd=>'2023.04.28'
-,p_release=>'23.1.2'
-,p_default_workspace_id=>8506563800894011
-,p_default_application_id=>765
-,p_default_id_offset=>59434108571287006
-,p_default_owner=>'APPS'
 );
 wwv_flow_imp_page.create_page_da_event(
  p_id=>wwv_flow_imp.id(9733317722009035)

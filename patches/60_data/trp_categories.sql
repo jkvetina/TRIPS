@@ -22,6 +22,7 @@ USING (
     SELECT 'STATUS_PAID' AS category_id, 'Paid' AS category_name, NULL AS order#, '#778d45' AS color_fill, NULL AS is_lov FROM DUAL UNION ALL
     SELECT 'STATUS_PENDING' AS category_id, 'Pending' AS category_name, NULL AS order#, '#e7242d' AS color_fill, NULL AS is_lov FROM DUAL UNION ALL
     SELECT 'STATUS_RESERVED' AS category_id, 'Reserved' AS category_name, NULL AS order#, '#f7c815' AS color_fill, NULL AS is_lov FROM DUAL UNION ALL
+    SELECT 'STATUS_UNKNOWN' AS category_id, 'Unknown' AS category_name, NULL AS order#, '#ffffff' AS color_fill, NULL AS is_lov FROM DUAL UNION ALL
     SELECT 'TRANSFER' AS category_id, 'Transfer' AS category_name, 20 AS order#, '#ffffff' AS color_fill, 'Y' AS is_lov FROM DUAL
 ) s
 ON (
