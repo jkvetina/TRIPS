@@ -167,7 +167,7 @@ page-items:
 
   security: 
     session-state-protection: Checksum Required - Session Level
-    store-value-encrypted-in-session-state: true
+    store-value-encrypted-in-session-state: false
     restricted-characters: All characters can be saved.
 
 - # ====== Page Item: P110_STOP_NAME ===========================
@@ -227,7 +227,7 @@ page-items:
 
   security: 
     session-state-protection: Unrestricted
-    store-value-encrypted-in-session-state: true
+    store-value-encrypted-in-session-state: false
     restricted-characters: All characters can be saved.
 
 - # ====== Page Item: P110_CATEGORY_ID =========================
@@ -289,7 +289,7 @@ page-items:
 
   security: 
     session-state-protection: Unrestricted
-    store-value-encrypted-in-session-state: true
+    store-value-encrypted-in-session-state: false
     restricted-characters: All characters can be saved.
 
 - # ====== Page Item: P110_PRICE ===============================
@@ -345,7 +345,7 @@ page-items:
 
   security: 
     session-state-protection: Unrestricted
-    store-value-encrypted-in-session-state: true
+    store-value-encrypted-in-session-state: false
     restricted-characters: All characters can be saved.
 
 - # ====== Page Item: P110_NOTES ===============================
@@ -406,7 +406,7 @@ page-items:
 
   security: 
     session-state-protection: Unrestricted
-    store-value-encrypted-in-session-state: true
+    store-value-encrypted-in-session-state: false
     restricted-characters: All characters can be saved.
 
 - # ====== Page Item: P110_COLOR_FILL ==========================
@@ -514,7 +514,7 @@ page-items:
 
   security: 
     session-state-protection: Unrestricted
-    store-value-encrypted-in-session-state: true
+    store-value-encrypted-in-session-state: false
     restricted-characters: All characters can be saved.
 
 - # ====== Page Item: P110_IS_PAID =============================
@@ -567,7 +567,7 @@ page-items:
 
   security: 
     session-state-protection: Unrestricted
-    store-value-encrypted-in-session-state: true
+    store-value-encrypted-in-session-state: false
     restricted-characters: All characters can be saved.
 
 - # ====== Page Item: P110_IS_PENDING ==========================
@@ -620,7 +620,7 @@ page-items:
 
   security: 
     session-state-protection: Unrestricted
-    store-value-encrypted-in-session-state: true
+    store-value-encrypted-in-session-state: false
     restricted-characters: All characters can be saved.
 
 - # ====== Page Item: P110_SUBMIT ==============================
@@ -650,7 +650,7 @@ page-items:
 
   security: 
     session-state-protection: Unrestricted
-    store-value-encrypted-in-session-state: true
+    store-value-encrypted-in-session-state: false
     restricted-characters: All characters can be saved.
 
 - # ====== Page Item: P110_LINK_RESERVATION ====================
@@ -710,7 +710,7 @@ page-items:
 
   security: 
     session-state-protection: Unrestricted
-    store-value-encrypted-in-session-state: true
+    store-value-encrypted-in-session-state: false
     restricted-characters: All characters can be saved.
 
 - # ====== Page Item: P110_LINK_EVENT ==========================
@@ -770,7 +770,37 @@ page-items:
 
   security: 
     session-state-protection: Unrestricted
-    store-value-encrypted-in-session-state: true
+    store-value-encrypted-in-session-state: false
+    restricted-characters: All characters can be saved.
+
+- # ====== Page Item: P110_TRIP_START_AT =======================
+  id: 10097639130751113
+  identification: 
+    name: P110_TRIP_START_AT
+    type: Hidden
+
+  settings: 
+    value-protected: true
+
+  layout: 
+    sequence: 40
+    region: '&P110_HEADER.' # 47623340692696205
+    position: BODY
+
+  advanced: 
+    warn-on-unsaved-changes: Page Default
+
+  source: 
+    type: Null
+    used: Only when current value in session state is null
+
+  session-state: 
+    data-type: VARCHAR2
+    storage: Per Session (Persistent)
+
+  security: 
+    session-state-protection: Unrestricted
+    store-value-encrypted-in-session-state: false
     restricted-characters: All characters can be saved.
 
 - # ====== Page Item: P110_TRIP_ID =============================
@@ -819,7 +849,8 @@ page-items:
   settings: 
     show-time: true
     display-as: Popup
-    minimum-date: None
+    minimum-date: Item
+    minimum-item: P110_TRIP_START_AT
     maximum-date: None
     multiple-months: No
     use-defaults: false
@@ -1030,7 +1061,7 @@ page-items:
 
   security: 
     session-state-protection: Unrestricted
-    store-value-encrypted-in-session-state: true
+    store-value-encrypted-in-session-state: false
     restricted-characters: All characters can be saved.
 
 buttons: 
@@ -1192,6 +1223,22 @@ computations:
       CASE WHEN :P110_STOP_ID IS NULL
           THEN 'Create Stop'
           ELSE 'Update Stop' END
+
+- # ====== Computation: P110_TRIP_START_AT =====================
+  id: 10097726329751114
+  identification: 
+    item-name: P110_TRIP_START_AT
+
+  execution: 
+    sequence: 30
+    point: Before Regions
+
+  computation: 
+    type: SQL Query (return single value)
+    sql-query: |
+      SELECT TO_CHAR(MIN(t.start_at), 'YYYY-MM-DD')
+      FROM trp_trips t
+      WHERE t.trip_id = :P110_TRIP_ID
 
 processes: 
 - # ====== Process: CLOSE_DIALOG ===============================
