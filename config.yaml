@@ -1,4 +1,6 @@
 
+apex_rest : ''
+
 csv_export_filters:
   NAVIGATION : 'app_id = 765'
 
