@@ -140,9 +140,31 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
 
     PROCEDURE set_defaults
     AS
+        in_trip_id              CONSTANT trp_trips.trip_id%TYPE := core.get_number_item('P100_TRIP_ID');
+        --
+        v_recent_trip_id        trp_trips.trip_id%TYPE;
         v_trip_header           VARCHAR2(256);
         v_itinerary_header      VARCHAR2(256);
     BEGIN
+        -- redirect to recent trip
+        IF in_trip_id IS NULL AND INSTR(core.get_request_url(), 'clear=100') = 0 THEN
+            v_recent_trip_id := APEX_UTIL.GET_PREFERENCE (
+                p_preference    => 'RECENT_TRIP',
+                p_user          => core.get_user_id()
+            );
+            --
+            IF v_recent_trip_id IS NOT NULL THEN
+                core.redirect (
+                    in_page_id      => 100,
+                    in_names        => 'P100_TRIP_ID',
+                    in_values       => v_recent_trip_id,
+                    in_reset        => 'Y'
+                );
+                RETURN; -- we will be redirecting anyway
+            END IF;
+        END IF;
+
+        -- prefill default values
         FOR c IN (
             SELECT
                 t.trip_id,
@@ -156,7 +178,7 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
                 ON i.trip_id    = t.trip_id
                 AND (i.start_at >= core.get_date_item('P100_DAY')       OR core.get_date_item('P100_DAY') IS NULL)
                 AND (i.end_at   < core.get_date_item('P100_DAY') + 1    OR core.get_date_item('P100_DAY') IS NULL OR i.end_at IS NULL)
-            WHERE t.trip_id     = core.get_number_item('P100_TRIP_ID')
+            WHERE t.trip_id     = in_trip_id
             GROUP BY
                 t.trip_id,
                 t.trip_name,
@@ -173,9 +195,21 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
         --
         core.set_item('P100_TRIP_HEADER',       REPLACE(v_trip_header,      ' - ', ' &' || 'ndash; '));
         core.set_item('P100_ITINERARY_HEADER',  REPLACE(v_itinerary_header, ' - ', ' &' || 'ndash; '));
+        core.set_item('P100_RECENT_TRIP_URL',   '');
+
+        -- store current trip for redirection after login
+        IF in_trip_id IS NOT NULL THEN
+            APEX_UTIL.SET_PREFERENCE (
+                p_preference    => 'RECENT_TRIP',
+                p_value         => in_trip_id,
+                p_user          => core.get_user_id()
+            );
+        END IF;
     EXCEPTION
     WHEN core.app_exception THEN
         RAISE;
+    WHEN APEX_APPLICATION.E_STOP_APEX_ENGINE THEN
+        NULL;
     WHEN OTHERS THEN
         core.raise_error();
     END;
