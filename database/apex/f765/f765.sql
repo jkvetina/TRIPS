@@ -33,7 +33,7 @@ prompt APPLICATION 765 - Trips Planning
 -- Application Export:
 --   Application:     765
 --   Name:            Trips Planning
---   Date and Time:   14:10 Sobota Srpen 19, 2023
+--   Date and Time:   06:58 Neděle Srpen 20, 2023
 --   Exported By:     APPS
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -46,6 +46,7 @@ prompt APPLICATION 765 - Trips Planning
 --       Dynamic Actions:         12
 --     Shared Components:
 --       Logic:
+--         Processes:              1
 --         Build Options:          1
 --       Navigation:
 --         Lists:                  1
@@ -113,7 +114,7 @@ wwv_imp_workspace.create_flow(
 ,p_public_user=>'APEX_PUBLIC_USER'
 ,p_proxy_server=>nvl(wwv_flow_application_install.get_proxy,'')
 ,p_no_proxy_domains=>nvl(wwv_flow_application_install.get_no_proxy_domains,'')
-,p_flow_version=>'2023-08-19'
+,p_flow_version=>'2023-08-20'
 ,p_flow_status=>'AVAILABLE_W_EDIT_LINK'
 ,p_flow_unavailable_text=>'This application is currently unavailable at this time.'
 ,p_exact_substitutions_only=>'Y'
@@ -587,6 +588,20 @@ end;
 prompt --application/shared_components/navigation/navigation_bar
 begin
 null;
+end;
+/
+prompt --application/shared_components/logic/application_processes/after_auth
+begin
+wwv_flow_imp_shared.create_flow_process(
+ p_id=>wwv_flow_imp.id(11083305355846026)
+,p_process_sequence=>1
+,p_process_point=>'AFTER_LOGIN'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'AFTER_AUTH'
+,p_process_sql_clob=>'trp_app.after_auth();'
+,p_process_clob_language=>'PLSQL'
+,p_security_scheme=>'MUST_NOT_BE_PUBLIC_USER'
+);
 end;
 /
 prompt --application/shared_components/logic/application_settings

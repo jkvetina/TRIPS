@@ -268,6 +268,21 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
         core.raise_error();
     END;
 
+
+
+    PROCEDURE after_auth
+    AS
+    BEGIN
+        NULL;
+    EXCEPTION
+    WHEN core.app_exception THEN
+        RAISE;
+    WHEN APEX_APPLICATION.E_STOP_APEX_ENGINE THEN
+        NULL;
+    WHEN OTHERS THEN
+        core.raise_error();
+    END;
+
 END;
 /
 

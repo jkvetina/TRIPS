@@ -1,0 +1,19 @@
+---
+- # ====== Application Process: AFTER_AUTH =====================
+  id: 11083305355846026
+  identification: 
+    name: AFTER_AUTH
+    type: NATIVE_PLSQL
+
+  source: 
+    location: Local Database
+    language: PL/SQL
+    pl/sql-code: trp_app.after_auth();
+
+  execution: 
+    sequence: 1
+    point: After Authentication
+
+  security: 
+    authorization-scheme: MODEL.LOV.MUST_NOT_BE_PUBLIC_USER
+
