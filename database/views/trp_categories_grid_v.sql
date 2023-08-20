@@ -5,6 +5,7 @@ SELECT
     t.category_name,
     t.order#,
     t.color_fill,
+    t.is_lov,
     t.created_by,
     t.created_at
     --

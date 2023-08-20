@@ -8,8 +8,7 @@
     location: Local Database
     type: Table / View
     table-owner: Parsing Schema
-    table-name: TRP_CATEGORIES
-    where-clause: order# IS NOT NULL
+    table-name: TRP_LOV_CATEGORIES_V
 
   column-mapping: 
     return: CATEGORY_ID

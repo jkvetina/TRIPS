@@ -18,7 +18,7 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
             rec.end_at          := core.get_date(core.get_grid_data('END_AT'));
         END IF;
         --
-        TRP_TAPI.save_trips (rec,
+        trp_tapi.save_trips (rec,
             in_action           => in_action,
             in_trip_id          => NVL(core.get_grid_data('OLD_TRIP_ID'), rec.trip_id)
         );
@@ -117,8 +117,9 @@ CREATE OR REPLACE PACKAGE BODY trp_app as
         rec.category_name       := core.get_grid_data('CATEGORY_NAME');
         rec.order#              := core.get_grid_data('ORDER#');
         rec.color_fill          := core.get_grid_data('COLOR_FILL');
+        rec.is_lov              := core.get_grid_data('IS_LOV');
         --
-        TRP_TAPI.save_categories (rec,
+        trp_tapi.save_categories (rec,
             in_action               => in_action,
             in_category_id          => NVL(core.get_grid_data('OLD_CATEGORY_ID'), rec.category_id)
         );

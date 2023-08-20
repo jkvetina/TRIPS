@@ -177,6 +177,60 @@ regions:
     enable-users-to: 
       sort: false
 
+  - # ====== Column: IS_LOV ======================================
+    id: 10097589920751112
+    identification: 
+      column-name: IS_LOV
+      type: Checkbox
+
+    heading: 
+      heading: LOV
+      alignment: center
+
+    settings: 
+      use-defaults: false
+      checked-value: Y
+
+    layout: 
+      sequence: 80
+      column-alignment: center
+      stretch: Use Report Setting
+
+    accessibility: 
+      value-identifies-row: false
+
+    validation: 
+      value-required: false
+
+    source: 
+      type: Database Column
+      database-column: IS_LOV
+      data-type: VARCHAR2
+      query-only: false
+      primary-key: false
+
+    default: 
+      duplicate-copies-existing-value: true
+
+    column-filter: 
+      enabled: true
+      performance-impacting-operators: 
+      - Contains
+      - Starts With
+      - Case Insensitive
+      - Regular Expression
+      text-case: Mixed
+      lov-type: Distinct Column
+      exact-match: true
+
+    export-/-printing: 
+      include-in-export-/-print: true
+
+    enable-users-to: 
+      sort: true
+      control-break/aggregate: true
+      hide: true
+
   - # ====== Column: CATEGORY_ID =================================
     id: 18872708611401041
     identification: 
@@ -420,7 +474,7 @@ regions:
       value-protected: true
 
     layout: 
-      sequence: 80
+      sequence: 90
 
     accessibility: 
       value-identifies-row: false
@@ -454,7 +508,7 @@ regions:
       value-protected: true
 
     layout: 
-      sequence: 90
+      sequence: 100
 
     accessibility: 
       value-identifies-row: false
