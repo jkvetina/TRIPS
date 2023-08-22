@@ -2703,6 +2703,43 @@ buttons:
     type: Item is NULL
     item: P100_STATUS
 
+- # ====== Button: SWITCH_COLORS_DEFAULT =======================
+  id: 10097844626751115
+  identification: 
+    button-name: SWITCH_COLORS_DEFAULT
+    label: Colors by Category
+
+  layout: 
+    sequence: 50
+    region: '&P100_TRIP_HEADER!RAW.' # 9329549921174701
+    position: RIGHT_OF_TITLE
+    start-new-layout: false
+    start-new-row: true
+    column: Automatic
+    new-column: true
+    column-span: Automatic
+
+  appearance: 
+    button-template: Text # 45557146799075321
+    hot: false
+    template-options: 
+    - '#DEFAULT#'
+    css-classes: 
+    - u-pullRight
+
+  behavior: 
+    action: Redirect to Page in this Application
+    target: 
+      url: 'f?p=&APP_ID.:100:&SESSION.::&DEBUG.::P100_STATUS:'
+      page: 100 # &APP_NAME.
+      values: 
+
+    warn-on-unsaved-changes: Page Default
+
+  server-side-condition: 
+    type: Item is NOT NULL
+    item: P100_STATUS
+
 dynamic-actions: 
 - # ====== Dynamic Action: REFRESH_CHART =======================
   id: 9332248680174728

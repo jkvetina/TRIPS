@@ -33,7 +33,7 @@ prompt APPLICATION 765 - Trips Planning
 -- Application Export:
 --   Application:     765
 --   Name:            Trips Planning
---   Date and Time:   09:15 Neděle Srpen 20, 2023
+--   Date and Time:   20:18 Úterý Srpen 22, 2023
 --   Exported By:     APPS
 --   Flashback:       0
 --   Export Type:     Application Export
@@ -42,7 +42,7 @@ prompt APPLICATION 765 - Trips Planning
 --       Computations:             4
 --       Processes:               16
 --       Regions:                 20
---       Buttons:                 12
+--       Buttons:                 13
 --       Dynamic Actions:         12
 --     Shared Components:
 --       Logic:
@@ -114,7 +114,7 @@ wwv_imp_workspace.create_flow(
 ,p_public_user=>'APEX_PUBLIC_USER'
 ,p_proxy_server=>nvl(wwv_flow_application_install.get_proxy,'')
 ,p_no_proxy_domains=>nvl(wwv_flow_application_install.get_no_proxy_domains,'')
-,p_flow_version=>'2023-08-20'
+,p_flow_version=>'2023-08-22'
 ,p_flow_status=>'AVAILABLE_W_EDIT_LINK'
 ,p_flow_unavailable_text=>'This application is currently unavailable at this time.'
 ,p_exact_substitutions_only=>'Y'
@@ -17181,6 +17181,22 @@ wwv_flow_imp_page.create_page_button(
 ,p_button_condition_type=>'ITEM_IS_NULL'
 ,p_button_css_classes=>'u-pullRight'
 );
+wwv_flow_imp_page.create_page_button(
+ p_id=>wwv_flow_imp.id(10097844626751115)
+,p_button_sequence=>50
+,p_button_plug_id=>wwv_flow_imp.id(9329549921174701)
+,p_button_name=>'SWITCH_COLORS_DEFAULT'
+,p_button_action=>'REDIRECT_PAGE'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_imp.id(45557146799075321)
+,p_button_image_alt=>'Colors by Category'
+,p_button_position=>'RIGHT_OF_TITLE'
+,p_button_redirect_url=>'f?p=&APP_ID.:100:&SESSION.::&DEBUG.::P100_STATUS:'
+,p_warn_on_unsaved_changes=>null
+,p_button_condition=>'P100_STATUS'
+,p_button_condition_type=>'ITEM_IS_NOT_NULL'
+,p_button_css_classes=>'u-pullRight'
+);
 wwv_flow_imp_page.create_page_item(
  p_id=>wwv_flow_imp.id(8772875327122246)
 ,p_name=>'P100_TRIP_START'
@@ -17338,6 +17354,9 @@ wwv_flow_imp_page.create_page_da_action(
 ,p_action=>'NATIVE_SUBMIT_PAGE'
 ,p_attribute_02=>'Y'
 );
+end;
+/
+begin
 wwv_flow_imp_page.create_page_da_event(
  p_id=>wwv_flow_imp.id(9732077248009022)
 ,p_name=>'GANTT_CLICKED'
@@ -17377,9 +17396,6 @@ wwv_flow_imp_page.create_page_da_action(
 '}',
 ''))
 );
-end;
-/
-begin
 wwv_flow_imp_page.create_page_da_event(
  p_id=>wwv_flow_imp.id(9733317722009035)
 ,p_name=>'DETECT_MODAL_CLOSED'
