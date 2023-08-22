@@ -50,7 +50,9 @@ t AS (
     JOIN trp_categories c
         ON c.category_id = t.category_id
     JOIN d
-        ON d.trip_id = t.trip_id
+        ON d.trip_id    = t.trip_id
+    WHERE c.is_lov      = 'Y'
+        AND c.order#    IS NOT NULL
 )
 SELECT
     d.trip_id,
