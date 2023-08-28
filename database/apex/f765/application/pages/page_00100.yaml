@@ -66,7 +66,7 @@ regions:
     location: Local Database
     type: Table / View
     table-owner: Parsing Schema
-    table-name: TRP_ITINERARY_V
+    table-name: TRP_ITINERARY_GANTT_V
     include-rowid-column: false
     page-items-to-submit: 
     - P100_TRIP_ID
@@ -3096,7 +3096,7 @@ processes:
     pl/sql-code: |
       FOR c IN (
           SELECT COUNT(DISTINCT category_name) AS lines
-          FROM trp_itinerary_v
+          FROM trp_itinerary_gantt_v
       ) LOOP
           HTP.P(c.lines);
       END LOOP;

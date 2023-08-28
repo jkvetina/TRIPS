@@ -62,7 +62,7 @@ wwv_flow_imp_page.create_page_plug(
 ,p_plug_display_sequence=>20
 ,p_plug_display_point=>'SUB_REGIONS'
 ,p_query_type=>'TABLE'
-,p_query_table=>'TRP_ITINERARY_V'
+,p_query_table=>'TRP_ITINERARY_GANTT_V'
 ,p_include_rowid_column=>false
 ,p_plug_source_type=>'NATIVE_JET_CHART'
 ,p_ajax_items_to_submit=>'P100_TRIP_ID,P100_TRIP_START,P100_TRIP_END,P100_DAY'
@@ -2390,7 +2390,7 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
 'FOR c IN (',
 '    SELECT COUNT(DISTINCT category_name) AS lines',
-'    FROM trp_itinerary_v',
+'    FROM trp_itinerary_gantt_v',
 ') LOOP',
 '    HTP.P(c.lines);',
 'END LOOP;',
