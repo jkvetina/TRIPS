@@ -2,33 +2,13 @@
 -- YOU HAVE TO INSTALL THE CORE PACKAGE FIRST
 -- https://github.com/jkvetina/CORE23/tree/main/database
 --
---             SEQUENCE | TRP_STOP_ID                                        [+]
---                      | TRP_TRIP_ID                                        [+]
---                      |
---                TABLE | TRP_CATEGORIES                                     [+]
---                      | TRP_ITINERARY                                      [+]
---                      | TRP_NAVIGATION                                     [+]
---                      | TRP_TRIPS                                          [+]
---                      | TRP_USERS                                          [+]
---                      |
---                 VIEW | TRP_CATEGORIES_GRID_V                              [+]
---                      | TRP_ITINERARY_GANTT_V                              [+]
---                      | TRP_ITINERARY_GRID_V                               [+]
---                      | TRP_ITINERARY_V                                    [+]
---                      | TRP_LOV_CATEGORIES_V                               [+]
---                      | TRP_NAVIGATION_TOP_V                               [+]
---                      | TRP_TRIPS_GRID_V                                   [+]
---                      |
---              PACKAGE | TRP_APP                                            [+]
---                      | TRP_TAPI                                           [+]
---                      |
---         PACKAGE BODY | TRP_APP                                            [+]
---                      | TRP_TAPI                                           [+]
---                      |
---              TRIGGER | TRP_NAVIGATION_MV__                                [+]
---                      |
---    MATERIALIZED VIEW | TRP_NAVIGATION_MAP_MV                              [+]
---                      |
+-- MATERIALIZED VIEW ...... 1
+-- PACKAGE ................ 2
+-- PACKAGE BODY ........... 2
+-- SEQUENCE ............... 2
+-- TABLE .................. 5
+-- TRIGGER ................ 1
+-- VIEW ................... 7
 
 --
 -- INIT
