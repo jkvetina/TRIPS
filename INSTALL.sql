@@ -2,6 +2,33 @@
 -- YOU HAVE TO INSTALL THE CORE PACKAGE FIRST
 -- https://github.com/jkvetina/CORE23/tree/main/database
 --
+--             SEQUENCE | TRP_STOP_ID                                        [+]
+--                      | TRP_TRIP_ID                                        [+]
+--                      |
+--                TABLE | TRP_CATEGORIES                                     [+]
+--                      | TRP_ITINERARY                                      [+]
+--                      | TRP_NAVIGATION                                     [+]
+--                      | TRP_TRIPS                                          [+]
+--                      | TRP_USERS                                          [+]
+--                      |
+--                 VIEW | TRP_CATEGORIES_GRID_V                              [+]
+--                      | TRP_ITINERARY_GANTT_V                              [+]
+--                      | TRP_ITINERARY_GRID_V                               [+]
+--                      | TRP_ITINERARY_V                                    [+]
+--                      | TRP_LOV_CATEGORIES_V                               [+]
+--                      | TRP_NAVIGATION_TOP_V                               [+]
+--                      | TRP_TRIPS_GRID_V                                   [+]
+--                      |
+--              PACKAGE | TRP_APP                                            [+]
+--                      | TRP_TAPI                                           [+]
+--                      |
+--         PACKAGE BODY | TRP_APP                                            [+]
+--                      | TRP_TAPI                                           [+]
+--                      |
+--              TRIGGER | TRP_NAVIGATION_MV__                                [+]
+--                      |
+--    MATERIALIZED VIEW | TRP_NAVIGATION_MAP_MV                              [+]
+--                      |
 
 --
 -- INIT
@@ -26,13 +53,15 @@
 --
 -- OBJECTS
 --
+@@"./database/views/trp_itinerary_v.sql"
 @@"./database/packages/trp_app.spec.sql"
 @@"./database/views/trp_categories_grid_v.sql"
+@@"./database/views/trp_lov_categories_v.sql"
 @@"./database/views/trp_itinerary_grid_v.sql"
 @@"./database/views/trp_trips_grid_v.sql"
 @@"./database/packages/trp_tapi.spec.sql"
-@@"./database/views/trp_itinerary_v.sql"
 @@"./database/views/trp_navigation_top_v.sql"
+@@"./database/views/trp_itinerary_gantt_v.sql"
 @@"./database/packages/trp_app.sql"
 @@"./database/packages/trp_tapi.sql"
 
@@ -49,8 +78,14 @@
 @@"./database/mviews/trp_navigation_map_mv.sql"
 
 --
+-- INDEXES
+--
+@@"./patches/55_indexes/50_recompile.sql"
+
+--
 -- DATA
 --
+@@"./patches/60_data/trp_categories.sql"
 @@"./patches/60_data/trp_navigation.sql"
 --
 COMMIT;
